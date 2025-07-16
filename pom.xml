@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>by.aston</groupId>
-    <artifactId>new_project</artifactId>
+    <artifactId>step_project</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
