@@ -5,7 +5,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MethodSourceTest {
 
@@ -16,6 +16,10 @@ public class MethodSourceTest {
     @ParameterizedTest
     @MethodSource("stringProvider")
     void testStringLength(String str) {
-        assertEquals(str.length(), str.length());
+        assertAll(
+                () -> assertNotNull(str),
+                () -> assertEquals(str.length(), str.length())
+        );
     }
+
 }

@@ -1,5 +1,6 @@
 package by.step.parametrized;
 
+import by.step.Calculator;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -15,6 +16,7 @@ public class CsvSourceTest {
             "-1, 1, 0"
     })
     void testAdd(int a, int b, int expected) {
-        assertEquals(expected, a + b, "Сложение " + a + " и " + b);
+        Calculator calculator = new Calculator();
+        assertEquals(expected, calculator.add(a, b));
     }
 }
