@@ -12,15 +12,15 @@ import org.junit.jupiter.api.*;
 @TestMethodOrder(MethodOrderer.Random.class)
 public class LifecycleTestRandom {
 
-    @BeforeEach
-    public void setup() {
-        System.out.println("Настройка перед тестом");
-    }
-
-    @AfterEach
-    public void cleanup() {
-        System.out.println("Очистка после теста");
-    }
+//    @BeforeEach
+//    public void setup() {
+//        System.out.println("Настройка перед тестом");
+//    }
+//
+//    @AfterEach
+//    public void cleanup() {
+//        System.out.println("Очистка после теста");
+//    }
 
     @Test
     public void test1() {

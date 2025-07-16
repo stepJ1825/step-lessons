@@ -4,7 +4,9 @@ import org.junit.jupiter.api.extension.*;
 import java.time.Duration;
 import java.time.Instant;
 
-public class TimingExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
+public class TimingExtension implements
+        BeforeTestExecutionCallback,
+        AfterTestExecutionCallback {
 
     @Override
     public void beforeTestExecution(ExtensionContext context) {

@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 public class TimeoutByMethodTest {
 
     @Test
-    @Timeout(value = 1, unit = TimeUnit.SECONDS)
+    @Timeout(value = 1000, unit = TimeUnit.MILLISECONDS)
     void fastTest() throws InterruptedException {
         Thread.sleep(500); // Успеет выполниться
     }

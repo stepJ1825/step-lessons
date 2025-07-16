@@ -1,15 +1,13 @@
 package by.step.ordering;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 
-@TestMethodOrder(MethodOrderer.DisplayName.class)
+//@TestMethodOrder(MethodOrderer.DisplayName.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DisplayNameOrderTest {
 
     @Test
-    @DisplayName("Third Test")
+    @DisplayName("Third Test. Всё, пока!")
     void testC() {
         System.out.println("Test C");
     }
@@ -22,7 +20,13 @@ public class DisplayNameOrderTest {
 
     @Test
     @DisplayName("Second Test")
+    @Order(1)
     void testB() {
         System.out.println("Test B");
+    }
+
+    @Test
+    @DisplayName("Этот тест ничего не делает и ничего не тестирует")
+    void testNothing() {
     }
 }

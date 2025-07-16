@@ -14,6 +14,7 @@ public class ExampleDynamicTests {
      * dynamicTest() — создаёт тест с именем и лямбдой.
      * @return
      */
+    //TODO: объяснить на моменте изучения Стримов
     @TestFactory
     Stream<DynamicTest> dynamicTests() {
         return Stream.of(2, 4, 6, 8)

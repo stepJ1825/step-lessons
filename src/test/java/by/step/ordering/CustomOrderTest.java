@@ -4,26 +4,8 @@ import org.junit.jupiter.api.*;
 import java.lang.annotation.*;
 import java.util.Comparator;
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-@interface Priority {
-    int value();
-}
-
-//@TestMethodOrder(PriorityOrderer.class)
-@TestMethodOrder(CustomOrderTest.CustomOrder.class)
+@TestMethodOrder(PriorityOrderer.class)
 public class CustomOrderTest {
-
-    static class CustomOrder implements MethodOrderer {
-        @Override
-        public void orderMethods(MethodOrdererContext context) {
-            context.getMethodDescriptors().sort(
-                    Comparator.comparingInt(md ->
-                            md.getMethod().getAnnotation(Priority.class).value()
-                    )
-            );
-        }
-    }
 
     @Test
     @Priority(3)
