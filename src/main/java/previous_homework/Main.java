@@ -1,4 +1,4 @@
-package homework;
+package previous_homework;
 
 import java.io.FileReader;
 import java.io.IOException;

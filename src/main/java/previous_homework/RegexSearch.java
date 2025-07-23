@@ -1,4 +1,4 @@
-package homework;
+package previous_homework;
 
 public class RegexSearch implements Search {
     @Override
