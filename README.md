@@ -8,3 +8,5 @@ https://www.toptal.com/developers/gitignore/api/maven,intellij+all,windows
 4. Рекомендуемые задания для проработки: [ссылка](src/main/java/git_homework/practice.md)
 
 5. Домашнее задание: [ссылка](src/main/java/git_homework/MAIN_HOMEWORK.md)
+
+- P.S.Вопросы с собеседований по Git: [ссылка](https://career.guru99.com/ru/top-40-interview-questions-on-git/)
