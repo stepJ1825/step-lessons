@@ -19,4 +19,10 @@ public class MathUtilsTest {
         MathUtils mathUtils = new MathUtils();
         assertThrows(ArithmeticException.class, () -> mathUtils.divide(5, 0));
     }
+
+    @Test
+    void testGoodDivide(){
+        MathUtils mathUtils = new MathUtils();
+        assertEquals(2, mathUtils.divide(10,5));
+    }
 }

@@ -25,6 +25,7 @@ public class StringUtilsTest {
         StringUtils utils = new StringUtils();
         List<String> result = utils.getWordsLongerThan(
                 "Hello world JUnit testing", 4);
+        //Ошибка проверки 2 и 3 assert!!!
         assertTrue(result.contains("Hello1"));
         assertTrue(result.contains("world1"));
         assertFalse(result.contains("ДжейЮнит"));
