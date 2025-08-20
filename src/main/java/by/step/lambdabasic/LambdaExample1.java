@@ -1,8 +1,5 @@
 package by.step.lambdabasic;
 
-/**
- * Примеры взяты из статьи https://metanit.com/java/tutorial/9.1.php
- */
 public class LambdaExample1 {
     public static void main(String[] args) {
         //Использование анонимных классов

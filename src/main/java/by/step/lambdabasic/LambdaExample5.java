@@ -9,7 +9,7 @@ public class LambdaExample5 {
         Expression func = (n) -> n % 2 == 0;
         int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         System.out.println(sum(nums, func)); // 20
-        System.out.println(sum(nums, (n)-> n > 5));  // 30 (сумма чисел, которые больше 5)
+        System.out.println(sum(nums, (n) -> n > 5));  // 30 (сумма чисел, которые больше 5)
     }
 
     private static int sum(int[] numbers, Expression func) {

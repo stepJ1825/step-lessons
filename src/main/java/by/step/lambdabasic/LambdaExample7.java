@@ -1,8 +1,7 @@
 package by.step.lambdabasic;
 
 /**
- * Ссылка на конструктор передается в виде
- * название_класса::new.
+ * Ссылка на конструктор передается в виде название_класса::new.
  */
 public class LambdaExample7 {
     public static void main(String[] args) {
