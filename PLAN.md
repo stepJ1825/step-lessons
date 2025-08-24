@@ -1,3 +1,11 @@
-### ТЕМЫ
-
-- [ ] GIT
+### JAVA CORE
+- [X] Exceptions
+- [x] Java Collection Framework
+- [x] MAVEN
+- [x] JUnit
+- [x] GIT
+- [x] Functional programming
+- [x] java.util.Stream
+- [ ] java.io
+- [ ] Multithreading
+- [ ] Design patterns
