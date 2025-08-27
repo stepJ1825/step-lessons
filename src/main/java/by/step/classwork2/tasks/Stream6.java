@@ -14,9 +14,9 @@ d) findFirst().
     public static void main(String[] args) {
         List<Integer> integers = List.of(1, 2, 3, 1, 7);
         boolean res = integers.stream()
-                .noneMatch(i -> i == 2);// line 1
+//                .noneMatch(i -> i == 2);// line 1
 //                .allMatch(i -> i == 2);// line 1
-//                .anyMatch(i -> i == 2);// line 1
+                .anyMatch(i -> i == 2);// line 1
 //                .findFirst();// line 1
         System.out.print(res);
     }

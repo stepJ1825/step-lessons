@@ -3,6 +3,8 @@ package by.step.classwork2.tasks;
 import by.step.classwork2.model.Worker;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Stream16Workers {
 
@@ -18,19 +20,31 @@ public class Stream16Workers {
 
         // сумма которую платим всем
         Integer sum = workers.stream()
-                .reduce(0, (sum1, worker) -> sum1 + worker.getSalary(), Integer::sum);
+                .reduce(0, (sum1, worker) ->
+                        sum1 + worker.getSalary(), Integer::sum);
+
+        int sum1 = workers.stream().mapToInt(Worker::getSalary).sum();
 
         // сгруппировать людей по позициям
-//        Map<String, List<Worker>> workersByPosition =
+        Map<String, List<Worker>> workersByPosition = workers.stream()
+                .collect(Collectors.groupingBy(Worker::getPosition));
 
         // какую сумму мы платим каждому отделу
-//        Map<String, Integer> salarySumByPosition =
+        Map<String, Integer> salarySumByPosition = workers.stream()
+                .collect(Collectors.groupingBy(Worker::getPosition,
+                        Collectors.summingInt(Worker::getSalary)));
 
         // Сколько людей занимают конкретную позицию
-//        Map<String, Integer> countByPosition = workers.stream()
+        Map<String, Integer> countByPosition = workers.stream()
+                .collect(Collectors.groupingBy(Worker::getPosition,
+                        Collectors.reducing(0, e -> 1, Integer::sum)));
+        //TODO переписать последнюю строку на collectingAndThen c Collectors.counting()
 
         // разделить сотрудников на тех кто получает больше 100 и меньше 100
-//        Map<Boolean, List<Worker>> workersBySalaryCondition =
+        Map<Boolean, List<Worker>> workersBySalaryCondition = workers.stream()
+                .collect(Collectors.partitioningBy(worker -> worker.getSalary() > 100));
+
+        System.out.println();
 
     }
 }

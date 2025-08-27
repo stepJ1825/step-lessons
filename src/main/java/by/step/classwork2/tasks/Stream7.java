@@ -29,10 +29,10 @@ public class Stream7 {
                 .forEach(x -> System.out.format("after map: %d%n", x));
 
 //что выведет следующий код
-        IntStream.range(0, 100000)
+        IntStream.range(0, 100_000)
                 .parallel()
-                .filter(x -> x % 10000 == 0)
-                .map(x -> x / 10000)
+                .filter(x -> x % 10_000 == 0)
+                .map(x -> x / 10_000)
                 .forEach(System.out::println);
 
     }

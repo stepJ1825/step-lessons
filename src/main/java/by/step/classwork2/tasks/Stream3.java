@@ -19,7 +19,8 @@ d) 7, 70.0
                 new Order2(5, 70),
                 new Order2(7, 70));
         orders.stream()
-                .reduce((p1, p2) -> p1.getAmount() > p2.getAmount() ? p1 : p2)
+                .reduce((p1, p2) ->
+                        p1.getAmount() > p2.getAmount() ? p1 : p2)
                 .ifPresent(System.out::println);
     }
 }

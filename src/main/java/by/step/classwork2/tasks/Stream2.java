@@ -19,7 +19,8 @@ d) 17, 190.0
                 new Order2(5, 70),
                 new Order2(7, 70));
         Order2 order = orders.stream()
-                .reduce(new Order2(4, 0), (p1, p2) -> new Order2(p1.getOrderId(),
+                .reduce(new Order2(4, 0),
+                        (p1, p2) -> new Order2(p1.getOrderId(),
                         (p1.getAmount() + p2.getAmount())));
         System.out.print(order);
     }
