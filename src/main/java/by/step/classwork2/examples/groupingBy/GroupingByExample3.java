@@ -1,4 +1,4 @@
-package by.step.classwork2.groupingBy;
+package by.step.classwork2.examples.groupingBy;
 
 import by.step.classwork2.model.Employee;
 
@@ -14,6 +14,7 @@ public class GroupingByExample3 {
                 new Employee("Charlie", "IT", 6000),
                 new Employee("Diana", "HR", 4500),
                 new Employee("Eve", "Finance", 5500),
+                new Employee("Frank", "IT", 5200),
                 new Employee("Frank", "IT", 5200)
         );
 

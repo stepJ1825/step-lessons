@@ -1,6 +1,4 @@
-package by.step.classwork2;
-
-import by.step.classwork2.model.Worker;
+package by.step.classwork2.tasks;
 
 import java.util.Arrays;
 import java.util.List;

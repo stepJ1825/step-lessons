@@ -1,4 +1,4 @@
-package by.step.classwork2;
+package by.step.classwork2.examples;
 
 import java.util.Base64;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class StreamPassDecodeExample<T> {
 
     public static void main(String[] args) {
-        // Пример шифровки и расшифровки фразы одного слова.
+        // Пример шифровки и расшифровки одного слова.
         String str = new String(Base64.getEncoder().encode("Hello".getBytes()));
         System.out.println(str);
         byte[] decode = Base64.getDecoder().decode(str.getBytes());

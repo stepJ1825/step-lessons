@@ -1,4 +1,4 @@
-package by.step.classwork2.groupingBy;
+package by.step.classwork2.examples.groupingBy;
 
 import by.step.classwork2.model.Employee;
 

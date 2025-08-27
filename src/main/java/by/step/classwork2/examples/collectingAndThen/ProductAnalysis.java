@@ -1,4 +1,4 @@
-package by.step.classwork2.collectingAndThen;
+package by.step.classwork2.examples.collectingAndThen;
 
 import by.step.classwork2.model.Product;
 

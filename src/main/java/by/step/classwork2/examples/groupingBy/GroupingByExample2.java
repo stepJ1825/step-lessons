@@ -1,4 +1,4 @@
-package by.step.classwork2.groupingBy;
+package by.step.classwork2.examples.groupingBy;
 
 import by.step.classwork2.model.Employee;
 
@@ -9,8 +9,8 @@ public class GroupingByExample2 {
     public static void main(String[] args) {
         List<Employee> employees = Arrays.asList(
                 new Employee("Alice", "IT", 5000),
-                new Employee("Bob", "HR", 4000),
                 new Employee("Charlie", "IT", 6000),
+                new Employee("Bob", "HR", 4000),
                 new Employee("Diana", "HR", 4500),
                 new Employee("Eve", "Finance", 5500)
         );

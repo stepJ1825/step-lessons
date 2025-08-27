@@ -1,4 +1,4 @@
-package by.step.classwork2.parallel;
+package by.step.classwork2.examples.parallel;
 
 import java.math.BigInteger;
 import java.util.Date;

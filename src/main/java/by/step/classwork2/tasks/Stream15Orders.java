@@ -1,6 +1,5 @@
-package by.step.classwork2;
+package by.step.classwork2.tasks;
 
-import by.step.classwork2.model.Order;
 import by.step.classwork2.model.Order15;
 
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package by.step.classwork2;
+package by.step.classwork2.tasks;
 
 import java.util.Collections;
 import java.util.List;

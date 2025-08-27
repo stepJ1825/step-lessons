@@ -1,4 +1,4 @@
-package by.step.classwork2.collectingAndThen;
+package by.step.classwork2.examples.collectingAndThen;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,6 +12,7 @@ public class ImmutableCollectionsExample {
         // Создание неизменяемого списка
         List<String> immutableList = names.stream()
                                           .filter(name -> name.length() > 4)
+
                                           .collect(Collectors.collectingAndThen(
                                                   Collectors.toList(),
                                                   Collections::unmodifiableList
