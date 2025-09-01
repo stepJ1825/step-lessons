@@ -11,9 +11,9 @@ public class Main2WithNPE {
             new PersonRepository(Map.of(1L,new Person(1, null)));
 
     public static void main(String[] args) {
-        final Person person = personRepository.findById(1L);
+        Person person = personRepository.findById(1L);
         if (person != null) {
-            final String firstName = person.getFirstName();
+            String firstName = person.getFirstName();
             System.out.println("Длина твоего имени: " + firstName.length());
         }
     }

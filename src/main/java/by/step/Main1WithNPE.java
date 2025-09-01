@@ -7,7 +7,8 @@ import java.util.Map;
 
 public class Main1WithNPE {
 
-    private static final PersonRepository personRepository = new PersonRepository(Map.of());
+    private static final PersonRepository personRepository =
+            new PersonRepository(Map.of());
 
     public static void main(String[] args) {
         final Person person = personRepository.findById(1L);
