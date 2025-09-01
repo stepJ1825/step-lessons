@@ -1,0 +1,1 @@
+[Исходная статья](https://struchkov.dev/blog/ru/optional-in-java/)
