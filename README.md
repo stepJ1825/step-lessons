@@ -1,0 +1,2 @@
+- [Презентация GOOGLE](https://docs.google.com/presentation/d/e/2PACX-1vS2jasVl1K6DjtdtFZiHgieDy8f11QABHOZ15iXIUuogRyin_V7skF6AiOqvoJfDjGHogzS1Z0APiUf/pub?start=false&loop=false&delayms=60000)
+- [Презентация PDF](src/main/resources/Java concurrency.pdf)

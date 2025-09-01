@@ -1,0 +1,1 @@
+https://javarush.com/groups/posts/1055-sinkhronizacija-potokov-blokirovka-obhhekta-i-blokirovka-klassa
