@@ -29,12 +29,12 @@ public class ThreadOperations {
             }
         };
 
-//        greetingThread.setDaemon(true);
+        greetingThread.setDaemon(true);
         first.start();
         second.start();
         greetingThread.start();
-        second.join();  //метод заставляет main поток ждать, пока выполнится поток second
-        greetingThread.join(); //
+//        second.join();  //метод заставляет main поток ждать, пока выполнится поток second
+//        greetingThread.join(); //
 
         System.out.println("Main: Goodbye world.....");
     }
