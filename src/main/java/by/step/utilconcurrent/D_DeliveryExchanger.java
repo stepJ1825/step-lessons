@@ -34,8 +34,10 @@ public class D_DeliveryExchanger {
                 System.out.printf("Грузовик №%d выехал из пункта %s в пункт %s.\n", number, dep, dest);
                 Thread.sleep(1000 + (long) Math.random() * 5000);
                 System.out.printf("Грузовик №%d приехал в пункт Е.\n", number);
-                parcels[1] = EXCHANGER.exchange(parcels[1]);//При вызове exchange() поток блокируется и ждет
-                //пока другой поток вызовет exchange(), после этого произойдет обмен посылками
+                parcels[1] = EXCHANGER.exchange(parcels[1]);
+                //При вызове exchange() поток блокируется и ждет
+                //пока другой поток вызовет exchange(), после этого произойдет
+                // обмен посылками
                 System.out.printf("В грузовик №%d переместили посылку для пункта %s.\n", number, dest);
                 Thread.sleep(1000 + (long) Math.random() * 5000);
                 System.out.printf("Грузовик №%d приехал в %s и доставил: %s и %s.\n", number, dest, parcels[0], parcels[1]);

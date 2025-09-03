@@ -1,0 +1,59 @@
+ //Какой результат выведет вызов метода foo()?
+void foo() {
+    String m = "Hello";
+    System.out.print(m);
+    bar(m);
+    System.out.print(m);
+}
+
+void bar(String m) {
+    m += " World!";
+}
+
+
+
+//Что выводит следующий код?
+public class MultiThreading {
+    private static class MyThread extends Thread {
+        public MyThread(String name) {
+            super(name);
+        }
+        @Override
+        public void run() {
+            System.out.println(Thread.currentThread().getName());
+        }
+    }
+    public static void main(String[] args) {
+        MyThread myThread = new MyThread("myThread");
+        myThread.run();
+    }
+}
+
+
+
+//Что выводит следующий код?
+public class MyDaemonThreads {
+    private static class MyDaemonThread extends Thread {
+        public MyDaemonThread() {
+            setDaemon(true);
+        }
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+        }
+    }
+    public static void main(String[] args) throws InterruptedException {
+        Thread thread = new MyDaemonThread();
+        thread.start();
+        thread.join();
+        System.out.println(thread.isAlive());
+    }
+}
+
+
+
+
+

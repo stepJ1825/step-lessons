@@ -15,7 +15,7 @@ public class Writer implements Runnable {
         for (int i = 0; i < 10; i++) {
             try {
                 object.put("key" + i, "value" + i);
-                sleep(1000);
+                sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

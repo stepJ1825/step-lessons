@@ -1,25 +1,25 @@
 package by.step.wait_notify_join_yield_interrupt;
 
 public class WaitNotifyExample {
-    private final Object lock = new Object();
+    private final Object someObject = new Object();
     private boolean condition = false;
 
     public void waitMethod() throws InterruptedException {
-        synchronized (lock) {
+        synchronized (someObject) {
             System.out.println(Thread.currentThread().getName() + " входит в wait");
             while (!condition) {
-                lock.wait(); // Ожидание уведомления
+                someObject.wait(); // Ожидание уведомления
             }
             System.out.println(Thread.currentThread().getName() + " продолжает работу");
         }
     }
 
     public void notifyMethod() {
-        synchronized (lock) {
+        synchronized (someObject) {
             System.out.println("Отправка уведомления...");
             condition = true;
-            lock.notify(); // Пробуждает один поток
-            // lock.notifyAll(); // Пробуждает все потоки
+//            someObject.notify(); // Пробуждает один поток
+            someObject.notifyAll(); // Пробуждает все потоки
         }
     }
 
@@ -33,7 +33,14 @@ public class WaitNotifyExample {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }, "Waiter-Thread");
+        }, "Waiter1-Thread");
+        Thread waiter2 = new Thread(() -> {
+            try {
+                example.waitMethod();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }, "Waiter2-Thread");
 
         // Поток, который отправит уведомление
         Thread notifier = new Thread(() -> {
@@ -46,9 +53,11 @@ public class WaitNotifyExample {
         }, "Notifier-Thread");
 
         waiter.start();
+        waiter2.start();
         notifier.start();
 
         waiter.join();
+        waiter2.join();
         notifier.join();
     }
 }

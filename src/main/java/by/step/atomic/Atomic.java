@@ -48,8 +48,9 @@ public class Atomic {
 
         IntStream.range(0, NUM_INCREMENTS)
                 .forEach(i -> {
-                    Runnable task = () ->
-                            atomicInt.accumulateAndGet(i, (n, m) -> n + m);
+                    Runnable task = () -> atomicInt.addAndGet(i);
+                    // read 15   update 15+6    read 15+7   read again ->
+                    // read 22   update 22+6    read 22     write  28  ALL OK
                     executor.submit(task);
                 });
 

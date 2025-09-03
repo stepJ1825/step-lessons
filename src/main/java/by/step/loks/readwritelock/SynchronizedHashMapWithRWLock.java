@@ -21,7 +21,7 @@ public class SynchronizedHashMapWithRWLock {
             writeLock.lock();
             System.out.println(Thread.currentThread().getName() + " writing");
             syncHashMap.put(key, value);
-            sleep(1000);
+            sleep(2000);
         } finally {
             writeLock.unlock();
         }

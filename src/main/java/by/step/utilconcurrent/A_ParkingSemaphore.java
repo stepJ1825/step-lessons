@@ -15,7 +15,7 @@ public class A_ParkingSemaphore {
     private static final Semaphore SEMAPHORE = new Semaphore(5, true);
 
     public static void main(String[] args) throws InterruptedException {
-        for (int i = 1; i <= 7; i++) {
+        for (int i = 1; i <= 10; i++) {
             new Thread(new Car(i)).start();
             Thread.sleep(400);
         }

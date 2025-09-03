@@ -12,6 +12,7 @@ public class ReadWriteLockTest {
         service.execute(new Thread(new Writer(object), "Writer"));
         service.execute(new Thread(new Reader(object), "Reader1"));
         service.execute(new Thread(new Reader(object), "Reader2"));
+        service.execute(new Thread(new Reader(object), "Reader3"));
 
         service.shutdown();
     }
