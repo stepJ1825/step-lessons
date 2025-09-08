@@ -1,4 +1,4 @@
-package by.step.creational.prototype;
+package by.step.creational.prototype.shapeexample;
 
 class Rectangle implements Shape {
     private int width;

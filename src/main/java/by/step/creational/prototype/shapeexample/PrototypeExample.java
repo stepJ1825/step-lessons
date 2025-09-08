@@ -1,4 +1,4 @@
-package by.step.creational.prototype;
+package by.step.creational.prototype.shapeexample;
 
 public class PrototypeExample {
     public static void main(String[] args) {

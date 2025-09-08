@@ -1,4 +1,4 @@
-package by.step.creational.prototype;
+package by.step.creational.prototype.shapeexample;
 
 class Circle implements Shape {
     private int radius;
