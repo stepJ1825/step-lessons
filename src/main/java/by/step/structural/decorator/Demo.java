@@ -1,5 +1,7 @@
 package by.step.structural.decorator;
 
+import java.util.Collections;
+
 public class Demo {
     public static void main(String[] args) {
         String salaryRecords = "Name,Salary\nJohn Smith,100000\nSteven Jobs,912000";

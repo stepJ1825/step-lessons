@@ -1,20 +1,12 @@
-package by.step.structural.composite;
+package by.step.behavioral.memento;
 
 import java.awt.*;
 
 public class Demo {
     public static void main(String[] args) {
-        ImageEditor editor = new ImageEditor();
-
-        Circle circle1 = new Circle(10, 10, 10, Color.BLUE);
-        Circle circle2 = new Circle(10, 10, 15, Color.CYAN);
-        Circle circle3 = new Circle(10, 10, 20, Color.CYAN);
-
+        Editor editor = new Editor();
         editor.loadShapes(
-
-                circle1,
-
-                new CompoundShape(circle1,new CompoundShape(circle2,circle3)),
+                new Circle(10, 10, 10, Color.BLUE),
 
                 new CompoundShape(
                         new Circle(110, 110, 50, Color.RED),
@@ -28,8 +20,6 @@ public class Demo {
                         new Dot(360, 360, Color.GREEN),
                         new Dot(360, 240, Color.GREEN)
                 )
-
-
         );
     }
 }

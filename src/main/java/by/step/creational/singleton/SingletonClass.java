@@ -1,22 +1,22 @@
-package by.step.creational;
+package by.step.creational.singleton;
 
 
-public class SingletonExample {
+public class SingletonClass {
     // 1. Статическое поле для хранения единственного экземпляра класса
-    private static SingletonExample instance;
+    private static SingletonClass instance;
     private String message;
 
     // 2. Приватный конструктор, чтобы предотвратить создание экземпляров извне
-    private SingletonExample(String message) {
+    private SingletonClass(String message) {
         this.message = message;
         System.out.println("Инициализация Singleton.");
     }
 
     // 3. Статический публичный метод для получения экземпляра класса
-    public static SingletonExample getInstance() {
+    public static SingletonClass getInstance() {
         // Ленивая инициализация: экземпляр создается только при первом вызове
         if (instance == null) {
-            instance = new SingletonExample("Привет, это единственный экземпляр!");
+            instance = new SingletonClass("Привет, это единственный экземпляр!");
         }
         return instance;
     }
@@ -24,17 +24,5 @@ public class SingletonExample {
     // Пример метода, который будет вызываться у единственного экземпляра
     public void showMessage() {
         System.out.println(message);
-    }
-
-    public static void main(String[] args) {
-        // Получаем экземпляр через метод getInstance()
-        SingletonExample singleton1 = SingletonExample.getInstance();
-        SingletonExample singleton2 = SingletonExample.getInstance();
-
-        // Убеждаемся, что оба объекта - это один и тот же экземпляр
-        System.out.println("Singleton1 == Singleton2: " + (singleton1 == singleton2)); // true
-
-        singleton1.showMessage();
-        singleton2.showMessage();
     }
 }
