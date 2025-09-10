@@ -4,6 +4,8 @@ import by.step.model.*;
 import by.step.util.Util;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 public class Main {
@@ -82,7 +84,22 @@ public class Main {
     }
 
     private static void task12() throws IOException {
+        //TODO: watch video: https://www.youtube.com/watch?v=5QzLsYQRt0I
         List<Person> people = Util.getPersons();
+        Person person = people.stream().findFirst().get();
+        LocalDate dateOfBirth = person.getDateOfBirth();
+        LocalDate now = LocalDate.now();
+
+        //первый способ
+        Period between = Period.between(now, dateOfBirth);
+        System.out.println(between.getYears());
+
+        //второй способ
+                  //10.09.2007
+        LocalDate localDateMinus18 = now.minusYears(18);
+                        // **.02.1991  isBefore  10.09.2007
+        boolean isBefore = dateOfBirth.isBefore(localDateMinus18);
+        System.out.println(isBefore);
         //TODO:
     }
 
