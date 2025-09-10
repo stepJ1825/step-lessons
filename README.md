@@ -19,3 +19,6 @@
 
 ## Примеры заданий
 [TASKS.txt](TASKS.txt)
+
+## Домашнее задание 
+[HOMEWORK.md](HOMEWORK.md)
