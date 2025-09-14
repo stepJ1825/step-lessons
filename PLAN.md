@@ -6,6 +6,6 @@
 - [x] GIT
 - [x] Functional programming
 - [x] java.util.Stream
+- [x] Multithreading
+- [x] Design patterns
 - [ ] java.io
-- [ ] Multithreading
-- [ ] Design patterns
