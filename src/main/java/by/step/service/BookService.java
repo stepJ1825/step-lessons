@@ -2,6 +2,7 @@ package by.step.service;
 
 import by.step.model.Book;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,6 @@ public interface BookService {
 
     String getBookTitlesAsString(); // все названия книг в виде строки через запятую
 
-    String getAuthorStatistics(String author); //статистика по авторам (количество книг каждого автора)
+    Map<String, Serializable> getAuthorStatistics(String author); //статистика по авторам (количество книг каждого автора)
 
 }

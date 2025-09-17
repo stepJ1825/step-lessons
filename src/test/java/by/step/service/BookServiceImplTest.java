@@ -6,7 +6,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 class BookServiceImplTest {
@@ -70,5 +72,7 @@ class BookServiceImplTest {
 
     @Test
     void getAuthorStatistics() {
+        Map<String, Serializable> miller = bookService.getAuthorStatistics("miller");
+        Assertions.assertThat(miller).isNotEmpty();
     }
 }

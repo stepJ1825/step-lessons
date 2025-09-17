@@ -4,6 +4,7 @@ import by.step.model.Book;
 import by.step.repository.BookRepository;
 import by.step.repository.BookRepositoryJSON;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -87,7 +88,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public String getAuthorStatistics(String author) {
+    public Map<String, Serializable> getAuthorStatistics(String author) {
         List<Book> booksByAuthor = repository.findBooksByAuthor(author);
         double averageRating = booksByAuthor.stream()
                 .mapToDouble(Book::getRating)
@@ -107,8 +108,8 @@ public class BookServiceImpl implements BookService {
 
         //THRILLER - 3, COMEDY - 1,  FANTASY - 2
 
-        return "averageRating: " + averageRating
-                + ", bookCount: " + bookCount
-                + " favouriteGenre: " + favouriteGenre;
+        return Map.of("averageRating", averageRating,
+                "bookCount", bookCount,
+                "favouriteGenre", favouriteGenre);
     }
 }
