@@ -7,11 +7,16 @@ import by.step.repository.BookRepositoryJSON;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class BookServiceImpl implements BookService {
 
-    private final BookRepository repository = new BookRepositoryJSON();
+    private final BookRepository repository;
+
+    public BookServiceImpl() {
+        this.repository = new BookRepositoryJSON();
+    }
 
     @Override
     public void addBook(Book book) {
@@ -102,12 +107,8 @@ public class BookServiceImpl implements BookService {
                 .entrySet().stream()
                 .max((o1, o2) ->
                         Math.toIntExact(o1.getValue() - o2.getValue()))
-                .get()
+                .orElseThrow(NoSuchElementException::new)
                 .getKey();
-
-
-        //THRILLER - 3, COMEDY - 1,  FANTASY - 2
-
         return Map.of("averageRating", averageRating,
                 "bookCount", bookCount,
                 "favouriteGenre", favouriteGenre);

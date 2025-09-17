@@ -23,12 +23,5 @@
 hs_err_pid*
 replay_pid*
 /target/
-/.idea/.gitignore
-/.idea/checkstyle-idea.xml
-/.idea/compiler.xml
-/.idea/encodings.xml
-/.idea/jarRepositories.xml
-/lessons.iml
-/.idea/misc.xml
-/step_project.iml
-/.idea/vcs.xml
+/.idea/*
+/*.iml

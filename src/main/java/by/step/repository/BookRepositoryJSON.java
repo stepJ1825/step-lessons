@@ -1,16 +1,32 @@
 package by.step.repository;
 
-import by.step.model.Author;
 import by.step.model.Book;
-import by.step.util.Util;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class BookRepositoryJSON implements BookRepository {
+
+    private final String bookData = "src\\main\\resources\\books.json";
+    private final String outputData = "src\\main\\resources\\out-books.json";
+    private final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
     @Override
     public List<Book> getAllBooks() {
-        return Util.getBooks();
+        try {
+            return newMapper().readValue(new File(bookData),
+                    new TypeReference<>() {});
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -24,12 +40,23 @@ public class BookRepositoryJSON implements BookRepository {
 
     @Override
     public void addBook(Book book) {
-        throw new IllegalStateException(); //TODO
+        List<Book> allBooks = getAllBooks();
+        int nextId;
+        if (allBooks.isEmpty()) {
+            nextId = 1;
+        } else {
+            nextId = allBooks.get(allBooks.size() - 1).getId() + 1;
+        }
+        book.setId(nextId);
+        allBooks.add(book);
+        rewriteData(allBooks);
     }
 
     @Override
     public void removeBook(int id) {
-        throw new IllegalStateException(); //TODO
+        List<Book> allBooks = getAllBooks();
+        allBooks.remove(findById(id));
+        rewriteData(allBooks);
     }
 
     @Override
@@ -51,5 +78,22 @@ public class BookRepositoryJSON implements BookRepository {
                 .filter(book -> book.getYear() < end
                         && book.getYear() > start)
                 .collect(Collectors.toList());
+    }
+
+    private void rewriteData(List<Book> books) {
+        try {
+            newMapper().writeValue(new File(outputData), books);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private ObjectMapper newMapper() {
+        final ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.setDateFormat(df);
+        mapper.setLocale(Locale.ENGLISH);
+        mapper.registerModule(new JSR310Module());
+        return mapper;
     }
 }
