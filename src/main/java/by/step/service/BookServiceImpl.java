@@ -56,7 +56,7 @@ public class BookServiceImpl implements BookService {
     public Map<String, List<Book>> getBooksGroupedByGenre() {
         return repository.getAllBooks().stream()
                 .collect(Collectors.groupingBy(book ->
-                        book.getGenre().getGenreName()));
+                        book.getGenre().getName()));
     }
 
     @Override

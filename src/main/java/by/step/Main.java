@@ -7,6 +7,7 @@ import by.step.service.BookFilter;
 import by.step.service.BookService;
 import by.step.service.BookServiceImpl;
 import by.step.util.BookFilterUtil;
+import by.step.util.Util;
 
 import java.util.List;
 
@@ -25,7 +26,10 @@ public class Main {
 
         service.addBook(new Book("123",new Author(1,"a","b"),new Genre(1,"dwhaj"),2025, 10));
 
+        List<Book> books = Util.getBooks();
+
         System.out.println();
+
 
     }
 

@@ -14,15 +14,18 @@ public class BookRepositoryImpl implements BookRepository {
     private final List<Book> library = initRepository();
 
     private List<Book> initRepository() {
-        List<Book> library = new ArrayList<>();
+        List<Book> localLibrary = new ArrayList<>();
         List<Book> books = TestDataGenerator.generateRandomBooks(50);
+        List<Book> sampleBooks = TestDataGenerator.generateSampleBooks();
+        books.addAll(sampleBooks);
         IntStream.range(0, books.size())
                 .forEach(index -> {
                     Book book = books.get(index);
                     book.setId(index + 1);
-                    library.add(book);
+                    localLibrary.add(book);
                 });
-        return library;
+
+        return localLibrary;
     }
 
     @Override
