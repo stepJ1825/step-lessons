@@ -26,7 +26,6 @@ public class Main {
 
         service.addBook(new Book("123",new Author(1,"a","b"),new Genre(1,"dwhaj"),2025, 10));
 
-        List<Book> books = Util.getBooks();
 
         System.out.println();
 

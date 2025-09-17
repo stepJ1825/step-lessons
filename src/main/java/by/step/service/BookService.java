@@ -21,6 +21,13 @@ public interface BookService {
     float getAverageRating();
 
     Map<String, List<Book>> getBooksGroupedByGenre();
+
     Book findById(int id);
+
+    List<Book> searchBooks(String keyword); //поиск по названию и автору (игнорируя регистр)
+
+    String getBookTitlesAsString(); // все названия книг в виде строки через запятую
+
+    String getAuthorStatistics(String author); //статистика по авторам (количество книг каждого автора)
 
 }
