@@ -1,8 +1,8 @@
-package by.step.repository;
+package by.step.repository.impl;
 
 import by.step.exception.DaoException;
 import by.step.model.Book;
-import by.step.service.BookFilter;
+import by.step.repository.BookRepository;
 
 import java.util.ArrayList;
 import java.util.List;

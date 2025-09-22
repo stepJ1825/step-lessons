@@ -18,3 +18,5 @@
                 .filter(person -> person.getLanguage.equals(someLanguage))
                 .collect(Collectors.joining(", "))
     }`
+---------------------------
+[Паттерн Controller](https://habr.com/ru/companies/otus/articles/507600/)

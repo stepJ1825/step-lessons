@@ -1,6 +1,7 @@
-package by.step.repository;
+package by.step.repository.impl;
 
 import by.step.model.Book;
+import by.step.repository.BookRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,17 +16,18 @@ import java.util.stream.Collectors;
 
 public class BookRepositoryJSON implements BookRepository {
 
-    private final String bookData = "src\\main\\resources\\books.json";
-    private final String outputData = "src\\main\\resources\\out-books.json";
+    private final String DATA = "src\\main\\resources\\books.json";
     private final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     public List<Book> getAllBooks() {
         try {
-            return newMapper().readValue(new File(bookData),
-                    new TypeReference<>() {});
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            Thread.sleep(5000L);
+            return newMapper().readValue(new File(DATA),
+                    new TypeReference<>() {
+                    });
+        } catch (IOException|InterruptedException e) {
+            throw new RuntimeException(e); //TODO: реализовать функционал при отсутствии файла
         }
     }
 
@@ -82,7 +84,7 @@ public class BookRepositoryJSON implements BookRepository {
 
     private void rewriteData(List<Book> books) {
         try {
-            newMapper().writeValue(new File(outputData), books);
+            newMapper().writeValue(new File(DATA), books);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

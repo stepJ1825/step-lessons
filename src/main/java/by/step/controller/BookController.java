@@ -5,20 +5,22 @@ import by.step.model.Book;
 import by.step.model.Genre;
 import by.step.service.BookFilter;
 import by.step.service.BookService;
+import by.step.service.impl.BookServiceImpl;
 import by.step.util.BookFilterUtil;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class BookController {
 
     private final BookService bookService;
     private final Scanner scanner;
 
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
+    public BookController() {
+        this.bookService = new BookServiceImpl();
         this.scanner = new Scanner(System.in);
     }
 
@@ -223,9 +225,8 @@ public class BookController {
         }
 
         System.out.println("Найдено книг: " + books.size());
-        for (int i = 0; i < books.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, books.get(i));
-        }
+        IntStream.range(0, books.size())
+                .forEach(i -> System.out.printf("%d. %s\n", i + 1, books.get(i)));
     }
 
     private String getStringInput(String prompt) {

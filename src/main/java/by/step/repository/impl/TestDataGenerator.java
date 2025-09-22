@@ -1,4 +1,4 @@
-package by.step.repository;
+package by.step.repository.impl;
 
 import by.step.model.Author;
 import by.step.model.Book;

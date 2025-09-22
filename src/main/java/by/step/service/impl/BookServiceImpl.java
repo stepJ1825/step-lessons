@@ -1,8 +1,11 @@
-package by.step.service;
+package by.step.service.impl;
 
+import by.step.cache.BookCache;
 import by.step.model.Book;
 import by.step.repository.BookRepository;
-import by.step.repository.BookRepositoryJSON;
+import by.step.repository.impl.BookRepositoryJSON;
+import by.step.service.BookFilter;
+import by.step.service.BookService;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,9 +16,11 @@ import java.util.stream.Collectors;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository repository;
+    private final BookCache cache;
 
     public BookServiceImpl() {
-        this.repository = new BookRepositoryJSON();
+        repository = new BookRepositoryJSON();
+        cache = new BookCache();
     }
 
     @Override
@@ -40,7 +45,15 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getAllBooks() {
-        return repository.getAllBooks();
+        List<Book> booksFromCache = cache.getAllBooks();
+        if (!booksFromCache.isEmpty()) {
+            return booksFromCache;
+        } else {
+            List<Book> booksFromRepository = repository.getAllBooks();
+            cache.fillCache(booksFromRepository);
+            return booksFromRepository;
+        }
+
     }
 
     @Override
