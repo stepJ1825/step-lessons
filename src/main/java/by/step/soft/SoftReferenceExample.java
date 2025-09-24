@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SoftReferenceExample {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         // Создаем объект с мягкой ссылкой
+        Thread.sleep(20000);
         Object largeObject = new LargeObject("Большие данные");
         SoftReference<Object> softRef = new SoftReference<>(largeObject);
 
@@ -16,11 +17,12 @@ public class SoftReferenceExample {
         largeObject = null;
 
         // Создаем нагрузку на память чтобы вызвать очистку soft references
+        Thread.sleep(5000);
         try {
             List<byte[]> memoryHog = new ArrayList<>();
             for (int i = 0; i < 1000; i++) {
                 memoryHog.add(new byte[10 * 1024 * 1024]); // 10 MB
-                Thread.sleep(10);
+                Thread.sleep(100);
             }
         } catch (OutOfMemoryError e) {
             System.out.println("OutOfMemoryError пойман!");
