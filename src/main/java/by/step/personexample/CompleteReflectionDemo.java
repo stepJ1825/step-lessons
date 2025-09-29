@@ -23,6 +23,7 @@ public class CompleteReflectionDemo {
 
         System.out.println("\n=== АНАЛИЗ АННОТАЦИЙ ===");
         analyzeAnnotations(employeeClass);
+        analyzeAnnotations(Person.class);
     }
 
     // Анализ информации о классе
@@ -33,7 +34,7 @@ public class CompleteReflectionDemo {
         System.out.println("Суперкласс: " + clazz.getSuperclass().getName());
 
         System.out.println("Интерфейсы: ");
-        for (Class<?> iface : clazz.getInterfaces()) {
+        for (Class<?> iface : clazz.getSuperclass().getInterfaces()) {
             System.out.println("  - " + iface.getName());
         }
 
@@ -77,7 +78,9 @@ public class CompleteReflectionDemo {
 
     // Работа с полями
     public static void workWithFields(Class<Employee> clazz) throws Exception {
-        Employee employee = new Employee("Мария", 28, "EMP456", 60000.0);
+        Employee employee = new Employee("Мария", 28, "EMP456",
+                60000.0);
+
 
         // Доступ к публичному полю
         Field publicField = clazz.getField("salary");
@@ -124,7 +127,8 @@ public class CompleteReflectionDemo {
     }
 
     // Анализ аннотаций
-    public static void analyzeAnnotations(Class<Employee> clazz) {
+    public static void analyzeAnnotations(Class<? super Employee> clazz) {
+//    public static void analyzeAnnotations(Class<? extends Person> clazz) {    //PECS
         // Аннотации класса
         MyAnnotation classAnnotation = clazz.getAnnotation(MyAnnotation.class);
         if (classAnnotation != null) {

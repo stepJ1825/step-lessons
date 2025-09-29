@@ -5,7 +5,7 @@ import by.step.personexample.Employee;
 import java.lang.reflect.Method;
 
 public class PerformanceBenchmark {
-    private static final int ITERATIONS = 1000000;
+    private static final int ITERATIONS = 1_000_000;
 
     public static void main(String[] args) throws Exception {
         Employee emp = new Employee("Test", 25, "ID123", 50000.0);

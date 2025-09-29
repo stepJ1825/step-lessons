@@ -1,15 +1,20 @@
 package by.step;
 
+import by.step.personexample.Person;
+
 public class ReflectionBasics {
     public static void main(String[] args) {
         // Три способа получить объект Class
 
         // 1. Через класс
         Class<String> stringClass = String.class;
+        Class<Person> personClass = Person.class;
 
         // 2. Через объект
         String str = "Hello";
         Class<?> strClass = str.getClass();
+        Person person = new Person();
+        Class<? extends Person> aClass = person.getClass();
 
         // 3. Через полное имя класса
         try {

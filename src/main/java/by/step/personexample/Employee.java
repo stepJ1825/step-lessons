@@ -30,4 +30,8 @@ public class Employee extends Person {
                 getName(), getAge(), employeeId, salary
         );
     }
+
+    private void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
 }

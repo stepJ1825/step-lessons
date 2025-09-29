@@ -14,11 +14,3 @@ public @interface MyAnnotation {
     int version() default 1;
 }
 
-/*
-public enum RetentionPolicy {
-    SOURCE,     // Аннотация сохраняется только в исходном коде
-    CLASS,      // Аннотация сохраняется в байт-коде, но недоступна во время выполнения
-    RUNTIME     // Аннотация сохраняется в байт-коде и доступна во время выполнения через Reflection
-}
- */
-
