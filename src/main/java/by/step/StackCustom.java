@@ -1,41 +1,47 @@
 package by.step;
 
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 /**
  * ЗАДАЧА: Создать кастомную реализацию стека
  * с получением минимального элемента за константное время
  */
-public class StackCustom {
+public class StackCustom<T extends Comparable<T>> {
 
-    private LinkedList data = new LinkedList();
-    private LinkedList minElement = new LinkedList();
+    private final LinkedList<T> data = new LinkedList<>();
+    private final LinkedList<T> minElement = new LinkedList<>();
 
-    public void push(Object o) {
+    public void push(T t) {
         if (data.isEmpty()) {
-            minElement.push(o);
+            minElement.push(t);
         } else {
-            if (((Comparable) minElement.peek()).compareTo(o) > 0) {
-                minElement.push(o);
+            if (minElement.peek().compareTo(t) > 0) {
+                minElement.push(t);
             }
         }
-        data.push(o);
+        data.push(t);
     }
 
-    public Object pop() {
-        Object lastElement = data.pop();
-        if (lastElement == minElement.peek()) {
-            minElement.pop();
+    public T pop() {
+        T lastElement = null;
+        try {
+            lastElement = data.pop();
+            if (lastElement == minElement.peek()) {
+                minElement.pop();
+            }
+        } catch (NoSuchElementException e) {
+            System.err.println("Элемента нету. В хранилище пусто.");
         }
+
         return lastElement;
     }
 
-    public Object peek() {
-//        data.get(data.size()-1) //если data это List
-        return data.getLast();
+    public T peek() {
+        return data.peek();
     }
 
-    public Object getMin() {
+    public T getMin() {
         return minElement.peek();
     }
 }
