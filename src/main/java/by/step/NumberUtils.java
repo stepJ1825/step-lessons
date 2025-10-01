@@ -10,7 +10,8 @@ public class NumberUtils {
     // Producer Extends - только читаем числа
     public static double sum(List<? extends Number> numbers) {
         double total = 0.0;
-        for (Number number : numbers) {
+        for (int i = 0; i < numbers.size(); i++) {
+            Number number = numbers.get(i);
             total += number.doubleValue();
         }
         return total;

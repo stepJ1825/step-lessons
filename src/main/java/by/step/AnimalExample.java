@@ -26,9 +26,12 @@ public class AnimalExample {
         System.out.println("Objects: " + objects);
         System.out.println("Animals: " + animals);
 
+        Dog someDog = (Dog) animals.get(1);
+        someDog.bark();
+
         // Не скомпилируется!
-        //         List<Dog> dogs = new ArrayList<>();
-        //         addAnimals(dogs); // Ошибка! Dog не super Animal
+//        List<Dog> dogs = new ArrayList<>();
+//        addAnimals(dogs); // Ошибка! Dog не super Animal
     }
 
     @Data
@@ -44,6 +47,10 @@ public class AnimalExample {
     private static class Dog extends Animal {
         public Dog(String name) {
             super(name);
+        }
+
+        public void bark() {
+            System.out.println("The dog is barking");
         }
     }
 
