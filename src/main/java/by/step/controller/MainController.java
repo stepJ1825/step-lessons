@@ -7,13 +7,15 @@ public class MainController {
         boolean running = true;
 
         while (running) {
-            System.out.println("print book or author");
+            System.out.println("print 'w'");
             Scanner scanner = new Scanner(System.in);
             String next = scanner.nextLine().trim();
 
             switch (next) {
-                case "book", "b" -> new BookController().start();
-                case "author", "a" -> new AuthorController().start();
+                case "weather", "w" -> {
+                    new WeatherController().start();
+                    running = false;
+                }
                 case "0", "exit" -> running = false;
             }
         }
