@@ -21,7 +21,9 @@ public class Util {
     public static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
     public static List<Animal> getAnimals() throws IOException {
-        return newMapper().readValue(new File(animalsDataFileName), new TypeReference<>() {
+        return newMapper().readValue(
+                new File(animalsDataFileName),  // мой коммент: здесь происходит то-то и то-то
+                new TypeReference<>() {
         });
     }
 
