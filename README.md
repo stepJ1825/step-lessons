@@ -32,6 +32,7 @@
 * При конвертации сохраняются и дата/время, и часовой пояс.
 
 ### Что почитать (посмотреть):
+* [Классы работы со временем в Java](https://pro-prof.com/forums/topic/классы-работы-со-временем-в-java)
 * [Как понять время? Java Date & Time API](https://www.youtube.com/watch?v=5QzLsYQRt0I)
 * [Презентация из видео](https://drive.google.com/file/d/1vx0oE30EHOEp5_0kTKOjkajjO1nkAAOv/view?pli=1)
 

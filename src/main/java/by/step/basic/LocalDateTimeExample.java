@@ -11,7 +11,7 @@ public class LocalDateTimeExample {
         LocalDateTime now = LocalDateTime.now(); // текущие дата и время
         System.out.println("Сейчас: " + now);
 
-        LocalDateTime specific = LocalDateTime.of(2025, 12, 25, 15, 30, 45);
+        LocalDateTime specific = LocalDateTime.of(2025, 10, 8, 19, 10, 45);
         System.out.println("Заданное время: " + specific);
 
         // Форматирование
@@ -20,7 +20,7 @@ public class LocalDateTimeExample {
         System.out.println("Форматировано: " + formatted);
 
         // Парсинг
-        LocalDateTime parsed = LocalDateTime.parse("2025-12-25T15:30:45");
+        LocalDateTime parsed = LocalDateTime.parse("08.10.2025 19:16:19", formatter);
         System.out.println("Разобралось: " + parsed);
     }
 }

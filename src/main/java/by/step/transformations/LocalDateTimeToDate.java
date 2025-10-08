@@ -15,6 +15,7 @@ public class LocalDateTimeToDate {
         // Сначала в ZonedDateTime (добавляем зону), потом в Instant, потом в Date
         Date date = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
 
+
         System.out.println("LocalDateTime: " + ldt);
         System.out.println("Date: " + date);
     }

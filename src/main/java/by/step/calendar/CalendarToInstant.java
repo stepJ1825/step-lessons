@@ -17,5 +17,8 @@ public class CalendarToInstant {
         // Только GregorianCalendar поддерживает toInstant()
         Instant instant = ((GregorianCalendar) calendar).toInstant();
         System.out.println("Instant: " + instant);
+
+        Calendar calendar1 = new GregorianCalendar();
+        System.out.println(calendar1);
     }
 }

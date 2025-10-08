@@ -3,6 +3,7 @@ package by.step.calendar;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.Instant;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
@@ -22,7 +23,7 @@ public class ReverseConversion {
         Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
 
         // 3. Instant → GregorianCalendar
-        GregorianCalendar calendar = GregorianCalendar.from(
+        Calendar calendar = GregorianCalendar.from(
                 ldt.atZone(ZoneId.systemDefault())
         );
 

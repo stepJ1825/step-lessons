@@ -9,6 +9,7 @@ public class LocalTimeExample {
     public static void main(String[] args) {
         LocalTime now = LocalTime.now();
         System.out.println("Текущее время: " + now);
+        now.plusHours(10);
 
         LocalTime lunch = LocalTime.of(13, 0, 0);
         System.out.println("Обед: " + lunch);
