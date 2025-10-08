@@ -10,7 +10,8 @@ public class BufferedReaderExample {
     }
 
     private static void readByLines() {
-        try (BufferedReader br = new BufferedReader(new FileReader("notes4.txt"))) {
+        try (BufferedReader br = new BufferedReader(
+                new FileReader("notes4.txt"))) {
             //чтение построчно
             String s;
             while ((s = br.readLine()) != null) {

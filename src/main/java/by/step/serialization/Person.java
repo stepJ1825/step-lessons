@@ -12,5 +12,5 @@ class Person implements Serializable {
     private int age;
     private double height;
     private boolean married;
-    //    private transient String password;
+//    private transient String password;
 }

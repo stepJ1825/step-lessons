@@ -6,7 +6,6 @@ import java.io.IOException;
 public class FileExample {
 
     public static void main(String[] args) {
-
         // определяем объект для каталога
         File myFile = new File("C://SomeDir//notes.txt");
         System.out.println("File name: " + myFile.getName());

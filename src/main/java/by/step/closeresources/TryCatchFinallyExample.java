@@ -15,7 +15,6 @@ public class TryCatchFinallyExample {
             System.out.println(ex.getMessage());
         } finally {
             try {
-
                 if (fin != null) {
                     fin.close();
                 }
