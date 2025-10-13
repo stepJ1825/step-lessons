@@ -8,4 +8,4 @@
 - [x] java.util.Stream
 - [x] Multithreading
 - [x] Design patterns
-- [ ] java.io
+- [x] java.io

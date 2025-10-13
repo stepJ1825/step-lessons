@@ -1,14 +1,14 @@
 - ~~JUnit~~
-- Maven - модификация отдельных goal, вывод текста в консоль
 - ~~Git~~
-- GC
-- Locale
-- transient
-- Serializable
-- Cloneable
+- ~~GC~~
+- ~~transient~~
+- ~~Serializable~~
 - ~~Побитовые операции~~
+- ~~Чтение/запись файлов~~
+- Maven - модификация отдельных goal, вывод текста в консоль
+- Cloneable
 - Типы классов (анонимные, вложенные, статические)
-- Чтение/запись файлов
+- Locale
 
 Полезные ссылки:
 - [красивый README](https://habr.com/ru/articles/649363/)
