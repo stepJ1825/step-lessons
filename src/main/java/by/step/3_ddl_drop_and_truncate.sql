@@ -18,4 +18,5 @@ DROP FUNCTION IF EXISTS get_user_count();
 
 --TRUNCATE — удаление всех данных из таблицы (иногда относят к DDL)
 TRUNCATE TABLE public.accounts RESTART IDENTITY CASCADE;
---Примечание: TRUNCATE удаляет все строки из таблицы и сбрасывает связанные последовательности (RESTART IDENTITY). Это быстрее, чем DELETE FROM.
+--Примечание: TRUNCATE удаляет все строки из таблицы и сбрасывает связанные последовательности (RESTART IDENTITY).
+--Это быстрее, чем DELETE FROM.

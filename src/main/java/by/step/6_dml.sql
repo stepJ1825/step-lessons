@@ -40,9 +40,9 @@ VALUES ('Елена Смирнова', 'HR', 80000.00, DEFAULT);
 
 -- Вставка на основе SELECT (копирование данных)
 INSERT INTO employees (name, department, salary)
-SELECT name || ' (резерв)', department, salary * 0.9
-FROM employees
-WHERE department = 'Разработка';
+  (SELECT name || ' (резерв)', department, salary * 0.9
+   FROM employees
+   WHERE department = 'Разработка');
 
 -- =============================================================================
 -- 3. SELECT — выборка данных
@@ -96,11 +96,12 @@ WHERE department = 'Маркетинг';
 -- Обновление нескольких столбцов
 UPDATE employees
 SET department = 'Управление', salary = 130000.00
-WHERE name = 'Иван Сидоров';
+WHERE id = 123 AND name = 'Иван Сидоров';
 
 -- Обновление с использованием подзапроса
 UPDATE employees
-SET salary = (SELECT AVG(salary) FROM employees WHERE department = 'Разработка')
+SET salary = (SELECT AVG(salary) FROM employees
+              WHERE department = 'Разработка')
 WHERE name = 'Елена Смирнова';
 
 -- =============================================================================
