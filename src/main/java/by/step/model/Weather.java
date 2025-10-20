@@ -10,8 +10,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class Weather {
+
     private MyRegion myRegion;
     private LocalDate date;
     private Float temperature;
+
     private Precipitation precipitation;
+    //  id   precipitation
+    //  1    RAIN,
+    //  2    SNOW,
+    //  3    NO
 }
