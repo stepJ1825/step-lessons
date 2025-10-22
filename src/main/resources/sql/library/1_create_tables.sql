@@ -21,3 +21,9 @@ CREATE TABLE book (
     year INT CHECK (year > 0 AND year <= EXTRACT(YEAR FROM CURRENT_DATE) + 1),
     rating NUMERIC(3, 2) CHECK (rating >= 0.0 AND rating <= 10.0)
 );
+
+USERS
+
+
+USERS_INFO
+user_id REFERENCES user.id

@@ -45,3 +45,20 @@ INSERT INTO book (title, author_id, genre_id, year, rating) VALUES
         (SELECT id FROM author WHERE first_name = 'Михаил' AND surname = 'Булгаков'),
         (SELECT id FROM genre WHERE name = 'Фантастика'),
         1967, 9.60);
+
+
+--roles
+--1 ADMIN
+--2 USER
+--
+--users
+--1 first@ff.by
+--2 second@ff.by
+--
+--users_roles
+--1 1
+--1 2
+--
+--INSERT INTO users_roles (user_id, role_id) VALUES
+--((SELECT id from roles where role_name = 'ADMIN'),
+--(SELECT id from users where email = 'second@ff.by'))
