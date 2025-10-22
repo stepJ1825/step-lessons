@@ -1,4 +1,3 @@
-
 -- Создание таблицы авторов
 CREATE TABLE author (
     id SERIAL PRIMARY KEY,
