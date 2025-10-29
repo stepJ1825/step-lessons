@@ -1,48 +1,56 @@
 --6. Для каждого рейса выведите: номер рейса, аэропорт вылета (название),
---аэропорт прилёта (название), дату вылета.
--- TODO: вместо кода вывести название аэропорта
-SELECT flight_no as "номер рейса",
-        r.departure_airport as "аэропорт вылета",
-        r.arrival_airport as "аэропорт прилёта",
-        scheduled_departure as "дату вылета"
-    FROM flights f
-JOIN routes r USING route_no     --on r.route_no = f.route_no
-JOIN airports_data ad ON r.departure_airport = ad.airport_code
-                      OR r.arrival_airport = ad.airport_code
+--аэропорт прилёта (название), дату и время вылета.
+--(вместо кода вывести название аэропорта)
+SELECT  f.flight_id as "номер рейса",
+        add.airport_name  as "аэропорт вылета",
+        ada.airport_name  as "аэропорт прилёта",
+        f.scheduled_departure::date as "дата вылета",
+        f.scheduled_departure::time as "время вылета"
+FROM flights f
+JOIN routes r on r.route_no = f.route_no
+JOIN airports_data add ON r.departure_airport = add.airport_code
+JOIN airports_data ada on r.arrival_airport = ada.airport_code
 
---7. Выведите список пассажиров (ФИО из tickets.passenger_name) и
---их номера билетов для рейса SU9 от 2016-09-15.
-SELECT t.passenger_name from tickets t
-JOIN segments s USING ticket_no
-JOIN flights f USING flight_id
-WHERE f.actual_arrival = '2016-09-15' --TODO:проверить преобразование в дату
-   AND f.route_no = 'SU9'
+--7. Выведите список пассажиров (ФИО) и их номера билетов для рейса
+--LH400 (Люфтганза, Франкфурт → Нью-Йорк), вылетевшего вчера.
+SELECT t.passenger_name, f.route_no from tickets t
+JOIN segments s on s.ticket_no = t.ticket_no
+JOIN flights f on s.flight_id = f.flight_id
+WHERE --f.route_no = 'LH400' AND --в малой базе таких перелётов нету
+  f.actual_arrival >= CURRENT_DATE - interval '1 day'
+AND f.actual_arrival <= CURRENT_DATE;
 
---8. Найдите все рейсы, выполняемые на самолёте модели «Boeing 777-300» (или «Боинг 777-300»),
--- с указанием даты и маршрута.
-SELECT "Boeing 777-300",
-       f.*,
+--8. Найдите все рейсы, выполняемые на самолёте Boeing 777-300ER,
+--за последний месяц.
+SELECT f.route_no,
        r.departure_airport AS "откуда",
        r.arrival_airport AS "куда",
        r.scheduled_time
 FROM flights f
-JOIN routes r USING route_no
+JOIN routes r on r.route_no = f.route_no
 JOIN airplanes_data ad ON r.airplane_code = ad.airplane_code
-WHERE ad.model IN('Boeing 777-300','Боинг 777-300')
+WHERE
+ad.model = '{"en": "Boeing 777-300ER", "ru": "Боинг 777-300ER"}' --TODO: работа с текстом
+and  f.actual_arrival >= CURRENT_DATE - interval '1 month'
+AND f.actual_arrival <= CURRENT_DATE;
 
---9. Для каждого аэропорта укажите, сколько рейсов из него вылетает ежедневно
---(в среднем за сентябрь 2016).
-SELECT ad.airport_name, COUNT(f.flight_id) from airports_data ad
+--9. Для каждого аэропорта мира рассчитайте среднее число ежедневных
+--вылетов за последний квартал.
+SELECT ad.airport_name, COUNT(*)::float/90 as "average flights" --TODO: округление дробных
+from airports_data ad
 JOIN routes r ON r.departure_airport = ad.airport_code
 JOIN flights f ON f.route_no = r.route_no
-WHERE f.actual_arrival BETWEEN '01-09-2016' AND '30-09-2016' --TODO:
-GROUP BY (ad.airport_name)  -- TODO: WHERE vs HAVING
+WHERE f.actual_arrival >= CURRENT_DATE - interval '3 month'
+     AND f.actual_arrival <= CURRENT_DATE
+GROUP BY (ad.airport_name);
 
---10. Выведите информацию о бронировании: номер брони, дата, общая стоимость,
---и список всех билетов в этой брони (номера+пассажиры).
-SELECT b.*, t.tickets_no, t.passenger_name from bookings b
-JOIN tickets t USING book_ref -- TODO:
---1  2025-10-27  5000$  билет1 Иванов
---1  2025-10-27  5000$  билет2 Петров
---1  2025-10-27  5000$  билет3 Сидоров
 
+--10. Выведите информацию о бронировании: номер брони, дата, общая стоимость
+--и список всех билетов в этой брони (номер + пассажир).
+SELECT b.book_ref as "номер брони",
+		DATE(b.book_date) as "дата" ,
+		b.total_amount as "общая стоимость",
+		STRING_AGG(t.ticket_no || ' ' || t.passenger_name , ', ') as "пассажиры"
+from bookings b
+JOIN tickets t on t.book_ref = b.book_ref
+group by b.book_ref
