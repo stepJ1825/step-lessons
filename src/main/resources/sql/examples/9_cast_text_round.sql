@@ -52,7 +52,7 @@ SELECT
     OCTET_LENGTH(raw_value) AS byte_length,  -- длина в байтах (важно для UTF-8)
     SUBSTRING(raw_value FROM 1 FOR 5) AS first_5_chars,
     RIGHT(raw_value, 3) AS last_3_chars,
-    LEFT(raw_value, 4) AS first_4_chars
+    LEFT(raw_value, 2) AS first_2_chars
 FROM demo_data
 WHERE raw_value IS NOT NULL;
 
@@ -72,9 +72,10 @@ SELECT
     -- Совпадает ли строка с шаблоном (число)
     raw_value ~ '^\d+$' AS is_integer,
     -- Замена по регулярке: удалить всё, кроме цифр
-    REGEXP_REPLACE(raw_value, '\D', '', 'g') AS digits_only,
+    REGEXP_REPLACE(raw_value, '\D', '', 'g') AS digits_only, --TODO: пустые аргументы
     -- Извлечь email (пример)
-    NULLIF(REGEXP_SUBSTR('ivan@example.com', '\w+@\w+\.\w+'), '') AS email
+    NULLIF(REGEXP_SUBSTR('ivan@example.com', '\w+@\w+\.\w+'), '') AS email, --TODO: пустые аргументы
+    NULLIF(REGEXP_SUBSTR('ivan@exampl', '\w+@\w+\.\w+'), '') AS email2 --TODO: пустые аргументы
 FROM demo_data;
 
 -- =============================================================================
@@ -84,13 +85,19 @@ FROM demo_data;
 -- 3.1. Явное приведение с помощью :: (PostgreSQL-синтаксис)
 SELECT
     raw_value,
-    raw_value::INTEGER AS to_int,              -- ошибка, если нельзя
-    raw_value::NUMERIC AS to_num,              -- работает с дробями
-    raw_value::DATE AS to_date,                -- только для '2023-10-05'
-    raw_value::BOOLEAN AS to_bool,             -- 'true' → true, '1' → true и т.д.
+--    raw_value::INTEGER AS to_int,              -- ошибка, если нельзя
+--    raw_value::NUMERIC AS to_num              -- работает с дробями
+--    raw_value::DATE AS to_date                -- только для '2023-10-05'
+--    '1'::BOOLEAN AS to_bool             -- 'true' → true, '1' → true и т.д.
     raw_value::JSON AS to_json                 -- только для валидного JSON
 FROM demo_data
-WHERE raw_value IN ('123', '45.67', '2023-10-05', 'true', '{"name": "Ivan", "age": 30}');
+WHERE raw_value IN (
+--'123',
+--'45.67'
+--'2023-10-05'
+--'true'
+'{"name": "Ivan", "age": 30}'
+);
 
 -- 3.2. Безопасное приведение с помощью CAST
 -- Аналогично, но стандартный SQL-синтаксис
@@ -118,7 +125,7 @@ FROM demo_data;
 
 -- 3.4. Приведение к TEXT (часто нужно при конкатенации)
 SELECT
-    id::TEXT || ' - ' || COALESCE(raw_value, 'NULL') AS id_label
+    id::TEXT || ' - ' || COALESCE(raw_value, 'some null text') AS id_label
 FROM demo_data;
 
 -- 3.5. Работа с JSON через приведение
@@ -141,13 +148,12 @@ WHERE raw_value = '42abc';
 
 -- 4.2. Нормализация: привести к верхнему регистру и обрезать
 SELECT
-    TRIM(UPPER(raw_value)) AS normalized
+    INITCAP(SUBSTRING(TRIM(UPPER(raw_value)) from 1 for 5)) AS normalized
 FROM demo_data
 WHERE raw_value IS NOT NULL;
 
 -- 4.3. Форматирование даты из строки
-SELECT
-    TO_CHAR(raw_value::DATE, 'DD Month YYYY') AS formatted_date
+SELECT TO_CHAR(raw_value::DATE, 'DD Month YY') AS formatted_date
 FROM demo_data
 WHERE raw_value = '2023-10-05';
 
@@ -167,13 +173,14 @@ SELECT 'Ёж' > 'Енот' COLLATE "ru_RU";  -- true в русской лока�
 -- =============================================================================
 SELECT ROUND(12.3456, 2);  -- Результат: 12.35
 SELECT ROUND(3.14159, 3);  -- Результат: 3.142
-SELECT ROUND(5.555, 1);    -- Результат: 5.6
+SELECT ROUND(5.55, 1);    -- Результат: 5.6
 
 SELECT 12.3456::NUMERIC(10,2);  -- Результат: 12.35
-SELECT 9.999::NUMERIC(3,2);     -- Результат: 10.00 (округлилось и поместилось)
+SELECT 9.999::NUMERIC(4,2);     -- Результат: 10.00 (округлилось и поместилось)
 -- Но:
 -- SELECT 99.999::NUMERIC(3,1); -- Ошибка! Превышает общее число цифр
 
 SELECT TRUNC(12.987, 2);  -- Результат: 12.98 -- TRUNC(value, ndigits) — отсечение, а не округление
 
 --округление «всегда вверх» - CEIL,  «всегда вниз» - FLOOR.
+select CEIL(12.4) as ceil, floor(12.6) as floor

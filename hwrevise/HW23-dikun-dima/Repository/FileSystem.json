@@ -1,0 +1,29 @@
+{
+  "type" : "directory",
+  "name" : "root",
+  "childerns" : [ {
+    "type" : "directory",
+    "name" : "Directory1",
+    "childerns" : [ {
+      "type" : "file",
+      "name" : "File1.txt",
+      "size" : 50000,
+      "path" : "/root/Directory1/File1.txt"
+    }, {
+      "type" : "file",
+      "name" : "File2.pdf",
+      "size" : 900000,
+      "path" : "/root/Directory1/File2.pdf"
+    }, {
+      "type" : "directory",
+      "name" : "Directory2",
+      "childerns" : [ ],
+      "size" : 0,
+      "path" : "/root/Directory1/Directory2"
+    } ],
+    "size" : 950000,
+    "path" : "/root/Directory1"
+  } ],
+  "size" : 950000,
+  "path" : "/root"
+}
