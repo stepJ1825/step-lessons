@@ -29,8 +29,8 @@ SELECT f.route_no,
 FROM flights f
 JOIN routes r on r.route_no = f.route_no
 JOIN airplanes_data ad ON r.airplane_code = ad.airplane_code
-WHERE
-ad.model = '{"en": "Boeing 777-300ER", "ru": "Боинг 777-300ER"}' --TODO: работа с текстом
+--WHERE ad.model = '{"en": "Boeing 777-300ER", "ru": "Боинг 777-300ER"}'
+WHERE model::json->>'ru' = 'Боинг 777-300ER';   --TODO: работа с текстом -
 and  f.actual_arrival >= CURRENT_DATE - interval '1 month'
 AND f.actual_arrival <= CURRENT_DATE;
 
