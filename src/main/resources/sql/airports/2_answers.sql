@@ -30,13 +30,13 @@ FROM flights f
 JOIN routes r on r.route_no = f.route_no
 JOIN airplanes_data ad ON r.airplane_code = ad.airplane_code
 --WHERE ad.model = '{"en": "Boeing 777-300ER", "ru": "Боинг 777-300ER"}'
-WHERE model::json->>'ru' = 'Боинг 777-300ER';   --TODO: работа с текстом -
+WHERE model::json->>'ru' = 'Боинг 777-300ER';
 and  f.actual_arrival >= CURRENT_DATE - interval '1 month'
 AND f.actual_arrival <= CURRENT_DATE;
 
 --9. Для каждого аэропорта мира рассчитайте среднее число ежедневных
 --вылетов за последний квартал.
-SELECT ad.airport_name, COUNT(*)::float/90 as "average flights" --TODO: округление дробных
+SELECT ad.airport_name, COUNT(*)::float/90 as "average flights"
 from airports_data ad
 JOIN routes r ON r.departure_airport = ad.airport_code
 JOIN flights f ON f.route_no = r.route_no
