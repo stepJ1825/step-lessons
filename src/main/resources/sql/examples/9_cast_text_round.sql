@@ -184,3 +184,14 @@ SELECT TRUNC(12.987, 2);  -- Результат: 12.98 -- TRUNC(value, ndigits) 
 
 --округление «всегда вверх» - CEIL,  «всегда вниз» - FLOOR.
 select CEIL(12.4) as ceil, floor(12.6) as floor
+
+-- =============================================================================
+-- 7. REGEXP_REPLACE flags
+-- =============================================================================
+-- DOCS: https://postgrespro.ru/docs/postgresql/17/functions-matching
+--g   global — заменить все совпадения
+--i   case-insensitive — игнорировать регистр
+--c   case-sensitive — учитывать регистр (по умолчанию)
+--m   multiline   — ^ и $ привязываются к началу/концу строк (а не всего текста)
+--n   newline-sensitive — точка (.) не совпадает с \n
+--p   partial newline-sensitive — как n, но ^ и $ также работают с \n
