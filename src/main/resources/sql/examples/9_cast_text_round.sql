@@ -72,10 +72,10 @@ SELECT
     -- Совпадает ли строка с шаблоном (число)
     raw_value ~ '^\d+$' AS is_integer,
     -- Замена по регулярке: удалить всё, кроме цифр
-    REGEXP_REPLACE(raw_value, '\D', '', 'g') AS digits_only, --TODO: пустые аргументы
+    REGEXP_REPLACE(raw_value, '\D', '', 'g') AS digits_only,
     -- Извлечь email (пример)
-    NULLIF(REGEXP_SUBSTR('ivan@example.com', '\w+@\w+\.\w+'), '') AS email, --TODO: пустые аргументы
-    NULLIF(REGEXP_SUBSTR('ivan@exampl', '\w+@\w+\.\w+'), '') AS email2 --TODO: пустые аргументы
+    NULLIF(REGEXP_SUBSTR('ivan@example.com', '\w+@\w+\.\w+'), '') AS email,
+    NULLIF(REGEXP_SUBSTR('ivan@exampl', '\w+@\w+\.\w+'), 'some') AS email2
 FROM demo_data;
 
 -- =============================================================================
@@ -142,7 +142,7 @@ WHERE raw_value LIKE '{"name":%';
 -- 4.1. Извлечь число из строки и привести
 SELECT
     raw_value,
-    NULLIF(REGEXP_REPLACE(raw_value, '\D', '', 'g'), '')::INTEGER AS extracted_number
+    NULLIF(REGEXP_REPLACE(raw_value, 'aaa', '', 'g'), '')::INTEGER AS extracted_number
 FROM demo_data
 WHERE raw_value = '42abc';
 

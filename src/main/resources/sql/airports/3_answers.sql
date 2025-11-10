@@ -85,11 +85,15 @@ limit 10;
 select * from bookings b
 order by b.total_amount
 limit 1;
---13** самое дорогое бронирование
-select b.book_ref, b.book_date, MAX(b.total_amount) as max_amount
+--13** топ-10 самых дорогих бронирований c HAVING
+select b.book_ref, b.book_date, b.total_amount
 from bookings b
-group by b.book_ref, b.book_date
-having b.total_amount = max_amount --TODO: доделать с HAVING
+group by b.book_ref, b.total_amount
+having b.total_amount >=
+	(select b.total_amount from bookings b
+	 order by b.total_amount DESC
+	 offset 9 limit 1)
+order by b.total_amount desc;
 
 
 --14. Сколько билетов было продано ежедневно за последнюю неделю?
