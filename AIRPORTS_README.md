@@ -67,3 +67,20 @@
 4. Ждём выполнения скрипта. В конце увидим просто ожидание следующей команды "C:\Program Files\PostgreSQL\17\bin>"
 5. По умолчанию в DBeaver отображается только одна БД. 
 Надо в настройках соединения включить отображение всех БД.
+-------------------
+### Для развёртывания базы в Docker контейнере выполнить 2 команды:
+* `docker run --name pg-airports -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e 
+POSTGRES_DB=postgres -d postgres:17`
+
+где 
+* `pg-airports` - имя контейнера, 
+* `5432:5432` - проброс портов, 
+* `postgres:17` - имя образа и его версия
+* `-e...` - переменные 
+
+`docker exec -i pg-airports psql -U postgres -d postgres < "С:\demo\demo-20250901-3m.sql"`
+
+где 
+* `-U postgres` - пользователь, от чьего имени выполняется, 
+* `-d postgres` - БД, откуда выполняется запрос
+* далее идёт полный путь к SQL файлу.
