@@ -6,8 +6,9 @@ CREATE OR REPLACE FUNCTION transfer_money(
 ) RETURNS VOID AS $$
 BEGIN
     -- Проверка, что у отправителя достаточно средств
-    IF (SELECT balance FROM accounts WHERE id = from_acc_id FOR UPDATE) < amount THEN
-        RAISE EXCEPTION 'Insufficient funds for account %', from_acc_id;
+    IF (SELECT balance FROM accounts WHERE id = from_acc_id FOR UPDATE)
+			< amount
+    THEN RAISE EXCEPTION 'Insufficient funds for account %', from_acc_id; --TODO: решить проблему с зависанием
     END IF;
 
     -- Выполняем перевод
@@ -23,7 +24,7 @@ $$ LANGUAGE plpgsql;
 -------------------------------------------------------------------------------------
 -- Запускаем транзакцию
 BEGIN;
-SELECT transfer_money(1,2,20);
+SELECT transfer_money(1,2,100);
 COMMIT;
 -- Смотрим результат
 select * from accounts a

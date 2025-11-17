@@ -33,10 +33,10 @@ SELECT * FROM accounts;
 BEGIN;
 
 -- Попытка перевести больше, чем есть
-UPDATE accounts SET balance = balance - 900 WHERE name = 'Bob';
+UPDATE accounts SET balance = balance - 1900 WHERE name = 'Bob';
 
 -- Увеличиваем баланс Alice
-UPDATE accounts SET balance = balance + 900 WHERE name = 'Alice';
+UPDATE accounts SET balance = balance + 1900 WHERE name = 'Alice';
 
 -- Проверим промежуточное состояние
 SELECT * FROM accounts;
