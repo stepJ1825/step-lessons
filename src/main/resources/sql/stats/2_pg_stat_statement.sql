@@ -18,7 +18,6 @@ CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
 -- SELECT pg_reload_conf();
 
 -- Проверка установки расширения
-SELECT '=== СТАТУС РАСШИРЕНИЯ ===' AS section;
 SELECT
     extname AS "Имя расширения",
     extversion AS "Версия",

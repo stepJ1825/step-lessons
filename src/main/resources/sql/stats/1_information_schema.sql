@@ -8,7 +8,7 @@ SELECT
     table_type,
     table_schema
 FROM information_schema.tables
-WHERE table_schema = 'public'
+WHERE table_schema = 'bookings'
 ORDER BY table_type, table_name;
 
 -- Только базовые таблицы
@@ -21,7 +21,7 @@ ORDER BY table_name;
 -- Только представления (views)
 SELECT table_name
 FROM information_schema.views
-WHERE table_schema = 'public'
+WHERE table_schema = 'bookings'
 ORDER BY table_name;
 
 -- =============================================================
@@ -39,10 +39,10 @@ SELECT
     is_nullable,
     column_default
 FROM information_schema.columns
-WHERE table_schema = 'public'
+WHERE table_schema = 'bookings'
 ORDER BY table_name, ordinal_position;
 
--- Детальная информация о столбцах конкретной таблицы (пример для таблицы employees)
+-- Детальная информация о столбцах конкретной таблицы (пример для таблицы airplanes_data)
 SELECT
     column_name AS "Имя столбца",
     data_type AS "Тип данных",
@@ -52,8 +52,8 @@ SELECT
     is_nullable AS "NULL?",
     COALESCE(column_default, '') AS "Значение по умолчанию"
 FROM information_schema.columns
-WHERE table_name = 'employees'
-  AND table_schema = 'public'
+WHERE table_name = 'airplanes_data'
+  AND table_schema = 'bookings'
 ORDER BY ordinal_position;
 
 -- =============================================================
@@ -69,7 +69,7 @@ FROM information_schema.table_constraints tc
 JOIN information_schema.key_column_usage kcu
   ON tc.constraint_name = kcu.constraint_name
 WHERE tc.constraint_type = 'PRIMARY KEY'
-  AND tc.table_schema = 'public'
+  AND tc.table_schema = 'bookings'
 ORDER BY tc.table_name, kcu.ordinal_position;
 
 -- Внешние ключи
@@ -85,7 +85,7 @@ JOIN information_schema.key_column_usage kcu
 JOIN information_schema.constraint_column_usage ccu
   ON tc.constraint_name = ccu.constraint_name
 WHERE tc.constraint_type = 'FOREIGN KEY'
-  AND tc.table_schema = 'public'
+  AND tc.table_schema = 'bookings'
 ORDER BY tc.table_name, kcu.ordinal_position;
 
 -- CHECK ограничения
@@ -96,7 +96,7 @@ SELECT
 FROM information_schema.table_constraints tc
 JOIN information_schema.check_constraints cc
   ON tc.constraint_name = cc.constraint_name
-WHERE tc.table_schema = 'public'
+WHERE tc.table_schema = 'bookings'
 ORDER BY tc.table_name, tc.constraint_name;
 
 -- =============================================================
@@ -111,7 +111,7 @@ SELECT
     character_maximum_length AS "Макс. длина",
     numeric_precision AS "Точность"
 FROM information_schema.routines
-WHERE routine_schema = 'public'
+WHERE routine_schema = 'bookings'
 ORDER BY routine_type, routine_name;
 
 -- Параметры функций
@@ -122,7 +122,7 @@ SELECT
     data_type AS "Тип данных",
     character_maximum_length AS "Макс. длина"
 FROM information_schema.parameters
-WHERE specific_schema = 'public'
+WHERE specific_schema = 'bookings'
 ORDER BY specific_name, ordinal_position;
 
 -- =============================================================
@@ -136,7 +136,7 @@ SELECT
     event_object_table AS "Таблица",
     action_statement AS "Действие",
     action_timing AS "Время выполнения"
-FROM information_schema.triggers
+FROM postgres.information_schema.triggers
 WHERE trigger_schema = 'public'
 ORDER BY event_object_table, trigger_name;
 
@@ -151,7 +151,7 @@ SELECT
     privilege_type AS "Привилегия",
     is_grantable AS "С возможностью передачи"
 FROM information_schema.role_table_grants
-WHERE table_schema = 'public'
+WHERE table_schema = 'bookings'
 ORDER BY table_name, grantee, privilege_type;
 
 -- Права на столбцы
@@ -161,7 +161,7 @@ SELECT
     grantee AS "Пользователь/Роль",
     privilege_type AS "Привилегия"
 FROM information_schema.role_column_grants
-WHERE table_schema = 'public'
+WHERE table_schema = 'bookings'
 ORDER BY table_name, column_name, grantee;
 
 -- =============================================================
@@ -206,7 +206,7 @@ WITH table_info AS (
         SELECT kcu.table_name, kcu.column_name, tc.constraint_type, tc.constraint_name
         FROM information_schema.table_constraints tc
         JOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name
-        WHERE tc.constraint_schema = 'public'
+        WHERE tc.constraint_schema = 'bookings'
     ) tc ON t.table_name = tc.table_name AND c.column_name = tc.column_name
     LEFT JOIN (
         SELECT
@@ -218,10 +218,10 @@ WITH table_info AS (
         JOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name
         JOIN information_schema.constraint_column_usage ccu ON tc.constraint_name = ccu.constraint_name
         WHERE tc.constraint_type = 'FOREIGN KEY'
-          AND tc.constraint_schema = 'public'
+          AND tc.constraint_schema = 'bookings'
     ) fk ON t.table_name = fk.table_name AND c.column_name = fk.column_name
-    WHERE t.table_schema = 'public'
-      AND t.table_name = 'employees'
+    WHERE t.table_schema = 'bookings'
+      AND t.table_name = 'flights'
 )
 SELECT
     column_name AS "Столбец",
@@ -235,38 +235,37 @@ FROM table_info
 ORDER BY column_name;
 
 -- Поиск объектов по ключевому слову
-SELECT '=== ПОИСК ОБЪЕКТОВ ПО КЛЮЧЕВОМУ СЛОВУ "user" ===' AS section;
 SELECT
     'TABLE' AS object_type,
     table_name AS object_name,
     '' AS additional_info
 FROM information_schema.tables
-WHERE table_name LIKE '%user%'
-  AND table_schema = 'public'
+WHERE table_name LIKE '%air%'
+  AND table_schema = 'bookings'
 UNION ALL
 SELECT
     'VIEW',
     table_name,
     ''
 FROM information_schema.views
-WHERE table_name LIKE '%user%'
-  AND table_schema = 'public'
+WHERE table_name LIKE '%air%'
+  AND table_schema = 'bookings'
 UNION ALL
 SELECT
     'COLUMN',
     column_name || ' in ' || table_name,
     data_type
 FROM information_schema.columns
-WHERE column_name LIKE '%user%'
-  AND table_schema = 'public'
+WHERE column_name LIKE '%air%'
+  AND table_schema = 'bookings'
 UNION ALL
 SELECT
     'ROUTINE',
     routine_name,
     routine_type || ' -> ' || data_type
 FROM information_schema.routines
-WHERE routine_name LIKE '%user%'
-  AND routine_schema = 'public'
+WHERE routine_name LIKE '%air%'
+  AND routine_schema = 'bookings'
 ORDER BY object_type, object_name;
 
 -- =============================================================
@@ -278,7 +277,7 @@ SELECT
     data_type AS "Тип данных",
     COUNT(*) AS "Количество использований"
 FROM information_schema.columns
-WHERE table_schema = 'public'
+WHERE table_schema = 'bookings'
 GROUP BY data_type
 ORDER BY COUNT(*) DESC;
 
