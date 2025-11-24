@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_table
+      author: alexei
+      changes:
+        - sqlFile:
+            path: db/migration/liquibase-yaml-sql/001_create_table.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: 002_init_table
+      author: alexei
+      changes:
+        - sqlFile:
+            path: db/migration/liquibase-yaml-sql/002_init_table.sql
+            relativeToChangelogFile: true
+            dbms: postgresql
+            splitStatements: false

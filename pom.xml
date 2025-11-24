@@ -55,6 +55,26 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>2.18.2</version>
         </dependency>
+
+        <!-- Драйвер БД -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.2</version>
+        </dependency>
+        <!-- Flyway -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>10.17.0</version>
+        </dependency>
+        <!-- Liquibase Core -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.31.1</version>
+        </dependency>
+
     </dependencies>
 
 </project>
