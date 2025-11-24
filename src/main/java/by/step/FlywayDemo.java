@@ -10,13 +10,15 @@ public class FlywayDemo {
     public static void main(String[] args) {
 
         //Проверка соединения с БД (в случае ошибок)
-        checkConnection();
+//        checkConnection();
 
         // Настройка Flyway
         Flyway flyway = Flyway.configure()
-                              .dataSource("jdbc:postgresql://localhost:5430/postgres", "postgres", "postgres")
-                              .locations("classpath:db/migration/flyway")
-                              .load();
+//                .baselineOnMigrate(true)
+                .baselineVersion("V1")
+                .dataSource("jdbc:postgresql://localhost:5432/postgres", "postgres", "")
+                .locations("classpath:db/migration/flyway")
+                .load();
         // Запуск миграций
         flyway.migrate();
 

@@ -1,7 +1,0 @@
-1.Actors и Directors - это же одно и то же. Классы полностью совпадают.
-Плюс лучше называть в единственном числе Actor и Director.
-А ещё можно сделать внутри Movie:
-    private List<Person> actors;
-    private List<Person> directors;
-2.Тесты достаточно было сделать на service классы.
-В остальном всё ОК.
