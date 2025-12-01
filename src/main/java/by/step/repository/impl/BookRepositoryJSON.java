@@ -22,7 +22,7 @@ public class BookRepositoryJSON implements BookRepository {
     @Override
     public List<Book> getAllBooks() {
         try {
-            Thread.sleep(5000L);
+            Thread.sleep(1L);
             return newMapper().readValue(new File(DATA),
                     new TypeReference<>() {
                     });

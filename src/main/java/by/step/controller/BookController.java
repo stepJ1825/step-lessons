@@ -19,15 +19,18 @@ public class BookController {
     // READ all
     @GetMapping
     public List<Book> getAllBooks() {
+//        List<Book> allBooks = bookService.getAllBooks();
+//        allBooks.forEach(book -> bookService.removeBook(book.getId()));
         return bookService.getAllBooks();
     }
 
     // READ by ID
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Integer id) {
-        Book byId = bookService.findById(id);
-        return byId != null ? ResponseEntity.ok(byId) :
-               ResponseEntity.notFound().build();
+        throw new RuntimeException();
+//        Book byId = bookService.findById(id);
+//        return byId != null ? ResponseEntity.ok(byId) :
+//               ResponseEntity.notFound().build();
     }
 
     // CREATE

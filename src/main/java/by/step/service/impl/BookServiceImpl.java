@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository repository;
-    private final BookCache cache;
+//    private final BookCache cache;
 
     public BookServiceImpl() {
         repository = new BookRepositoryJSON();
-        cache = new BookCache();
+//        cache = new BookCache();
     }
 
     @Override
@@ -47,14 +47,14 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getAllBooks() {
-        List<Book> booksFromCache = cache.getAllBooks();
-        if (!booksFromCache.isEmpty()) {
-            return booksFromCache;
-        } else {
+//        List<Book> booksFromCache = cache.getAllBooks();
+//        if (!booksFromCache.isEmpty()) {
+//            return booksFromCache;
+//        } else {
             List<Book> booksFromRepository = repository.getAllBooks();
-            cache.fillCache(booksFromRepository);
+//            cache.fillCache(booksFromRepository);
             return booksFromRepository;
-        }
+//        }
 
     }
 
