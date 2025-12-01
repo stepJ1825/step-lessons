@@ -5,22 +5,22 @@ import by.step.service.AuthorService;
 import by.step.service.BookService;
 import by.step.service.impl.AuthorServiceImpl;
 import by.step.service.impl.BookServiceImpl;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Scanner;
 
+@RestController
+@RequestMapping("authors")
+@RequiredArgsConstructor
 public class AuthorController {
 
     private final AuthorService authorService;
-    private final Scanner scanner;
 
     public AuthorController() {
         this.authorService = new AuthorServiceImpl();
-        this.scanner = new Scanner(System.in);
     }
 
-    public void start(){
-        List<Author> authors = authorService.getAuthors();
-        System.out.println(authors);
-    }
 }

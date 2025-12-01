@@ -1,21 +1,14 @@
 package by.step.controller;
 
-import java.util.Scanner;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping("main")
 public class MainController {
-    public void start() {
-        boolean running = true;
-
-        while (running) {
-            System.out.println("print book or author");
-            Scanner scanner = new Scanner(System.in);
-            String next = scanner.nextLine().trim();
-
-            switch (next) {
-                case "book", "b" -> new BookController().start();
-                case "author", "a" -> new AuthorController().start();
-                case "0", "exit" -> running = false;
-            }
-        }
+    @GetMapping("greeting")
+    public String hello() {
+        return "Hello from spring boot application";
     }
 }
