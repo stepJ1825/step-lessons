@@ -1,57 +1,54 @@
 package by.step.controller;
 
+import by.step.dto.BookForm;
+import by.step.model.Author;
 import by.step.model.Book;
+import by.step.service.AuthorService;
 import by.step.service.BookService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("books")
+@Controller
 @RequiredArgsConstructor
 public class BookController {
 
     private final BookService bookService;
+    private final AuthorService authorService;
 
-    // READ all
-    @GetMapping
-    public List<Book> getAllBooks() {
-//        List<Book> allBooks = bookService.getAllBooks();
-//        allBooks.forEach(book -> bookService.removeBook(book.getId()));
-        return bookService.getAllBooks();
+    // Показывает HTML-страницу со списком книг
+    @GetMapping("/books")
+    public String booksPage(Model model) {
+        model.addAttribute("books", bookService.getAllBooks());
+        return "books"; // имя шаблона: books.html
     }
 
-    // READ by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable Integer id) {
-        throw new RuntimeException();
-//        Book byId = bookService.findById(id);
-//        return byId != null ? ResponseEntity.ok(byId) :
-//               ResponseEntity.notFound().build();
-    }
-
-    // CREATE
-    @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody Book book) {
+    // Обрабатывает добавление новой книги (из формы)
+    @PostMapping("/books/add")
+    public String addBook(@RequestParam String title, @RequestParam String author) {
+        Book book = new Book();
+        book.setTitle(title);
+        book.setAuthor(Author.builder().firstName(author).build());
         bookService.addBook(book);
-        return ResponseEntity.status(HttpStatus.CREATED).body(book);
+        return "redirect:/books"; // перенаправляет обратно на список
     }
 
-    // UPDATE //TODO
-    //    @PutMapping("/{id}")
-    //    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book bookDetails) {
-    //        Book updatedBook = bookService.updateBook(id, bookDetails);
-    //        return ResponseEntity.ok(updatedBook);
-    //    }
+    // Показ формы с выпадающими списками
+    @GetMapping("/books/create")
+    public String showCreateBookForm(Model model) {
+        model.addAttribute("bookForm", new BookForm());
+        model.addAttribute("authors", authorService.getAuthors());
+        return "book-form";
+    }
 
-    // DELETE
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable Integer id) {
+    // Обрабатывает удаление книги
+    @PostMapping("/books/delete/{id}")
+    public String deleteBook(@PathVariable Integer id) {
         bookService.removeBook(id);
-        return ResponseEntity.noContent().build();
+        return "redirect:/books";
     }
-
 }

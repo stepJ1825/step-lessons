@@ -1,14 +1,12 @@
 package by.step.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("main")
+@Controller
 public class MainController {
-    @GetMapping("greeting")
-    public String hello() {
-        return "Hello from spring boot application";
+    @GetMapping()
+    public String indexPage() {
+        return "html-demo";
     }
 }

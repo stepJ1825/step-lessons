@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Демо HTML-тегов — Книжная библиотека</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background: #f9f9f9; }
+        header, footer { background: #2c3e50; color: white; padding: 15px; text-align: center; }
+        nav { background: #34495e; padding: 10px; }
+        nav a { color: white; margin: 0 10px; text-decoration: none; }
+        nav a:hover { text-decoration: underline; }
+        main { margin: 20px 0; }
+        section { background: white; margin: 20px 0; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h2 { color: #2980b9; border-bottom: 2px solid #eee; padding-bottom: 8px; }
+        ul, ol { margin: 10px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #ecf0f1; }
+        blockquote { border-left: 4px solid #3498db; padding-left: 15px; color: #555; margin: 15px 0; }
+        .highlight { background-color: #fff3cd; padding: 4px 6px; border-radius: 4px; }
+        .tooltip { position: relative; cursor: help; }
+        .tooltip .tooltiptext {
+            visibility: hidden; position: absolute; bottom: 125%; left: 50%;
+            transform: translateX(-50%); background: #333; color: #fff;
+            padding: 5px; border-radius: 4px; font-size: 12px; white-space: nowrap;
+        }
+        .tooltip:hover .tooltiptext { visibility: visible; }
+        abbr { border-bottom: 1px dotted #000; cursor: help; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📚 Демонстрация HTML-тегов в проекте «Книжная библиотека»</h1>
+</header>
+
+<nav>
+    <a href="/books">Главная (список книг)</a>
+    <a href="/books/demo">HTML Демо</a>
+    <a href="https://www.w3schools.com/html/default.asp" target="_blank">Справка по HTML</a>
+</nav>
+
+<main>
+
+    <!-- 1. Структурные теги -->
+    <section>
+        <h2>1. Структура документа</h2>
+        <p>Теги <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;footer&gt;</code> используются для логической разметки страницы.</p>
+        <p>Пример раздела: этот блок — <code>&lt;section&gt;</code> внутри <code>&lt;main&gt;</code>.</p>
+    </section>
+
+    <!-- 2. Текстовое форматирование -->
+    <section>
+        <h2>2. Текст и форматирование</h2>
+        <p>Обычный абзац с <strong>жирным</strong>, <em>курсивом</em>, <u>подчёркнутым</u>, <del>зачёркнутым</del> и <mark>выделенным</mark> текстом.</p>
+        <p>Аббревиатура: <abbr title="Гипертекстовый язык разметки">HTML</abbr>.</p>
+        <p>Цитата: <q>Книга — лучший друг человека</q>.</p>
+        <blockquote>
+            <p>«Чтение — вот лучшее учение. Следуя за автором, можно развить в себе способность мыслить, размышлять, анализировать.»</p>
+            <footer>— А. П. Чехов</footer>
+        </blockquote>
+        <p>Код: Используйте <code>bookService.getAllBooks()</code> для получения списка.</p>
+        <p>Переменная: <var>bookId</var> — идентификатор книги.</p>
+        <p>Сокращение: <samp>HTTP 404</samp> — книга не найдена.</p>
+        <p>Клавиша: Нажмите <kbd>Ctrl + R</kbd>, чтобы обновить список.</p>
+    </section>
+
+    <!-- 3. Списки -->
+    <section>
+        <h2>3. Списки</h2>
+        <h3>Ненумерованный список (ul):</h3>
+        <ul>
+            <li>«Война и мир»</li>
+            <li>«Преступление и наказание»</li>
+            <li>«Мастер и Маргарита»</li>
+        </ul>
+
+        <h3>Нумерованный список (ol):</h3>
+        <ol>
+            <li>Выбрать книгу</li>
+            <li>Прочитать аннотацию</li>
+            <li>Взять напрокат</li>
+        </ol>
+
+        <h3>Список описаний (dl):</h3>
+        <dl>
+            <dt>ISBN</dt>
+            <dd>Уникальный идентификатор книги</dd>
+            <dt>Автор</dt>
+            <dd>Создатель литературного произведения</dd>
+        </dl>
+    </section>
+
+    <!-- 4. Таблицы -->
+    <section>
+        <h2>4. Таблицы</h2>
+        <table>
+            <caption>Список доступных книг</caption>
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Название</th>
+                <th scope="col">Автор</th>
+                <th scope="col">Год</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>1984</td>
+                <td>Джордж Оруэлл</td>
+                <td>1949</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Гарри Поттер</td>
+                <td>Дж. К. Роулинг</td>
+                <td>1997</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 5. Формы -->
+    <section>
+        <h2>5. Формы и поля ввода</h2>
+        <form method="post">
+            <p>
+                <label for="title">Название книги:</label><br />
+                <input type="text" id="title" name="title" placeholder="Введите название" required />
+            </p>
+            <p>
+                <label for="author">Автор:</label><br />
+                <input type="text" id="author" name="author" placeholder="ФИО автора" />
+            </p>
+            <p>
+                <label for="year">Год издания:</label><br />
+                <input type="number" id="year" name="year" min="1000" max="2025" />
+            </p>
+            <p>
+                <label>Жанр:</label><br />
+                <input type="radio" id="fiction" name="genre" value="fiction" checked />
+                <label for="fiction">Художественная</label><br />
+                <input type="radio" id="nonfiction" name="genre" value="nonfiction" />
+                <label for="nonfiction">Научно-популярная</label>
+            </p>
+            <p>
+                <label>Теги:</label><br />
+                <input type="checkbox" id="classic" name="tags" value="classic" />
+                <label for="classic">Классика</label><br />
+                <input type="checkbox" id="bestseller" name="tags" value="bestseller" />
+                <label for="bestseller">Бестселлер</label>
+            </p>
+            <p>
+                <label for="summary">Аннотация:</label><br />
+                <textarea id="summary" name="summary" rows="4" cols="50" placeholder="Краткое описание..."></textarea>
+            </p>
+            <p>
+                <label for="cover">Обложка (файл):</label><br />
+                <input type="file" id="cover" name="cover" accept="image/*" />
+            </p>
+            <p>
+                <button type="submit">Добавить книгу</button>
+                <button type="reset">Очистить</button>
+            </p>
+        </form>
+    </section>
+
+    <!-- 6. Медиа -->
+    <section>
+        <h2>6. Медиа</h2>
+        <p>Обложка книги:</p>
+        <figure>
+            <img src="https://cdn.eksmo.ru/v2/ITD000000001222810/COVER/cover1__w820.jpg" alt="Обложка книги '1984'" width="150" />
+            <figcaption>Рис. 1 — Обложка книги «1984»</figcaption>
+        </figure>
+
+<!--        https://www.w3schools.com/html/html5_audio.asp - описание и пример внедрения аудио-->
+        <p>Аудиофрагмент (пример):</p>
+        <audio controls>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            Ваш браузер не поддерживает аудио.
+        </audio>
+
+<!--        https://www.w3schools.com/html/html5_video.asp - описание и пример внедрения видео-->
+        <p>Видеообзор (пример):</p>
+        <video width="320" height="240" controls>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+    </section>
+
+    <!-- 7. Интерактив и другие теги -->
+    <section>
+        <h2>7. Интерактив и прочее</h2>
+        <p>Подробности о книге (сворачиваемый блок):</p>
+        <details>
+            <summary>📖 «Мастер и Маргарита» — подробности</summary>
+            <p>Автор: М. А. Булгаков. Написана в 1928–1940 гг. Сатирический роман с элементами фантастики.</p>
+        </details>
+
+        <p>Подсказка с помощью <code>&lt;span&gt;</code> и CSS:</p>
+        <p>Статус книги:
+            <span class="tooltip">
+            В наличии
+            <span class="tooltiptext">Книга доступна для выдачи</span>
+        </span>
+        </p>
+
+        <p>Прогресс чтения:</p>
+        <progress value="70" max="100">70%</progress>
+
+        <p>Подчёркнутый текст с семантикой: <ins>Новое поступление!</ins></p>
+        <p>Удалённый текст: <del>Временно недоступно</del></p>
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2025 Книжная библиотека. Все права защищены.</p>
+</footer>
+
+</body>
+</html>

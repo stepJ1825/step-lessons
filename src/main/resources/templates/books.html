@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Книги</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        form { margin-top: 20px; }
+        input { padding: 6px; margin: 4px; }
+        button { padding: 6px 12px; }
+    </style>
+</head>
+<body>
+
+<h1>Список книг</h1>
+
+<!-- Форма добавления новой книги -->
+<form method="post" th:action="@{/books/add}">
+    <label>Название: <input type="text" name="title" required/></label>
+    <label>Автор: <input type="text" name="author" required/></label>
+    <button type="submit">Добавить книгу</button>
+</form>
+
+<!-- Таблица книг -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Автор</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.id}">1</td>
+        <td th:text="${book.title}">Название</td>
+        <td th:text="${book.author}">Автор</td>
+        <td>
+            <form method="post" th:action="@{/books/delete/{id}(id=${book.id})}" style="display:inline;">
+                <button type="submit" onclick="return confirm('Удалить?')">Удалить</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
