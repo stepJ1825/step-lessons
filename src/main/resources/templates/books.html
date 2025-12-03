@@ -13,8 +13,8 @@
         button { padding: 6px 12px; }
     </style>
 </head>
-<body>
 
+<body>
 <h1>Список книг</h1>
 
 <!-- Форма добавления новой книги -->
@@ -38,7 +38,7 @@
     <tr th:each="book : ${books}">
         <td th:text="${book.id}">1</td>
         <td th:text="${book.title}">Название</td>
-        <td th:text="${book.author}">Автор</td>
+        <td th:text="${book.author.firstName} + ${book.author.surname}">Автор</td>
         <td>
             <form method="post" th:action="@{/books/delete/{id}(id=${book.id})}" style="display:inline;">
                 <button type="submit" onclick="return confirm('Удалить?')">Удалить</button>
