@@ -28,7 +28,7 @@ public class JsonAndXmlExampleController {
         return bookService.getAllBooks();
     }
 
-    @GetMapping("/example/book")
+    @GetMapping(value = "/example/book", produces = {"application/json"})
     public Book getExampleBook() {
         Book book = new Book();
         book.setId(1);
@@ -39,7 +39,7 @@ public class JsonAndXmlExampleController {
         return book;
     }
 
-    @GetMapping("/example/book-dto")
+    @GetMapping(value = "/example/book-dto", produces = {"application/json"})
     public BookWithTagsDto getExampleBookDto() {
         return BookWithTagsDto.builder()
                               .title("1984")
@@ -55,7 +55,8 @@ public class JsonAndXmlExampleController {
         System.out.println(bookFullDto);
     }
 
-    @GetMapping(value = "/example/book/xml", produces = {"application/xml", "application/json"})
+    @GetMapping(value = "/example/book/xml",
+            produces = {"application/xml", "application/json"})
     public BookXMLDto getExampleBookXML() {
         BookXMLDto book = new BookXMLDto();
         book.setId(42L);

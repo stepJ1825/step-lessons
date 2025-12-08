@@ -27,10 +27,19 @@ public class BookRestController {
     // READ by ID
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Integer id) {
-        throw new RuntimeException();
-//        Book byId = bookService.findById(id);
-//        return byId != null ? ResponseEntity.ok(byId) :
-//               ResponseEntity.notFound().build();
+//        throw new RuntimeException();
+        Book byId = bookService.findById(id);
+        return byId != null ? ResponseEntity.ok(byId) :
+               ResponseEntity.notFound().build();
+    }
+
+    // READ by ID
+    @GetMapping("/id")
+    public ResponseEntity<Book> getBookByIdInParam(@RequestParam Integer id) {
+//        throw new RuntimeException();
+        Book byId = bookService.findById(id);
+        return byId != null ? ResponseEntity.ok(byId) :
+                ResponseEntity.notFound().build();
     }
 
     // CREATE
