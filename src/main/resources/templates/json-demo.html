@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Синтаксис JSON — Пример на книге</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; background: #f8f9fa; }
+        h1, h2 { color: #2c3e50; }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .comment { color: #75715e; font-style: italic; }
+        .json-key { color: #f92672; }
+        .json-string { color: #a6e22e; }
+        .json-number { color: #ae81ff; }
+        .json-boolean { color: #66d9ef; }
+        .json-null { color: #fd971f; }
+        .explanation { background: #e9f7ef; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background: #ecf0f1; }
+    </style>
+</head>
+<body>
+
+<h1>📚 Синтаксис JSON на примере книги</h1>
+
+<p>JSON (JavaScript Object Notation) — лёгкий формат обмена данными. Он легко читается людьми и машинами.</p>
+
+<h2>Пример JSON-объекта «Книга»</h2>
+
+<pre><code>{
+  "<span class="json-key">id</span>": <span class="json-number">1</span>,
+  "<span class="json-key">title</span>": "<span class="json-string">1984</span>",
+  "<span class="json-key">author</span>": "<span class="json-string">Джордж Оруэлл</span>",
+  "<span class="json-key">genre</span>": "<span class="json-string">Антиутопия</span>",
+  "<span class="json-key">year</span>": <span class="json-number">1949</span>,
+  "<span class="json-key">available</span>": <span class="json-boolean">true</span>,
+  "<span class="json-key">tags</span>": [
+    "<span class="json-string">Классика</span>",
+    "<span class="json-string">Политика</span>",
+    "<span class="json-string">Философия</span>"
+  ]
+}</code></pre>
+
+<div class="explanation">
+    <p><strong>💡 Пояснение синтаксиса JSON:</strong></p>
+    <ul>
+        <li>Данные представлены в виде <strong>пар «ключ: значение»</strong>.</li>
+        <li>Ключи всегда — <strong>строки в двойных кавычках</strong>.</li>
+        <li>Значения могут быть: строка, число, логическое (`true`/`false`), `null`, массив (`[]`) или объект (`{}`).</li>
+        <li>Элементы разделяются <strong>запятыми</strong>, но запятая не ставится после последнего элемента.</li>
+        <li>Весь объект заключён в <strong>фигурные скобки</strong> `{}`.</li>
+        <li>Массив — в <strong>квадратные скобки</strong> `[]`.</li>
+        <li><strong>Комментарии в JSON запрещены!</strong></li>
+    </ul>
+</div>
+
+<h2>Сравнение: Java vs JSON</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Java (Book.class)</th>
+        <th>JSON</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><code>private Long id;</code></td>
+        <td><code>"id": 1</code></td>
+    </tr>
+    <tr>
+        <td><code>private String title;</code></td>
+        <td><code>"title": "1984"</code></td>
+    </tr>
+    <tr>
+        <td><code>private List&lt;String&gt; tags;</code></td>
+        <td><code>"tags": ["Классика", "Политика"]</code></td>
+    </tr>
+    <tr>
+        <td><code>private boolean available;</code></td>
+        <td><code>"available": true</code></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Как получить этот JSON?</h2>
+<p>Откройте в браузере или через curl:</p>
+<p><code>GET http://localhost:8080/books/example</code></p>
+<p>Этот эндпоинт возвращает реальный JSON, сгенерированный Spring Boot с помощью Jackson.</p>
+
+<p><a href="/books">&larr; Назад к списку книг</a></p>
+
+</body>
+</html>

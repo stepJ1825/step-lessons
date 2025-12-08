@@ -1,0 +1,38 @@
+{
+  "id": 42,
+  "title": "Мастер и Маргарита",
+  "author": "Михаил Булгаков",
+  "year": 1967,
+  "available": true,
+  "rating": 4.9,
+  "isbn": null,
+
+  "tags": ["классика", "фэнтези", "сатира", "философия"],
+
+  "publisher": {
+    "name": "АСТ",
+    "country": "Россия",
+    "founded": 1990,
+    "active": true
+  },
+
+  "translations": [
+    {
+      "language": "English",
+      "title": "The Master and Margarita",
+      "translator": "Richard Pevear"
+    },
+    {
+      "language": "Français",
+      "title": "Le Maître et Marguerite",
+      "translator": "Serguei Chotkine"
+    }
+  ],
+
+  "metadata": {
+    "pages": 480,
+    "dimensions": [14.5, 21.0, 2.8],
+    "hasIllustrations": false,
+    "reviews": []
+  }
+}

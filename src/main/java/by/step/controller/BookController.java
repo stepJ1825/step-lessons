@@ -1,6 +1,6 @@
 package by.step.controller;
 
-import by.step.dto.BookForm;
+import by.step.dto.BookWithTagsDto;
 import by.step.model.Author;
 import by.step.model.Book;
 import by.step.service.AuthorService;
@@ -40,7 +40,7 @@ public class BookController {
     // Показ формы с выпадающими списками
     @GetMapping("/books/create")
     public String showCreateBookForm(Model model) {
-        model.addAttribute("bookForm", new BookForm());
+        model.addAttribute("bookForm", BookWithTagsDto.builder().build());
         model.addAttribute("authors", authorService.getAuthors());
         return "book-form";
     }
@@ -50,5 +50,10 @@ public class BookController {
     public String deleteBook(@PathVariable Integer id) {
         bookService.removeBook(id);
         return "redirect:/books";
+    }
+
+    @GetMapping("/books/json-demo")
+    public String jsonDemo() {
+        return "json-demo";
     }
 }
