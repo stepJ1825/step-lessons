@@ -1,12 +1,16 @@
 package by.step.controller;
 
+import by.step.dto.BookFullDto;
 import by.step.model.Book;
 import by.step.service.BookService;
+import by.step.service.JsonSchemaValidator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -15,28 +19,21 @@ import java.util.List;
 public class BookRestController {
 
     private final BookService bookService;
+    private final JsonSchemaValidator jsonSchemaValidator;
+    private final ObjectMapper mapper;
 
     // READ all
-    @GetMapping
-    public List<Book> getAllBooks() {
-//        List<Book> allBooks = bookService.getAllBooks();
-//        allBooks.forEach(book -> bookService.removeBook(book.getId()));
+    @GetMapping(produces = {"application/json"})
+    public List<Book> getAllBooks(@RequestParam(required = false) Integer id) {
+        if(id !=null) {
+            return Collections.singletonList(bookService.findById(id));
+        }
         return bookService.getAllBooks();
     }
 
     // READ by ID
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = {"application/json"})
     public ResponseEntity<Book> getBookById(@PathVariable Integer id) {
-//        throw new RuntimeException();
-        Book byId = bookService.findById(id);
-        return byId != null ? ResponseEntity.ok(byId) :
-               ResponseEntity.notFound().build();
-    }
-
-    // READ by ID
-    @GetMapping("/id")
-    public ResponseEntity<Book> getBookByIdInParam(@RequestParam Integer id) {
-//        throw new RuntimeException();
         Book byId = bookService.findById(id);
         return byId != null ? ResponseEntity.ok(byId) :
                 ResponseEntity.notFound().build();
@@ -47,6 +44,25 @@ public class BookRestController {
     public ResponseEntity<Book> createBook(@RequestBody Book book) {
         bookService.addBook(book);
         return ResponseEntity.status(HttpStatus.CREATED).body(book);
+    }
+
+    // CREATE WITH VALIDATION
+    @PostMapping("/validation")
+    public ResponseEntity<BookFullDto> createBookWithValidation(@RequestBody String rawJson) {
+        // 1. Валидация по JSON Schema
+        jsonSchemaValidator.validate(rawJson);
+
+        // 2. Десериализация в DTO
+        BookFullDto bookFullDto;
+        try {
+            bookFullDto = mapper.readValue(rawJson, BookFullDto.class);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Не удалось преобразовать JSON в BookDto", e);
+        }
+
+        System.err.println(bookFullDto);
+        // 3. Логика сохранения...
+        return ResponseEntity.status(HttpStatus.CREATED).body(bookFullDto);
     }
 
     // UPDATE //TODO

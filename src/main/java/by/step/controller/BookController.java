@@ -8,10 +8,7 @@ import by.step.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -46,7 +43,7 @@ public class BookController {
     }
 
     // Обрабатывает удаление книги
-    @PostMapping("/books/delete/{id}")
+    @DeleteMapping("/books/delete/{id}")
     public String deleteBook(@PathVariable Integer id) {
         bookService.removeBook(id);
         return "redirect:/books";
