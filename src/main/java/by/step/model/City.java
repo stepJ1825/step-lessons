@@ -1,0 +1,24 @@
+package by.step.model;
+
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+public class City {
+    private String name;
+    private int foundationYear;
+    private double square; // может быть null
+    private List<People> peopleList; // массив длинной от 0 до 1_000_000
+
+    @Data
+    public static class People {
+        private String fullname; // проверка регулярным выражением "Имя Фамилия"
+        private Language language; // TODO: подумать как реализовать
+    }
+
+    public static enum Language {
+        RUSSIAN, ENGLISH, BELARUSSIAN;
+    }
+
+}
