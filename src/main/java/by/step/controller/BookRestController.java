@@ -4,6 +4,7 @@ import by.step.dto.BookFullDto;
 import by.step.model.Book;
 import by.step.service.BookService;
 import by.step.service.JsonSchemaValidator;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,7 @@ public class BookRestController {
     public ResponseEntity<Book> getBookById(@PathVariable Integer id) {
         Book byId = bookService.findById(id);
         return byId != null ? ResponseEntity.ok(byId) :
-                ResponseEntity.notFound().build();
+               ResponseEntity.notFound().build();
     }
 
     // CREATE
@@ -48,9 +49,13 @@ public class BookRestController {
 
     // CREATE WITH VALIDATION
     @PostMapping("/validation")
-    public ResponseEntity<BookFullDto> createBookWithValidation(@RequestBody String rawJson) {
+    public ResponseEntity<String> createBookWithValidation(@RequestBody String rawJson) throws JsonProcessingException {
         // 1. Валидация по JSON Schema
-        jsonSchemaValidator.validate(rawJson);
+        try {
+            jsonSchemaValidator.validate(rawJson);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
 
         // 2. Десериализация в DTO
         BookFullDto bookFullDto;
@@ -62,7 +67,7 @@ public class BookRestController {
 
         System.err.println(bookFullDto);
         // 3. Логика сохранения...
-        return ResponseEntity.status(HttpStatus.CREATED).body(bookFullDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.writeValueAsString(bookFullDto));
     }
 
     // UPDATE //TODO
