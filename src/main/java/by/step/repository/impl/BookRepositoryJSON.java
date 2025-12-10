@@ -6,12 +6,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+import lombok.SneakyThrows;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Locale;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BookRepositoryJSON implements BookRepository {
@@ -19,15 +20,17 @@ public class BookRepositoryJSON implements BookRepository {
     private final String DATA = "src\\main\\resources\\books.json";
     private final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
+    private final Map<Integer, Book> cache = new HashMap<>();
+    private LocalDateTime cacheUpdatedTime = LocalDateTime.now();
+
     @Override
     public List<Book> getAllBooks() {
-        try {
-            Thread.sleep(1L);
-            return newMapper().readValue(new File(DATA),
-                    new TypeReference<>() {
-                    });
-        } catch (IOException|InterruptedException e) {
-            throw new RuntimeException(e); //TODO: реализовать функционал при отсутствии файла
+        if (!cache.isEmpty() && (LocalDateTime.now().minusMinutes(5).isBefore(cacheUpdatedTime))) {
+            System.err.println("---   читаем из кэша   ---");
+            return new ArrayList<>(cache.values());
+        } else {
+            System.err.println("---   читаем из JSON хранилища   ---");
+            return getBooksFromRepo();
         }
     }
 
@@ -52,6 +55,7 @@ public class BookRepositoryJSON implements BookRepository {
         book.setId(nextId);
         allBooks.add(book);
         rewriteData(allBooks);
+        getBooksFromRepo(); //для обновления кэша
     }
 
     @Override
@@ -59,18 +63,19 @@ public class BookRepositoryJSON implements BookRepository {
         List<Book> allBooks = getAllBooks();
         allBooks.remove(findById(id));
         rewriteData(allBooks);
+        getBooksFromRepo(); //для обновления кэша
     }
 
     @Override
     public List<Book> findBooksByAuthor(String author) {
         return getAllBooks().stream()
-                .filter(book ->
-                        (book.getAuthor().getFirstName().toUpperCase()
-                                + " "
-                                + book.getAuthor().getSurname().toUpperCase())
-                                .contains(author.toUpperCase())
-                )
-                .toList();
+                            .filter(book ->
+                                    (book.getAuthor().getFirstName().toUpperCase()
+                                     + " "
+                                     + book.getAuthor().getSurname().toUpperCase())
+                                            .contains(author.toUpperCase())
+                            )
+                            .toList();
     }
 
     @Override
@@ -78,8 +83,21 @@ public class BookRepositoryJSON implements BookRepository {
         return getAllBooks()
                 .stream()
                 .filter(book -> book.getYear() < end
-                        && book.getYear() > start)
+                                && book.getYear() > start)
                 .collect(Collectors.toList());
+    }
+
+    @SneakyThrows
+    private List<Book> getBooksFromRepo() {
+        Thread.sleep(3000L);
+        List<Book> booksFromRepo = newMapper().readValue(
+                new File(DATA),
+                new TypeReference<>() {
+                }
+        );
+        booksFromRepo.forEach(book -> cache.put(book.getId(), book));
+        cacheUpdatedTime = LocalDateTime.now();
+        return booksFromRepo;
     }
 
     private void rewriteData(List<Book> books) {
