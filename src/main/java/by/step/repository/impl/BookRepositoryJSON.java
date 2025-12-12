@@ -95,6 +95,7 @@ public class BookRepositoryJSON implements BookRepository {
                 new TypeReference<>() {
                 }
         );
+        cache.clear();
         booksFromRepo.forEach(book -> cache.put(book.getId(), book));
         cacheUpdatedTime = LocalDateTime.now();
         return booksFromRepo;
