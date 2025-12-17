@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "foundationYear": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2025
+    },
+    "square": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5000
+    },
+    "peopleList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "fullname": {
+            "type": "string",
+            "minLength": 1
+          },
+          "language": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": ["fullname", "language"],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "name",
+    "foundationYear"
+  ],
+  "additionalProperties": false
+}
