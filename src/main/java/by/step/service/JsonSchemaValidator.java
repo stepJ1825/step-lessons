@@ -19,7 +19,8 @@ public class JsonSchemaValidator {
 
     @PostConstruct
     public void init() throws IOException {
-        try (InputStream inputStream = getClass().getResourceAsStream("/schema/book-schema.json")) {
+        try (InputStream inputStream = getClass()
+                .getResourceAsStream("/schema/city-schema.json")) {
             if (inputStream == null) {
                 throw new IOException("Файл схемы не найден: /schema/book-schema.json");
             }

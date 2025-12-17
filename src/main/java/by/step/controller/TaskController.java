@@ -1,6 +1,7 @@
 package by.step.controller;
 
 import by.step.dto.BookFullDto;
+import by.step.model.City;
 import by.step.service.BookService;
 import by.step.service.JsonSchemaValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -32,15 +33,15 @@ public class TaskController {
         }
 
         // 2. Десериализация в DTO
-        BookFullDto bookFullDto;        //TODO: Заменить на свой класс
+        City city;        //TODO: Заменить на свой класс
         try {
-            bookFullDto = mapper.readValue(rawJson, BookFullDto.class);
+            city = mapper.readValue(rawJson, City.class);
         } catch (Exception e) {
             throw new IllegalArgumentException("Не удалось преобразовать JSON в BookDto", e);
         }
 
-        System.err.println(bookFullDto);
+        System.err.println(city);
         // 3. Логика сохранения...
-        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.writeValueAsString(bookFullDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.writeValueAsString(city));
     }
 }
