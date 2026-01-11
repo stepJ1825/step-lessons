@@ -18,6 +18,11 @@ public class GreetingServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
+        // Устанавливаем кодировку
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+
         String name = request.getParameter("name");
         if (name == null || name.trim().isEmpty()) {
             name = "Гость";
@@ -36,6 +41,10 @@ public class GreetingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+        // Устанавливаем кодировку и для GET
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         // Поддержка GET (например, прямой заход)
         doPost(request, response);
     }

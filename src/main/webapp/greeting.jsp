@@ -1,26 +1,45 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Приветствие</title>
+    <meta charset="UTF-8">
+    <title>Приветствие</title>
 </head>
 <body>
-<h1>Привет, <c:out value="${userName}" />!</h1>
+<%
+    request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
+
+    String userName = (String) request.getAttribute("userName");
+    if (userName == null) userName = "Гость";
+
+    java.time.LocalDateTime currentDateTime = (java.time.LocalDateTime) request.getAttribute("currentDateTime");
+    List<String> hobbies = (List<String>) request.getAttribute("hobbies");
+%>
+
+<h1>Привет, <%= userName %>!</h1>
 
 <p>Текущее время:
-  <fmt:formatDate value="${currentDateTime}" pattern="dd.MM.yyyy HH:mm:ss" />
+    <% if (currentDateTime != null) { %>
+        <%= currentDateTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")) %>
+    <% } else { %>
+        Не определено
+    <% } %>
 </p>
 
 <ul>
-  <c:forEach var="hobby" items="${hobbies}">
-    <li><c:out value="${hobby}" /></li>
-  </c:forEach>
+    <% if (hobbies != null) {
+        for (String hobby : hobbies) { %>
+            <li><%= hobby %></li>
+    <%   }
+       } else { %>
+        <li>Хобби не указаны</li>
+    <% } %>
 </ul>
 
-<a href="${pageContext.request.contextPath}/index.html">Назад</a>
+<a href="<%= request.getContextPath() %>/index.html">Назад</a>
 </body>
 </html>
