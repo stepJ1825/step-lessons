@@ -18,5 +18,9 @@
 <!--        <servlet-name>MainServlet</servlet-name>-->
 <!--        <url-pattern>/</url-pattern>-->
 <!--    </servlet-mapping>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>RequestHeaderExample</servlet-name>-->
+<!--        <url-pattern>/headers</url-pattern>-->
+<!--    </servlet-mapping>-->
 
 </web-app>

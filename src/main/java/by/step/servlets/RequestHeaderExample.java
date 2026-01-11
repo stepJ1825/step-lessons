@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serial;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -23,6 +24,7 @@ import java.util.ResourceBundle;
 @WebServlet("/headers")
 public class RequestHeaderExample extends HttpServlet {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -121,10 +123,12 @@ public class RequestHeaderExample extends HttpServlet {
 
         String cp = request.getContextPath();
         out.println("<a href=\"" + cp + "/reqheaders.html\">");
-        out.println("<img src=\"" + cp + "/images/code.gif\" height=\"24\" width=\"24\" align=\"right\" border=\"0\" alt=\"view code\">");
+        out.println("<img src=\"" + cp
+                    + "/images/code.gif\" height=\"24\" width=\"24\" align=\"right\" border=\"0\" alt=\"view code\">");
         out.println("</a>");
         out.println("<a href=\"" + cp + "/index.jsp\">");
-        out.println("<img src=\"" + cp + "/images/return.gif\" height=\"24\" width=\"24\" align=\"right\" border=\"0\" alt=\"return\">");
+        out.println("<img src=\"" + cp
+                    + "/images/return.gif\" height=\"24\" width=\"24\" align=\"right\" border=\"0\" alt=\"return\">");
         out.println("</a>");
 
         out.println("<h3>" + HTMLFilter.filter(title) + "</h3>");
