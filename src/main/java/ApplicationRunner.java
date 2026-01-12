@@ -2,6 +2,9 @@ import by.step.pool.ConnectionPool;
 import by.step.pool.Driver;
 import by.step.repository.CompanyRepository;
 import by.step.repository.UserRepository;
+import by.step.service.ServiceA;
+import by.step.service.ServiceB;
+import by.step.service.SomeService;
 import by.step.service.UserService;
 import ioc.Container;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -15,6 +18,9 @@ public class ApplicationRunner {
 //        UserRepository userRepository = new UserRepository(connectionPool);
 //        CompanyRepository companyRepository = new CompanyRepository(connectionPool);
 //        UserService userService = new UserService(userRepository, companyRepository);
+//        ServiceB b = new ServiceB();
+//        ServiceA a = new ServiceA(b);
+//        b.setServiceA(a);
 //
 //        userService.someMethod();
 
@@ -29,9 +35,16 @@ public class ApplicationRunner {
 //        userService.someMethod();
 
         // ------- 4 ---------
-        var context = new ClassPathXmlApplicationContext("application.xml");
-        System.out.println();
-//        var connectionPool = context.getBean("p1", ConnectionPool.class);
-//        System.out.println(connectionPool);
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application.xml");
+        ConnectionPool connectionPool = context.getBean("p1", ConnectionPool.class);
+        System.out.println(connectionPool);
+        
+        Object serviceA1 = context.getBean("ServiceA");
+        ServiceA serviceA = context.getBean("ServiceA", ServiceA.class);
+        ServiceB bean = context.getBean(ServiceB.class);
+        
+//        context.getBean(SomeService.class) // вызовет Exception
+        SomeService bean1 = context.getBean("by.step.service.SomeService#0", SomeService.class);
+
     }
 }

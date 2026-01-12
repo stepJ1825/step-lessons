@@ -3,13 +3,19 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--    <bean class="by.step.pool.ConnectionPool"/>-->
-    <!--    <bean class="by.step.pool.ConnectionPool"/>-->
     <!--    <bean id="pool1" name="p1,p2,p3" class="by.step.pool.ConnectionPool"/>-->
     <!--    <bean id="pool2" name="p4" class="by.step.pool.ConnectionPool"/>-->
 
     <bean class="by.step.service.SomeService">
         <constructor-arg type="java.lang.String" value="hello from xml"/>
+    </bean>
+
+    <bean class="by.step.service.SomeService">
+        <constructor-arg type="java.lang.String" value="hello from xml"/>
+    </bean>
+
+    <bean id="driver" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="PostgresDriver"/>
     </bean>
 
     <bean id="pool1" name="p1,p2,p3" class="by.step.pool.ConnectionPool">
@@ -27,7 +33,46 @@
                 <value>--arg2=value2</value>
             </list>
         </constructor-arg>
+
+        <property name="properties">
+            <map>
+                <entry key="url" value="postgres-url"/>
+                <entry key="password" value="123"/>
+                <entry key="driver" value-ref="driver"/>
+            </map>
+        </property>
     </bean>
-    <!--        <bean id="pool2" name="p4" class="by.step.pool.ConnectionPool"/>-->
+
+    <bean id="pool2" name="p4" class="by.step.pool.ConnectionPool">
+        <constructor-arg index="1" value="10"/>
+        <constructor-arg index="0" value="postgres"/>
+        <constructor-arg name="properties" type="java.util.Map">
+            <map>
+                <entry key="url" value="postgresurl"/>
+                <entry key="password" value="123"/>
+            </map>
+        </constructor-arg>
+        <constructor-arg type="java.util.List">
+            <list>
+                <value>--arg1=value1</value>
+                <value>--arg2=value2</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="companyRepository" class="by.step.repository.CompanyRepository"
+          factory-method="of">
+        <constructor-arg ref="pool1"/>
+    </bean>
+
+
+    <bean name="ServiceB" class="by.step.service.ServiceB">
+        <property name="ServiceA" ref="ServiceA"/>
+    </bean>
+    <bean name="ServiceA" class="by.step.service.ServiceA">
+        <constructor-arg ref="ServiceB"/>
+    </bean>
+
+
 
 </beans>

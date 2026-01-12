@@ -5,28 +5,23 @@ import java.util.Map;
 
 public class ConnectionPool {
 
-//    private Driver driver;
-//
-//    public ConnectionPool() {
-//        System.err.println("----ConnectionPool default constructor----");
-//    }
-//
-//    public ConnectionPool(Driver driver) {
-//        this.driver = driver;
-//    }
+    private final String username;
+    private final Integer poolSize;
+    private final List<Object> args;
+    private Map<String, Object> properties;
 
-        private final String username;
-        private final Integer poolSize;
-        private final List<Object> args;
-        private final Map<String, Object> properties;
+    public ConnectionPool(String username,
+                          Integer poolSize,
+                          List<Object> args,
+                          Map<String, Object> properties) {
+        this.username = username;
+        this.poolSize = poolSize;
+        this.args = args;
+        this.properties = properties;
+    }
 
-        public ConnectionPool(String username,
-                Integer poolSize,
-                List<Object> args,
-                Map<String, Object> properties) {
-            this.username = username;
-            this.poolSize = poolSize;
-            this.args = args;
-            this.properties = properties;
-        }
+    public void setProperties(Map<String, Object> properties) {
+        System.err.println("---- setter invoked ----");
+        this.properties = properties;
+    }
 }
