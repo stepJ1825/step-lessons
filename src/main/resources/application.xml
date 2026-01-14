@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                             http://www.springframework.org/schema/beans/spring-beans.xsd
+                             http://www.springframework.org/schema/context
+                             http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <context:property-placeholder location="classpath:application.properties"/>
 
     <!--    <bean id="pool1" name="p1,p2,p3" class="by.step.pool.ConnectionPool"/>-->
     <!--    <bean id="pool2" name="p4" class="by.step.pool.ConnectionPool"/>-->
+
+<!--    14/01/2026. + шапка XML файла обновлена-->
+    <!--    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
+    <!--        <property name="locations" value="classpath:application.properties"/>-->
+    <!--    </bean>-->
+    <!--    ${} - EL,  #{} - SPEL -->
 
     <bean class="by.step.service.SomeService">
         <constructor-arg type="java.lang.String" value="hello from xml"/>
@@ -16,6 +28,7 @@
 
     <bean id="driver" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="PostgresDriver"/>
+<!--        <constructor-arg type="java.lang.String" value="${db.driver}"/> &lt;!&ndash; 14/01/2026  &ndash;&gt;-->
     </bean>
 
     <bean id="pool1" name="p1,p2,p3" class="by.step.pool.ConnectionPool">
@@ -72,6 +85,37 @@
     <bean name="ServiceA" class="by.step.service.ServiceA">
         <constructor-arg ref="ServiceB"/>
     </bean>
+
+<!--    14/01/2026-->
+<!--    <bean id="pool1" name="p1,p2,p3" class="com.dmdev.spring.database.pool.ConnectionPool"-->
+<!--          init-method="init"-->
+<!--          destroy-method="destroy">-->
+<!--        <constructor-arg name="username" type="java.lang.String" value="${db.username}"/>-->
+<!--        <constructor-arg name="properties" type="java.util.Map">-->
+<!--            <null/>-->
+<!--        </constructor-arg>-->
+<!--        <constructor-arg name="poolSize" type="java.lang.Integer" value="${db.pool.size}"/>-->
+<!--        <constructor-arg name="args" type="java.util.List">-->
+<!--            <list>-->
+<!--                <value>&#45;&#45;arg1=value1</value>-->
+<!--                <value>&#45;&#45;arg2=value2</value>-->
+<!--                <ref bean="driver"/>-->
+<!--            </list>-->
+<!--        </constructor-arg>-->
+<!--        &lt;!&ndash;      #{}  &ndash;&gt;-->
+<!--        <property name="properties">-->
+<!--            <map>-->
+<!--                <entry key="url" value="postgresurl"/>-->
+<!--                <entry key="password" value="123"/>-->
+<!--                <entry key="driver" value="#{driver.substring(3)}"/>-->
+<!--                <entry key="test" value="#{driver.length() > 10}"/>-->
+<!--                <entry key="test1" value="#{driver.length() > T(Math).random() * 10}"/>-->
+<!--                <entry key="hosts" value="#{'${db.hosts}'.split(',')}"/>-->
+<!--                <entry key="currentUser" value="#{systemProperties['user.name']}"/>-->
+<!--                <entry key="currentUser" value="${user.name}"/>-->
+<!--            </map>-->
+<!--        </property>-->
+<!--    </bean>-->
 
 
 

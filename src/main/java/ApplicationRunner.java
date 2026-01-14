@@ -7,7 +7,10 @@ import by.step.service.ServiceB;
 import by.step.service.SomeService;
 import by.step.service.UserService;
 import ioc.Container;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.io.Serializable;
 
 public class ApplicationRunner {
     public static void main(String[] args) {
@@ -45,6 +48,12 @@ public class ApplicationRunner {
         
 //        context.getBean(SomeService.class) // вызовет Exception
         SomeService bean1 = context.getBean("by.step.service.SomeService#0", SomeService.class);
+
+        //14/01/2026
+        String value = "hello";
+        System.out.println(CharSequence.class.isAssignableFrom(value.getClass()));
+        System.out.println(BeanFactoryPostProcessor.class.isAssignableFrom(value.getClass()));
+        System.out.println(Serializable.class.isAssignableFrom(value.getClass()));
 
     }
 }
