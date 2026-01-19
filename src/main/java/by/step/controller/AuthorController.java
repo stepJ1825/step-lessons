@@ -12,10 +12,14 @@ import java.util.Scanner;
 public class AuthorController {
 
     private final AuthorService authorService;
-    private final Scanner scanner;
+    private Scanner scanner;
 
-    public AuthorController() {
-        this.authorService = new AuthorServiceImpl();
+    public AuthorController(AuthorService authorService) {
+        this.authorService = authorService;
+    }
+
+    // Метод инициализации — вызывается Spring после создания бина
+    public void init() {
         this.scanner = new Scanner(System.in);
     }
 

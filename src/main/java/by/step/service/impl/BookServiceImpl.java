@@ -18,9 +18,9 @@ public class BookServiceImpl implements BookService {
     private final BookRepository repository;
     private final BookCache cache;
 
-    public BookServiceImpl() {
-        repository = new BookRepositoryJSON();
-        cache = new BookCache();
+    public BookServiceImpl(BookRepository repository, BookCache cache) {
+        this.repository = repository;
+        this.cache = cache;
     }
 
     @Override

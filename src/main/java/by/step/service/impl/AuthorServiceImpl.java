@@ -11,8 +11,8 @@ public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
 
-    public AuthorServiceImpl() {
-        this.authorRepository = new AuthorRepositoryImpl();
+    public AuthorServiceImpl(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
     }
 
     @Override

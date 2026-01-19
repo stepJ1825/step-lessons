@@ -5,7 +5,6 @@ import by.step.model.Book;
 import by.step.model.Genre;
 import by.step.service.BookFilter;
 import by.step.service.BookService;
-import by.step.service.impl.BookServiceImpl;
 import by.step.util.BookFilterUtil;
 
 import java.io.Serializable;
@@ -17,10 +16,14 @@ import java.util.stream.IntStream;
 public class BookController {
 
     private final BookService bookService;
-    private final Scanner scanner;
+    private Scanner scanner;
 
-    public BookController() {
-        this.bookService = new BookServiceImpl();
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
+
+    // Метод инициализации — вызывается Spring после создания бина
+    public void init() {
         this.scanner = new Scanner(System.in);
     }
 

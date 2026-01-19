@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+import lombok.Setter;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,8 +17,10 @@ import java.util.List;
 import java.util.Locale;
 
 public class AuthorRepositoryImpl implements AuthorRepository {
-    private final String data = "src\\main\\resources\\authors.json";
-    private final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    @Setter
+    private String data;
+    @Setter
+    private SimpleDateFormat df;
 
     @Override
     public List<Author> getAuthors() {

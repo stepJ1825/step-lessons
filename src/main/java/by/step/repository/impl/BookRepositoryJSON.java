@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+import lombok.Setter;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,14 +17,17 @@ import java.util.stream.Collectors;
 
 public class BookRepositoryJSON implements BookRepository {
 
-    private final String DATA = "src\\main\\resources\\books.json";
-    private final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    @Setter
+    private String data;
+    @Setter
+    private SimpleDateFormat df;
+
 
     @Override
     public List<Book> getAllBooks() {
         try {
             Thread.sleep(5000L);
-            return newMapper().readValue(new File(DATA),
+            return newMapper().readValue(new File(data),
                     new TypeReference<>() {
                     });
         } catch (IOException|InterruptedException e) {
@@ -84,7 +88,7 @@ public class BookRepositoryJSON implements BookRepository {
 
     private void rewriteData(List<Book> books) {
         try {
-            newMapper().writeValue(new File(DATA), books);
+            newMapper().writeValue(new File(data), books);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
