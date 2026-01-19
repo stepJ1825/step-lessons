@@ -36,14 +36,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Override
     public void addAuthor(Author author) {
         List<Author> allAuthors = getAuthors();
-//        int nextId;
-//        if (allAuthors.isEmpty()) {
-//            nextId = 1;
-//        } else {
-//            nextId = allAuthors.get(allAuthors.size() - 1).getId() + 1;
-//        }
-//        author.setId(nextId);
-        allAuthors.add(author); // UnsupportedOperationException
+        allAuthors.add(author);
         rewriteData(allAuthors);
     }
 

@@ -91,7 +91,6 @@ public class BookServiceImpl implements BookService {
                 .filter(book -> book.getTitle().toUpperCase().contains(upperCase)
                         || book.getAuthor().getFirstName().toUpperCase().contains(upperCase)
                         || book.getAuthor().getSurname().toUpperCase().contains(upperCase))
-//                .filter(book -> book.toString().toUpperCase().contains(upperCase))
                 .toList();
     }
 
