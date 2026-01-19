@@ -9,7 +9,7 @@ public class VerifyPropertyBeanFactoryPostProcessor implements BeanFactoryPostPr
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-
+        System.out.println("VerifyPropertyBeanFactoryPostProcessor, order:" + getOrder());
     }
 
     @Override

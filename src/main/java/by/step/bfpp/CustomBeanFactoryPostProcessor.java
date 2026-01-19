@@ -8,11 +8,11 @@ import org.springframework.core.Ordered;
 public class CustomBeanFactoryPostProcessor implements BeanFactoryPostProcessor, Ordered {
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        System.out.println();
+        System.out.println("CustomBeanFactoryPostProcessor, order:" + getOrder());
     }
 
     @Override
     public int getOrder() {
-        return Integer.MIN_VALUE;
+        return Integer.MAX_VALUE;
     }
 }
