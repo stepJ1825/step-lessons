@@ -35,3 +35,30 @@ BeanFactoryPostProcessor.postProcessBeanFactory
 
 CustomBeanFactoryPostProcessor
 
+### 21.01.2026
+
+Annotated based configuration.
+<context:annotation-config/> для внедрения соответствующих BPP
+
+Для чего использовать BPP.postProcessBeforeInitialization:
+- Подготовка бина к инициализации.
+- Валидация состояния перед инициализацией.
+- Установка дополнительных свойств, которые должны быть доступны внутри метода инициализации. 
+- Spring использует этот метод для обработки @PostConstruct и @PreDestroy через InitDestroyAnnotationBeanPostProcessor
+
+Для чего использовать BPP.postProcessAfterInitialization
+- Оборачивание бина в прокси (например, для AOP, транзакций, кэширования).
+- Регистрация бина в каком-то внешнем реестре.
+- Логирование готового к работе объекта.
+- Пример: AnnotationAwareAspectJAutoProxyCreator (часть AOP) создаёт прокси именно здесь.
+
+Custom BPP
+@Transactional
+@Auditing
+
+@Autowired - аннотация Spring, полагается на тип бина, 
+        либо для нескольких кандидатов нужно полагаться на имя поля (=id бина в контексте)
+@Resource - аннотация Java EE, полагается на имя бина
+
+
+

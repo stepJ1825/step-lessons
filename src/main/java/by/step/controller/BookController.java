@@ -6,6 +6,7 @@ import by.step.model.Genre;
 import by.step.service.BookFilter;
 import by.step.service.BookService;
 import by.step.util.BookFilterUtil;
+import jakarta.annotation.PostConstruct;
 
 import java.io.Serializable;
 import java.util.List;
@@ -23,6 +24,7 @@ public class BookController {
     }
 
     // Метод инициализации — вызывается Spring после создания бина
+    @PostConstruct
     public void init() {
         this.scanner = new Scanner(System.in);
     }
@@ -229,7 +231,7 @@ public class BookController {
 
         System.out.println("Найдено книг: " + books.size());
         IntStream.range(0, books.size())
-                .forEach(i -> System.out.printf("%d. %s\n", i + 1, books.get(i)));
+                 .forEach(i -> System.out.printf("%d. %s\n", i + 1, books.get(i)));
     }
 
     private String getStringInput(String prompt) {

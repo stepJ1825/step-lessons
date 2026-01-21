@@ -8,6 +8,13 @@
                              http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
     <context:property-placeholder location="classpath:application.properties"/>
+    <!--    21/01/2026 - добавятся 5 дополнительных бинов. Либо вручную добавить бин
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/> -->
+    <context:annotation-config/>
+
+    <bean class="by.step.bpp.InjectBeanPostProcessor"/>
+    <bean class="by.step.bpp.MyTransactionBeanPostProcessor"/>
+    <bean class="by.step.bpp.AuditingBeanPostProcessor"/>
 
     <bean class="by.step.bfpp.CustomBeanFactoryPostProcessor"/>
     <bean class="by.step.bfpp.VerifyPropertyBeanFactoryPostProcessor"/>
@@ -15,6 +22,8 @@
     <bean id="dateFormatter" class="java.text.SimpleDateFormat">
         <constructor-arg value="${app.date.format}"/>
     </bean>
+
+    <bean id="connectionPool" class="by.step.repository.db.ConnectionPool"/>
 
     <bean id="bookRepository" class="by.step.repository.impl.BookRepositoryJSON">
         <property name="data" value="#{'${data.json}'.split(',')[0]}"/>
@@ -37,8 +46,7 @@
         <constructor-arg ref="authorRepository"/>
     </bean>
 
-    <bean id="bookController" class="by.step.controller.BookController"
-          init-method="init">
+    <bean id="bookController" class="by.step.controller.BookController">
         <constructor-arg ref="bookService"/>
     </bean>
 

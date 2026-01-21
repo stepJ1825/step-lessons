@@ -1,12 +1,20 @@
 package by.step.repository.impl;
 
+import by.step.bpp.Auditing;
+import by.step.bpp.InjectBean;
+import by.step.bpp.MyTransaction;
 import by.step.model.Book;
 import by.step.repository.BookRepository;
+import by.step.repository.db.ConnectionPool;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+import jakarta.annotation.Resource;
+import jakarta.annotation.Resources;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +23,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+@MyTransaction
+@Auditing
 public class BookRepositoryJSON implements BookRepository {
 
     @Setter
@@ -22,15 +32,23 @@ public class BookRepositoryJSON implements BookRepository {
     @Setter
     private SimpleDateFormat df;
 
+    @InjectBean
+    //    @Autowired(required = false) + @Qualifier(value = "pool1")
+    //    @Resource(name = "pool1")
+    private ConnectionPool connectionPool;
+
+//    private List<ConnectionPool> pools // внедрение всех соответствующих бинов в коллекцию
 
     @Override
     public List<Book> getAllBooks() {
         try {
             Thread.sleep(5000L);
-            return newMapper().readValue(new File(data),
+            return newMapper().readValue(
+                    new File(data),
                     new TypeReference<>() {
-                    });
-        } catch (IOException|InterruptedException e) {
+                    }
+            );
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e); //TODO: реализовать функционал при отсутствии файла
         }
     }
@@ -68,13 +86,13 @@ public class BookRepositoryJSON implements BookRepository {
     @Override
     public List<Book> findBooksByAuthor(String author) {
         return getAllBooks().stream()
-                .filter(book ->
-                        (book.getAuthor().getFirstName().toUpperCase()
-                                + " "
-                                + book.getAuthor().getSurname().toUpperCase())
-                                .contains(author.toUpperCase())
-                )
-                .toList();
+                            .filter(book ->
+                                    (book.getAuthor().getFirstName().toUpperCase()
+                                     + " "
+                                     + book.getAuthor().getSurname().toUpperCase())
+                                            .contains(author.toUpperCase())
+                            )
+                            .toList();
     }
 
     @Override
@@ -82,7 +100,7 @@ public class BookRepositoryJSON implements BookRepository {
         return getAllBooks()
                 .stream()
                 .filter(book -> book.getYear() < end
-                        && book.getYear() > start)
+                                && book.getYear() > start)
                 .collect(Collectors.toList());
     }
 
