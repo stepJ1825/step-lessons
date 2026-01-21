@@ -15,6 +15,8 @@ import jakarta.annotation.Resources;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,19 +27,29 @@ import java.util.stream.Collectors;
 
 @MyTransaction
 @Auditing
+//@Component("bookRepository")
 public class BookRepositoryJSON implements BookRepository {
 
     @Setter
+//        <property name="data" value="#{'${data.json}'.split(',')[0]}"/>
+//    @Value("#{'${data.json}'.split(',')[0]}")
     private String data;
     @Setter
+//    @Value("dateFormatter")
     private SimpleDateFormat df;
 
-    @InjectBean
+    private BookRepositoryJSON() {
+    }
+
+        @InjectBean
     //    @Autowired(required = false) + @Qualifier(value = "pool1")
-    //    @Resource(name = "pool1")
+//    @Resource(name = "pool1")
+//    @Autowired
+//    @Qualifier(value = "by.step.repository.db.ConnectionPool#1")
     private ConnectionPool connectionPool;
 
-//    private List<ConnectionPool> pools // внедрение всех соответствующих бинов в коллекцию
+    @Autowired
+    private List<ConnectionPool> pools; // внедрение всех соответствующих бинов в коллекцию
 
     @Override
     public List<Book> getAllBooks() {

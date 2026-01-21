@@ -1,5 +1,7 @@
 package by.step.repository.db;
 
+import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,7 +16,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.LinkedBlockingQueue;
 
-
+@Component
 public final class ConnectionPool {
 
     private static final Properties properties = new Properties();

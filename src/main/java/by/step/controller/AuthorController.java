@@ -5,10 +5,12 @@ import by.step.service.AuthorService;
 import by.step.service.BookService;
 import by.step.service.impl.AuthorServiceImpl;
 import by.step.service.impl.BookServiceImpl;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Scanner;
 
+@Component
 public class AuthorController {
 
     private final AuthorService authorService;

@@ -8,22 +8,12 @@
                              http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
     <context:property-placeholder location="classpath:application.properties"/>
-    <!--    21/01/2026 - добавятся 5 дополнительных бинов. Либо вручную добавить бин
-    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/> -->
     <context:annotation-config/>
-
-    <bean class="by.step.bpp.InjectBeanPostProcessor"/>
-    <bean class="by.step.bpp.MyTransactionBeanPostProcessor"/>
-    <bean class="by.step.bpp.AuditingBeanPostProcessor"/>
-
-    <bean class="by.step.bfpp.CustomBeanFactoryPostProcessor"/>
-    <bean class="by.step.bfpp.VerifyPropertyBeanFactoryPostProcessor"/>
+    <context:component-scan base-package="by.step"/>
 
     <bean id="dateFormatter" class="java.text.SimpleDateFormat">
         <constructor-arg value="${app.date.format}"/>
     </bean>
-
-    <bean id="connectionPool" class="by.step.repository.db.ConnectionPool"/>
 
     <bean id="bookRepository" class="by.step.repository.impl.BookRepositoryJSON">
         <property name="data" value="#{'${data.json}'.split(',')[0]}"/>
@@ -33,30 +23,6 @@
     <bean id="authorRepository" class="by.step.repository.impl.AuthorRepositoryImpl">
         <property name="data" value="#{'${data.json}'.split(',')[1]}"/>
         <property name="df" ref="dateFormatter"/>
-    </bean>
-
-    <bean id="bookCache" class="by.step.cache.BookCache"/>
-
-    <bean id="bookService" class="by.step.service.impl.BookServiceImpl">
-        <constructor-arg ref="bookRepository"/>
-        <constructor-arg ref="bookCache"/>
-    </bean>
-
-    <bean id="authorService" class="by.step.service.impl.AuthorServiceImpl">
-        <constructor-arg ref="authorRepository"/>
-    </bean>
-
-    <bean id="bookController" class="by.step.controller.BookController">
-        <constructor-arg ref="bookService"/>
-    </bean>
-
-    <bean id="authorController" class="by.step.controller.AuthorController">
-        <constructor-arg type="by.step.service.AuthorService" ref="authorService"/>
-    </bean>
-
-    <bean id="mainController" class="by.step.controller.MainController">
-        <constructor-arg type="by.step.controller.BookController" ref="bookController"/>
-        <property name="authorController" ref="authorController"/>
     </bean>
 
 </beans>

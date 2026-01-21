@@ -60,5 +60,9 @@ Custom BPP
         либо для нескольких кандидатов нужно полагаться на имя поля (=id бина в контексте)
 @Resource - аннотация Java EE, полагается на имя бина
 
+//TODO - Spring + default constructors FAILS
+//TODO - SPeL in @Value
+//TODO - задача на занятие 26.01 - удалить xml config
+
 
 

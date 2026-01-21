@@ -1,20 +1,22 @@
 package by.step.controller;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component
+@RequiredArgsConstructor
 public class MainController {
 
     private final BookController bookController;
     @Getter
     @Setter
+    @Autowired
     private AuthorController authorController;
-
-    public MainController(BookController bookController) {
-        this.bookController = bookController;
-    }
 
     public void start() {
         boolean running = true;

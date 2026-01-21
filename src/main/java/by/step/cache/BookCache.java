@@ -1,11 +1,13 @@
 package by.step.cache;
 
 import by.step.model.Book;
+import org.springframework.stereotype.Component;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 import java.util.*;
 
+@Component
 public class BookCache {
     private Date creationDate = new Date();
     //    private final List<Book> library = new ArrayList<>();

@@ -7,6 +7,9 @@ import by.step.service.BookFilter;
 import by.step.service.BookService;
 import by.step.util.BookFilterUtil;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,8 +17,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
+@Component
 public class BookController {
-
     private final BookService bookService;
     private Scanner scanner;
 
