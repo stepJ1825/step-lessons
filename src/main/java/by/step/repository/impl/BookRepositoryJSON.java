@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import jakarta.annotation.Resources;
 import lombok.Setter;
@@ -34,11 +35,17 @@ public class BookRepositoryJSON implements BookRepository {
     @Setter
     @Value("#{'${data.json}'.split(',')[0]}")
     private String data;
+
     @Setter
-//    @Value("dateFormatter") //нельзя из-за несовместимости типов String и SimpleDateFormat
-    @Autowired
-    @Qualifier("dateFormatter")
+    @Value("${app.date.format}")
+    private String dateFormatPattern;
+
     private SimpleDateFormat df;
+
+    @PostConstruct
+    private void initDf(){
+        df = new SimpleDateFormat(dateFormatPattern);
+    }
 
     private BookRepositoryJSON() {
     }

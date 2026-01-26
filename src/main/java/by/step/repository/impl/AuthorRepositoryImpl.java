@@ -6,10 +6,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+import jakarta.annotation.PostConstruct;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -20,19 +24,30 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-//@Repository //будет создаваться бин и без аннотации
+@Repository //будет создаваться бин и без аннотации
+//@Scope("prototype")
+//@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+//@Scope(proxyMode = ScopedProxyMode.INTERFACES)
 public class AuthorRepositoryImpl implements AuthorRepository {
     @Setter
     @Value("#{'${data.json}'.split(',')[1]}")
     private String data;
+
     @Setter
-    @Autowired
-    @Qualifier("dateFormatter")
+    @Value("${app.date.format}")
+    private String dateFormatPattern;
+
     private SimpleDateFormat df;
 
-//    public AuthorRepositoryImpl() {
-//        System.out.println("some");
-//    }
+    @PostConstruct
+    private void initDf(){
+        df = new SimpleDateFormat(dateFormatPattern);
+    }
+
+    private AuthorRepositoryImpl() {
+        System.out.println("some");
+    }
 
     @Override
     public List<Author> getAuthors() {
