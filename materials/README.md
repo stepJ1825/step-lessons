@@ -60,8 +60,16 @@ Custom BPP
         либо для нескольких кандидатов нужно полагаться на имя поля (=id бина в контексте)
 @Resource - аннотация Java EE, полагается на имя бина
 
-//TODO - Spring + default constructors FAILS
-//TODO - SPeL in @Value
+### 26.01.2026
+Spring + default constructors FAILS:
+- Чтобы вызвать такую ошибку с XML конфигурацией, необходимо создать бин через XML, а в классе допустить 
+ошибку и не указать соответствующий конструктор.
+
+SPeL in @Value:
+- Для поля data в классе BookRepositoryJSON SPeL в @Value работает.
+- Для поля df использовать @Value нельзя, так как из properties данные приходят в виде текста \
+и преобразовать String в SimpleDateFormat напрямую нельзя.
+
 //TODO - задача на занятие 26.01 - удалить xml config
 
 

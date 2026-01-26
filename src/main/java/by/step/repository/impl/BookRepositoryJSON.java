@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,25 +28,26 @@ import java.util.stream.Collectors;
 
 @MyTransaction
 @Auditing
-//@Component("bookRepository")
+@Repository("bookRepository")
 public class BookRepositoryJSON implements BookRepository {
 
     @Setter
-//        <property name="data" value="#{'${data.json}'.split(',')[0]}"/>
-//    @Value("#{'${data.json}'.split(',')[0]}")
+    @Value("#{'${data.json}'.split(',')[0]}")
     private String data;
     @Setter
-//    @Value("dateFormatter")
+//    @Value("dateFormatter") //нельзя из-за несовместимости типов String и SimpleDateFormat
+    @Autowired
+    @Qualifier("dateFormatter")
     private SimpleDateFormat df;
 
     private BookRepositoryJSON() {
     }
 
-        @InjectBean
+    @InjectBean
     //    @Autowired(required = false) + @Qualifier(value = "pool1")
-//    @Resource(name = "pool1")
-//    @Autowired
-//    @Qualifier(value = "by.step.repository.db.ConnectionPool#1")
+    //    @Resource(name = "pool1")
+    //    @Autowired
+    //    @Qualifier(value = "by.step.repository.db.ConnectionPool#1")
     private ConnectionPool connectionPool;
 
     @Autowired

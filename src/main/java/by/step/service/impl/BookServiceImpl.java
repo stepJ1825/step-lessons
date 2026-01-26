@@ -7,6 +7,7 @@ import by.step.repository.impl.BookRepositoryJSON;
 import by.step.service.BookFilter;
 import by.step.service.BookService;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-@Component("bookService")
+@Service("bookService")
 public class BookServiceImpl implements BookService {
 
     private final BookRepository repository;

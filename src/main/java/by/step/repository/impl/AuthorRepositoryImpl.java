@@ -7,6 +7,10 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,11 +20,19 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+//@Repository //будет создаваться бин и без аннотации
 public class AuthorRepositoryImpl implements AuthorRepository {
     @Setter
+    @Value("#{'${data.json}'.split(',')[1]}")
     private String data;
     @Setter
+    @Autowired
+    @Qualifier("dateFormatter")
     private SimpleDateFormat df;
+
+//    public AuthorRepositoryImpl() {
+//        System.out.println("some");
+//    }
 
     @Override
     public List<Author> getAuthors() {
