@@ -11,7 +11,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class Main {
     public static void main(String[] args) {
-        ApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+
+        //до запуска контекста можно указать профили
+        context.register(ApplicationConfiguration.class);
+//        context.getEnvironment().setActiveProfiles("web", "prod");
+        context.refresh();
+
         MainController mainController = context.getBean(MainController.class);
         Object bookRepository = context.getBean("bookRepository");
         System.out.println(bookRepository);
@@ -25,6 +31,10 @@ public class Main {
 //        context.getBean("genreService3");
 //        context.getBean("genreService4");
 //        context.getBean("genreService5");
+
+        String[] beanDefinitionNames = context.getBeanDefinitionNames();
+
+        String[] activeProfiles = context.getEnvironment().getActiveProfiles();
 
         mainController.start();
     }

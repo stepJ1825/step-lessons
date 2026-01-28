@@ -19,6 +19,10 @@ import java.text.SimpleDateFormat;
 
 @Configuration(enforceUniqueMethods = true, proxyBeanMethods = true)
 @PropertySource("classpath:application.properties")
+@PropertySource(
+        value = "classpath:application-${spring.profiles.active}.properties",
+        ignoreResourceNotFound = true
+)
 @Import(WebConfig.class)
 @ComponentScan(basePackages = "by.step",
                useDefaultFilters = false,
@@ -47,6 +51,7 @@ public class ApplicationConfiguration {
     }
 
     @Bean("genreService3")
+    @Profile("!prod")   // ! & | - доступны логические операции, можно ставить над классов и над методом
     public GenreService genreService(){
         return new GenreService(genreRepository());
     }

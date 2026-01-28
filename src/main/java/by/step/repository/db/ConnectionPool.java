@@ -1,5 +1,7 @@
 package by.step.repository.db;
 
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -22,7 +24,11 @@ public final class ConnectionPool {
     private static final Properties properties = new Properties();
 
     private String url;
+    @Value("${db.username}")
+    @Setter
     private String user;
+    @Value("${db.password}")
+    @Setter
     private String password;
     private int maxSize;
     private int checkConnectionTimeout;
