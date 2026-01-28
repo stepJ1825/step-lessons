@@ -70,7 +70,8 @@ SPeL in @Value:
 - Для поля df использовать @Value нельзя, так как из properties данные приходят в виде текста \
 и преобразовать String в SimpleDateFormat напрямую нельзя.
 
-//TODO - задача на занятие 26.01 - удалить xml config
+//TODO - задача на занятие 28.01 - удалить xml config.
+//TODO - Scope prototype - способы установки.
 
 
 

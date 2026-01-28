@@ -2,8 +2,10 @@ package by.step;
 
 import by.step.config.ApplicationConfiguration;
 import by.step.controller.MainController;
+import by.step.repository.genre.GenreRepository;
 import by.step.repository.AuthorRepository;
 import by.step.repository.SomeRepository;
+import by.step.repository.genre.GenreService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -17,6 +19,11 @@ public class Main {
         System.out.println(someRepository);
         AuthorRepository authorRepository = context.getBean(AuthorRepository.class);
         System.out.println(authorRepository);
+        GenreRepository genreRepositoryBean = context.getBean(GenreRepository.class);
+        System.out.println(genreRepositoryBean);
+
+        GenreService genreService = context.getBean(GenreService.class);
+
         mainController.start();
     }
 }

@@ -12,23 +12,23 @@
     <!--    можно удалить, так как все BPP из annotation-config входят в состав component-scan-->
     <!--    <context:annotation-config/>-->
 
-    <!--    <context:component-scan base-package="by.step"/>-->
+    <!--        <context:component-scan base-package="by.step"/>-->
     <!--    ↓↓↓ Заменено на ↓↓↓-->
     <context:component-scan base-package="by.step"
                             annotation-config="true"
                             resource-pattern="**/*.class"
                             scoped-proxy="no"
                             use-default-filters="false">
-<!--                            scope-resolver="">-->
+        <!-- scope-resolver=""> -->
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
         <context:include-filter type="assignable" expression="by.step.repository.BookRepository"/>
         <context:include-filter type="assignable" expression="by.step.repository.AuthorRepository"/>
-        <!--        <context:include-filter type="regex" expression="by\..+Repository"/>-->
+        <context:include-filter type="regex" expression="by\..+Repository"/>
     </context:component-scan>
 
-    <bean id="dateFormatter" class="java.text.SimpleDateFormat">
-        <constructor-arg value="${app.date.format}"/>
-    </bean>
+    <!--    <bean id="dateFormatter" class="java.text.SimpleDateFormat">-->
+    <!--        <constructor-arg value="${app.date.format}"/>-->
+    <!--    </bean>-->
 
     <!--    <bean id="bookRepository" class="by.step.repository.impl.BookRepositoryJSON">-->
     <!--        <property name="data" value="#{'${data.json}'.split(',')[0]}"/>-->
