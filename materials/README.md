@@ -70,8 +70,23 @@ SPeL in @Value:
 - Для поля df использовать @Value нельзя, так как из properties данные приходят в виде текста \
 и преобразовать String в SimpleDateFormat напрямую нельзя.
 
-//TODO - задача на занятие 28.01 - удалить xml config.
-//TODO - Scope prototype - способы установки.
+### 28.01.2026
+Scope prototype - способы установки:
+- Через аннотацию @Scope (на классе): @Scope("prototype") // или @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+- Через @Bean в Java Configuration: '@Bean @Scope("prototype")' или '@Bean @Scope(BeanDefinition.SCOPE_SINGLETON)'
+- В XML-конфигурации: <bean id="myPrototypeBean" class="com.example.MyPrototypeBean" scope="prototype"/>
 
+
+@Configuration
+@PropertySource("classpath:application.properties")
+@Import(WebConfig.class)
+@ComponentScan(...)
+@ImportResource("classpath:application.xml")
+
+@Bean
+
+by.step2.config.WebConfig.java
+
+//TODO - задача на занятие 28.01 - удалить xml config.
 
 

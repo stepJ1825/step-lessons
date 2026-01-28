@@ -2,15 +2,24 @@ package by.step.config;
 
 import by.step.repository.AuthorRepository;
 import by.step.repository.BookRepository;
-import org.springframework.context.annotation.ComponentScan;
+import by.step.repository.genre.GenreRepository;
+import by.step.repository.genre.GenreRepositoryImpl2;
+import by.step.repository.genre.GenreService;
+import by.step.repository.impl.AuthorRepositoryImpl;
+import by.step2.config.WebConfig;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-@Configuration
+import java.text.SimpleDateFormat;
+
+@Configuration(enforceUniqueMethods = true, proxyBeanMethods = true)
 @PropertySource("classpath:application.properties")
+@Import(WebConfig.class)
 @ComponentScan(basePackages = "by.step",
                useDefaultFilters = false,
                includeFilters = {
@@ -20,4 +29,35 @@ import org.springframework.stereotype.Component;
                        @Filter(type = FilterType.REGEX, pattern = "com\\..+Repository")
                })
 public class ApplicationConfiguration {
+
+    /*
+    <!--    <bean id="dateFormatter" class="java.text.SimpleDateFormat">-->
+    <!--        <constructor-arg value="${app.date.format}"/>-->
+    <!--    </bean>-->
+     */
+    @Bean
+    @Scope(BeanDefinition.SCOPE_SINGLETON)
+    public SimpleDateFormat dateFormatter(@Value("${app.date.format}") String pattern) {
+        return new SimpleDateFormat(pattern);
+    }
+
+    @Bean("genreRepository3")
+    public GenreRepository genreRepository(){
+        return new GenreRepositoryImpl2();
+    }
+
+    @Bean("genreService3")
+    public GenreService genreService(){
+        return new GenreService(genreRepository());
+    }
+
+//    @Bean("genreService4")
+//    public GenreService genreService(@Qualifier("genreRepository3") GenreRepository genreRepository){
+//        return new GenreService(genreRepository);
+//    }
+
+//    @Bean
+//    public GenreService genreService5(@Qualifier("genreRepository3") GenreRepository genreRepository){
+//        return new GenreService(genreRepository);
+//    }
 }

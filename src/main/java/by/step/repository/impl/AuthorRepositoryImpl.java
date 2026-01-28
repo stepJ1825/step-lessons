@@ -33,17 +33,8 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Setter
     @Value("#{'${data.json}'.split(',')[1]}")
     private String data;
-
     @Setter
-    @Value("${app.date.format}")
-    private String dateFormatPattern;
-
     private SimpleDateFormat df;
-
-    @PostConstruct
-    private void initDf(){
-        df = new SimpleDateFormat(dateFormatPattern);
-    }
 
     private AuthorRepositoryImpl() {
         System.out.println("some");

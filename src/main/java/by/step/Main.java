@@ -22,7 +22,9 @@ public class Main {
         GenreRepository genreRepositoryBean = context.getBean(GenreRepository.class);
         System.out.println(genreRepositoryBean);
 
-        GenreService genreService = context.getBean(GenreService.class);
+//        context.getBean("genreService3");
+//        context.getBean("genreService4");
+//        context.getBean("genreService5");
 
         mainController.start();
     }
