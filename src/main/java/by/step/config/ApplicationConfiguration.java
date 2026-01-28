@@ -2,6 +2,7 @@ package by.step.config;
 
 import by.step.repository.AuthorRepository;
 import by.step.repository.BookRepository;
+import lombok.SneakyThrows;
 import org.springframework.context.annotation.*;
 import by.step.repository.genre.GenreRepository;
 import by.step.repository.genre.GenreRepositoryImpl2;
@@ -20,10 +21,10 @@ import java.text.SimpleDateFormat;
 
 @Configuration(enforceUniqueMethods = false, proxyBeanMethods = true)
 @PropertySource("classpath:application.properties")
-//@PropertySource(
-//        value = "classpath:application-${spring.profiles.active}.properties",
-//        ignoreResourceNotFound = true
-//)
+@PropertySource(
+        value = "classpath:application-${spring.profiles.active}.properties",
+        ignoreResourceNotFound = true
+)
 @Import(WebConfig.class)
 @ComponentScan(basePackages = "by.step",
                useDefaultFilters = false,
@@ -53,7 +54,6 @@ public class ApplicationConfiguration {
     }
 
     @Bean("genreService3")
-//    @Profile("!prod")   // ! & | - доступны логические операции, можно ставить над классов и над методом
     public GenreService genreService(){
         return new GenreService(genreRepository());
     }
@@ -65,7 +65,18 @@ public class ApplicationConfiguration {
     }
 
     @Bean
+    @Profile("!prod | test | dev")   // ! & | - доступны логические операции, можно ставить над классов и над методом
     public GenreService genreService5(@Qualifier("genreRepository3") GenreRepository genreRepository){
+        return new GenreService(null);
+    }
+
+    @SneakyThrows
+    @Bean
+    @Profile("prod")   // ! & | - доступны логические операции, можно ставить над классов и над методом
+    public GenreService genreService6(@Qualifier("genreRepository3") GenreRepository genreRepository){
+        Thread.sleep(10000L);
         return new GenreService(genreRepository);
     }
+
+
 }
