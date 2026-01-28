@@ -2,6 +2,7 @@ package by.step;
 
 import by.step.config.ApplicationConfiguration;
 import by.step.controller.MainController;
+import by.step.repository.genre.CommonService;
 import by.step.repository.genre.GenreRepository;
 import by.step.repository.AuthorRepository;
 import by.step.repository.SomeRepository;
@@ -35,6 +36,8 @@ public class Main {
         String[] beanDefinitionNames = context.getBeanDefinitionNames();
 
         String[] activeProfiles = context.getEnvironment().getActiveProfiles();
+
+        CommonService commonService = context.getBean(CommonService.class);
 
         mainController.start();
     }

@@ -2,6 +2,7 @@ package by.step.config;
 
 import by.step.repository.AuthorRepository;
 import by.step.repository.BookRepository;
+import org.springframework.context.annotation.*;
 import by.step.repository.genre.GenreRepository;
 import by.step.repository.genre.GenreRepositoryImpl2;
 import by.step.repository.genre.GenreService;
@@ -17,12 +18,12 @@ import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 
-@Configuration(enforceUniqueMethods = true, proxyBeanMethods = true)
+@Configuration(enforceUniqueMethods = false, proxyBeanMethods = true)
 @PropertySource("classpath:application.properties")
-@PropertySource(
-        value = "classpath:application-${spring.profiles.active}.properties",
-        ignoreResourceNotFound = true
-)
+//@PropertySource(
+//        value = "classpath:application-${spring.profiles.active}.properties",
+//        ignoreResourceNotFound = true
+//)
 @Import(WebConfig.class)
 @ComponentScan(basePackages = "by.step",
                useDefaultFilters = false,
@@ -30,7 +31,7 @@ import java.text.SimpleDateFormat;
                        @Filter(type = FilterType.ANNOTATION, value = Component.class),
                        @Filter(type = FilterType.ASSIGNABLE_TYPE, value = AuthorRepository.class),
                        @Filter(type = FilterType.ASSIGNABLE_TYPE, value = BookRepository.class),
-                       @Filter(type = FilterType.REGEX, pattern = "com\\..+Repository")
+                       @Filter(type = FilterType.REGEX, pattern = "by\\..+Repository")
                })
 public class ApplicationConfiguration {
 
@@ -41,7 +42,8 @@ public class ApplicationConfiguration {
      */
     @Bean
     @Scope(BeanDefinition.SCOPE_SINGLETON)
-    public SimpleDateFormat dateFormatter(@Value("${app.date.format}") String pattern) {
+    public SimpleDateFormat dateFormatter(
+            @Value("${app.date.format}") String pattern) {
         return new SimpleDateFormat(pattern);
     }
 
@@ -51,18 +53,19 @@ public class ApplicationConfiguration {
     }
 
     @Bean("genreService3")
-    @Profile("!prod")   // ! & | - доступны логические операции, можно ставить над классов и над методом
+//    @Profile("!prod")   // ! & | - доступны логические операции, можно ставить над классов и над методом
     public GenreService genreService(){
         return new GenreService(genreRepository());
     }
 
-//    @Bean("genreService4")
-//    public GenreService genreService(@Qualifier("genreRepository3") GenreRepository genreRepository){
-//        return new GenreService(genreRepository);
-//    }
+    @Bean("genreService4")
+    @Primary
+    public GenreService genreService(@Qualifier("genreRepository3") GenreRepository genreRepository){
+        return new GenreService(genreRepository);
+    }
 
-//    @Bean
-//    public GenreService genreService5(@Qualifier("genreRepository3") GenreRepository genreRepository){
-//        return new GenreService(genreRepository);
-//    }
+    @Bean
+    public GenreService genreService5(@Qualifier("genreRepository3") GenreRepository genreRepository){
+        return new GenreService(genreRepository);
+    }
 }

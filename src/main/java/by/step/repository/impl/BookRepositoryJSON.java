@@ -13,6 +13,7 @@ import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import jakarta.annotation.Resources;
+import lombok.Data;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,31 +31,20 @@ import java.util.stream.Collectors;
 @MyTransaction
 @Auditing
 @Repository("bookRepository")
+@Data
 public class BookRepositoryJSON implements BookRepository {
 
-    @Setter
     @Value("#{'${data.json}'.split(',')[0]}")
     private String data;
 
-    @Setter
-    @Value("${app.date.format}")
-    private String dateFormatPattern;
-
+    @Autowired
+    @Qualifier("dateFormatter")
     private SimpleDateFormat df;
-
-    @PostConstruct
-    private void initDf(){
-        df = new SimpleDateFormat(dateFormatPattern);
-    }
 
     private BookRepositoryJSON() {
     }
 
     @InjectBean
-    //    @Autowired(required = false) + @Qualifier(value = "pool1")
-    //    @Resource(name = "pool1")
-    //    @Autowired
-    //    @Qualifier(value = "by.step.repository.db.ConnectionPool#1")
     private ConnectionPool connectionPool;
 
     @Autowired
