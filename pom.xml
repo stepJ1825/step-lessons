@@ -73,6 +73,20 @@
             <version>2.1.1</version>
         </dependency>
 
+        <!-- Spring Web MVC -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>6.2.8</version>
+        </dependency>
+        <!-- Jakarta Servlet API (Spring 6 использует Jakarta EE 9+) -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>5.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
 </project>
