@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @MyTransaction
@@ -50,10 +51,16 @@ public class BookRepositoryJSON implements BookRepository {
     @Autowired
     private List<ConnectionPool> pools; // внедрение всех соответствующих бинов в коллекцию
 
+    @PostConstruct
+    public void init() {
+        data = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource(data)).getPath();
+    }
+
+
     @Override
     public List<Book> getAllBooks() {
         try {
-            Thread.sleep(5000L);
+            Thread.sleep(1L);
             return newMapper().readValue(
                     new File(data),
                     new TypeReference<>() {

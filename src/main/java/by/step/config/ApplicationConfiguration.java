@@ -2,6 +2,7 @@ package by.step.config;
 
 import by.step.repository.AuthorRepository;
 import by.step.repository.BookRepository;
+import jakarta.servlet.ServletContext;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.*;
 import by.step.repository.genre.GenreRepository;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 
 @Configuration(enforceUniqueMethods = false, proxyBeanMethods = true)
@@ -77,6 +79,5 @@ public class ApplicationConfiguration {
         Thread.sleep(10000L);
         return new GenreService(genreRepository);
     }
-
 
 }

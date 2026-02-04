@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang='ru' xmlns:th='http://www.thymeleaf.org'>
+<head>
+    <meta charset='UTF-8'>
+    <title th:text='${pageTitle}'>Детали автора</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .author-card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .author-card h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .detail-row {
+            margin: 10px 0;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .back-link:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class='author-card'>
+    <h2 th:text='${author.name}'>Имя автора</h2>
+
+    <div class='detail-row'>
+        <span class='detail-label'>ID:</span>
+        <span th:text='${author.id}'>1</span>
+    </div>
+
+    <div class='detail-row'>
+        <span class='detail-label'>Дата рождения:</span>
+        <span th:text='${author.firstName}'>Имя</span>
+    </div>
+
+    <div class='detail-row'>
+        <span class='detail-label'>Книги:</span>
+        <ul>
+            <li th:each='book : ${author.books}' th:text='${book.title}'>Книга</li>
+        </ul>
+    </div>
+</div>
+
+<a href='/authors/list' class='back-link'>← Назад к списку</a>
+</body>
+</html>

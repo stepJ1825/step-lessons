@@ -20,10 +20,7 @@ import org.springframework.stereotype.Repository;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Repository
 @Data
@@ -38,6 +35,11 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         System.out.println("some");
     }
 
+    @PostConstruct
+    public void init() {
+        data = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource(data)).getPath();
+    }
+
     @Override
     public List<Author> getAuthors() {
         List<Author> authors = new ArrayList<>();
@@ -46,7 +48,6 @@ public class AuthorRepositoryImpl implements AuthorRepository {
                     new TypeReference<>() {
                     });
         } catch (IOException e) {
-//            log.error("Файл не найден"); //если бы у нас был логгер
             rewriteData(Collections.emptyList());
         }
         return authors;

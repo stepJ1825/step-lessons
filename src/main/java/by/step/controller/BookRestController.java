@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/books")
+@RequestMapping("/books")
 @RequiredArgsConstructor
-public class BookController {
+public class BookRestController {
 
     private final BookService bookService;
 
@@ -49,7 +49,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public Book findById(@PathVariable int id) {
+    public Book findById(@PathVariable("id") int id) {
         return bookService.findById(id);
     }
 
