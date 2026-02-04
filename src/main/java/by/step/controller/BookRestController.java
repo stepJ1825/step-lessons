@@ -34,7 +34,8 @@ public class BookRestController {
     }
 
     @GetMapping("/author/{authorName}")
-    public List<Book> findBooksByAuthor(@PathVariable String authorName) {
+    public List<Book> findBooksByAuthor(
+            @PathVariable String authorName) {
         return bookService.findBooksByAuthor(authorName);
     }
 
@@ -51,6 +52,15 @@ public class BookRestController {
     @GetMapping("/{id}")
     public Book findById(@PathVariable("id") int id) {
         return bookService.findById(id);
+    }
+
+    @GetMapping("/param-id")
+    public Book findByIdInParam(
+            @RequestParam(name = "id",
+                    required = false) Integer id) {
+        return id != null
+        ? bookService.findById(id)
+        : null;
     }
 
     @GetMapping("/search")

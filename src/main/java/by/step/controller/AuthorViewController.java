@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller  // ← Важно: не @RestController!
 @RequestMapping("/authors")
@@ -27,6 +29,10 @@ public class AuthorViewController {
         List<Author> authors = authorService.getAuthors();
         model.addAttribute("authors", authors);
         model.addAttribute("pageTitle", "Список авторов");
+        Map<String, String> studentMap = List.of("Student1", "Student2", "Student3").stream()
+                .collect(Collectors.toMap(s -> s,
+                        s -> s.substring(2)));
+        model.addAttribute("students", studentMap);
         return "authors/list";  // путь к шаблону: /WEB-INF/views/authors/list.html
     }
 

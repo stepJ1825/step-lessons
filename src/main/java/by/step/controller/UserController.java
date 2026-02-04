@@ -27,7 +27,7 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User user = users.get(id);
         if (user == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(user);
     }
