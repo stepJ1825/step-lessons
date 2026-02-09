@@ -99,4 +99,20 @@ by.step2.config.WebConfig.java
 | **Поддержка в XML через `<beans profile="...">`**              | ✅ (если используется XML)                         | ✅ Да                                                                                |
 | **Поддержка `@PropertySource` с `${spring.profiles.active}`**  | ✅ Стабильно работает                              | ⚠️ Работает **только если профиль задан через системное свойство**, а не программно |
 
+### 09.02.2026
 
+1.
+@RequestMapping
+@GetMapping, @PostMapping ...
+@PathVariable
+@RequestBody
+@RequestParam
+request.getHeader("...");
+2.
+DispatcherServlet.doDispatch -> argumentResolvers
+3.
+@SessionAttributes({"..."}), @SessionAttribute("...")
+4.
+model.addAttribute(...)   vs    modelAndView.addObject(...)
+5.
+Forward Include Redirect
