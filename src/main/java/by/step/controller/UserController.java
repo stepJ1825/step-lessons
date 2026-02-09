@@ -24,10 +24,26 @@ public class UserController {
         users.put(nextId, new User(nextId++, "Jane Smith", "jane@example.com"));
     }
 
+    private List<User> getAllUsersFromMap(){
+//        throw new RuntimeException();
+        return new ArrayList<>(users.values());
+    }
+
     @GetMapping // = @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(new ArrayList<>(users.values()));
+        List<User> allUsersFromMap;
+        try {
+            allUsersFromMap = getAllUsersFromMap();
+            return ResponseEntity.ok(allUsersFromMap);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
+
+//    @GetMapping // = @RequestMapping(method = RequestMethod.GET)
+//    public List<User> getAllUsers() {
+//        return new ArrayList<>(users.values());
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(

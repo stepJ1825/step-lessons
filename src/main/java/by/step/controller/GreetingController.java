@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @Controller
 @RequestMapping("/api/v1")
 @SessionAttributes({"user"})
@@ -39,7 +40,9 @@ public class GreetingController {
     }
 
     @GetMapping("/hello/{id}")
-    public ModelAndView hello2(ModelAndView modelAndView, HttpServletRequest request,
+    public ModelAndView hello2(
+            ModelAndView modelAndView,
+            HttpServletRequest request,
             @RequestParam Integer age,
             @RequestHeader String accept,
             @CookieValue("JSESSIONID") String JSESSIONID,
@@ -48,7 +51,7 @@ public class GreetingController {
         String acceptHeader = request.getHeader("accept");
         Cookie[] cookies = request.getCookies();
 
-        modelAndView.setViewName("greeting/hello");
+        modelAndView.setViewName("greeting/hello2");
 
         return modelAndView;
     }

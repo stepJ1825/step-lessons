@@ -9,25 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Arrays;
-import java.util.List;
-
 @Controller
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v2")
 @SessionAttributes({"user"})
 public class GreetingController2 {
 
-    @ModelAttribute("roles")
-    public List<Role> roles() {
-        return Arrays.asList(Role.values());
-    }
-
     @GetMapping("/hello")
-    public String hello(
-            Model model,
-            HttpServletRequest request,
-            @ModelAttribute("user") User user
-    ) {
+    public String hello(Model model, HttpServletRequest request) {
         //        request.getSession().setAttribute(); sessionScope
         //        request.setAttribute(); requestScope
         //        request.getSession().getAttribute("user")
@@ -37,26 +25,27 @@ public class GreetingController2 {
     }
 
     @GetMapping("/bye")
-    public String bye(@SessionAttribute("user") User user, Model model) {
+    public String bye(@SessionAttribute("user") User user) {
         //        request.getSession().getAttribute("user")
+
         return "greeting/bye";
     }
 
     @GetMapping("/hello/{id}")
-    public ModelAndView hello2(
-            ModelAndView modelAndView, HttpServletRequest request,
+    public String hello2(
+            Model model,
+            HttpServletRequest request,
             @RequestParam Integer age,
             @RequestHeader String accept,
             @CookieValue("JSESSIONID") String JSESSIONID,
-            @PathVariable("id") Integer id
-    ) {
+            @PathVariable("id") Integer id) {
         String ageParamValue = request.getParameter("age");
         String acceptHeader = request.getHeader("accept");
         Cookie[] cookies = request.getCookies();
 
-        modelAndView.setViewName("greeting/hello");
+//        return "redirect:/api/v2/hello";
+        return "redirect:https://onliner.by";
 
-        return modelAndView;
     }
 
     // DTO класс
@@ -71,10 +60,5 @@ public class GreetingController2 {
             this.id = id;
             this.name = name;
         }
-    }
-
-
-    private enum Role {
-        ADMIN, USER
     }
 }

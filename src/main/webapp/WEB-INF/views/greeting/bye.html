@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Bye</title>
 </head>
 <body>
-Bye ${sessionScope.user.username}!
+<div>
+    <h1 th:text="${user.name}">Hello</h1>
+</div>
 </body>
 </html>

@@ -18,7 +18,7 @@ public class LoginController {
     public String login(Model model, @ModelAttribute("login") LoginDto loginDto) {
         return "user/login";
 
-        //        return "forward:/WEB-INF/jsp/user/login.jsp";
+        //        return "forward:/WEB-INF/views/greeting/login.html";
         //        return "redirect:https://google.com";
         //        return "redirect:/login";
 
