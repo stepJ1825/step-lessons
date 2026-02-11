@@ -1,0 +1,15 @@
+server:
+  port: 9876
+
+db:
+  username: postgres
+  password: pass
+  pool:
+    size: 12
+  driver: PostgresDriverFromProps
+  url: postgres:5432
+  hosts: localhost,127.0.0.1
+  
+data.json: books.json,authors.json
+app.date.format: yyyy-MM-dd
+
