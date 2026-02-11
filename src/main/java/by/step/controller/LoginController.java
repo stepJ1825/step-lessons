@@ -11,12 +11,12 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginPage() {
-        return "user/login";
+        return "greeting/login";
     }
 
     @PostMapping("/login")
     public String login(Model model, @ModelAttribute("login") LoginDto loginDto) {
-        return "user/login";
+        return "greeting/login";
 
         //        return "forward:/WEB-INF/views/greeting/login.html";
         //        return "redirect:https://google.com";

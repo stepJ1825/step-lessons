@@ -109,7 +109,7 @@ by.step2.config.WebConfig.java
 @RequestParam
 request.getHeader("...");
 2.
-DispatcherServlet.doDispatch -> argumentResolvers //TODO: найти конкретные резолверы!!!
+DispatcherServlet.doDispatch -> argumentResolvers
 3.
 @SessionAttributes({"..."}), @SessionAttribute("...")
 4.
@@ -117,6 +117,6 @@ model.addAttribute(...)   vs    modelAndView.addObject(...)
 5.
 Forward Include Redirect
 
-
- //TODO: найти конкретные резолверы!!! argumentResolvers
- //TODO: сделать формы для отправки POST/PUT... запросов
+### 11.02.2026
+ 1. argumentResolvers: DispatcherServlet.handlerAdapters.RequestMappingHadnlerAdapter.argumentResolvers
+ 2. Сделаны формы для отправки POST/PUT запросов

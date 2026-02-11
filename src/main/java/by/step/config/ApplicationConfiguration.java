@@ -22,20 +22,20 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 
 @Configuration(enforceUniqueMethods = false, proxyBeanMethods = true)
-@PropertySource("classpath:application.properties")
-@PropertySource(
-        value = "classpath:application-${spring.profiles.active}.properties",
-        ignoreResourceNotFound = true
-)
-@Import(WebConfig.class)
-@ComponentScan(basePackages = "by.step",
-               useDefaultFilters = false,
-               includeFilters = {
-                       @Filter(type = FilterType.ANNOTATION, value = Component.class),
-                       @Filter(type = FilterType.ASSIGNABLE_TYPE, value = AuthorRepository.class),
-                       @Filter(type = FilterType.ASSIGNABLE_TYPE, value = BookRepository.class),
-                       @Filter(type = FilterType.REGEX, pattern = "by\\..+Repository")
-               })
+//@PropertySource("classpath:application.properties")
+//@PropertySource(
+//        value = "classpath:application-${spring.profiles.active}.properties",
+//        ignoreResourceNotFound = true
+//)
+//@Import(WebConfig.class)
+//@ComponentScan(basePackages = "by.step",
+//               useDefaultFilters = false,
+//               includeFilters = {
+//                       @Filter(type = FilterType.ANNOTATION, value = Component.class),
+//                       @Filter(type = FilterType.ASSIGNABLE_TYPE, value = AuthorRepository.class),
+//                       @Filter(type = FilterType.ASSIGNABLE_TYPE, value = BookRepository.class),
+//                       @Filter(type = FilterType.REGEX, pattern = "by\\..+Repository")
+//               })
 public class ApplicationConfiguration {
 
     /*

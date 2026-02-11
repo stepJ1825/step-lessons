@@ -18,31 +18,31 @@ import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 import java.util.List;
 
 @Configuration
-@EnableWebMvc
-@ComponentScan(basePackages = {"by.step"})
-@PropertySource("classpath:application.properties")
+//@EnableWebMvc
+//@ComponentScan(basePackages = {"by.step"})
+//@PropertySource("classpath:application.properties")
 public class WebAppConfig implements WebMvcConfigurer {
 
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(new MappingJackson2HttpMessageConverter());
-    }
+//    @Override
+//    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+//        converters.add(new MappingJackson2HttpMessageConverter());
+//    }
+//
+//    @Bean
+//    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+//        return new PropertySourcesPlaceholderConfigurer();
+//    }
 
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
-
-    private final ApplicationContext applicationContext;
-
-    public WebAppConfig(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
+//    private final ApplicationContext applicationContext;
+//
+//    public WebAppConfig(ApplicationContext applicationContext) {
+//        this.applicationContext = applicationContext;
+//    }
 
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-        resolver.setApplicationContext(applicationContext);
+//        resolver.setApplicationContext(applicationContext);
         resolver.setPrefix("/WEB-INF/views/");
         resolver.setSuffix(".html");
         resolver.setTemplateMode("HTML");
@@ -51,21 +51,21 @@ public class WebAppConfig implements WebMvcConfigurer {
         return resolver;
     }
 
-    @Bean
-    public SpringTemplateEngine templateEngine() {
-        SpringTemplateEngine engine = new SpringTemplateEngine();
-        engine.setTemplateResolver(templateResolver());
-        engine.setEnableSpringELCompiler(true);
-        return engine;
-    }
+//    @Bean
+//    public SpringTemplateEngine templateEngine() {
+//        SpringTemplateEngine engine = new SpringTemplateEngine();
+//        engine.setTemplateResolver(templateResolver());
+//        engine.setEnableSpringELCompiler(true);
+//        return engine;
+//    }
 
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-        resolver.setTemplateEngine(templateEngine());
-        resolver.setCharacterEncoding("UTF-8");
-        resolver.setOrder(1);
-        registry.viewResolver(resolver);
-    }
+//    @Override
+//    public void configureViewResolvers(ViewResolverRegistry registry) {
+//        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+//        resolver.setTemplateEngine(templateEngine());
+//        resolver.setCharacterEncoding("UTF-8");
+//        resolver.setOrder(1);
+//        registry.viewResolver(resolver);
+//    }
 
 }
