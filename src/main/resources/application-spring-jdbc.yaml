@@ -1,0 +1,6 @@
+#spring.profiles.active: spring-jdbc
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5430/postgres
+    username: postgres
+    password: postgres

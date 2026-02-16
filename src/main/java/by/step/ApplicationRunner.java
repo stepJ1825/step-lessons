@@ -1,19 +1,26 @@
 package by.step;
 
-import by.step.config.DatabaseConfiguration;
+import by.step.model.Author;
+import by.step.model.Book;
+import by.step.repository.AuthorRepository;
 import by.step.repository.BookRepository;
-import by.step.repository.impl.AuthorRepositoryImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
+
+import java.time.LocalTime;
+import java.util.List;
 
 @SpringBootApplication
 public class ApplicationRunner {
     public static void main(String[] args) {
-        ConfigurableApplicationContext run = SpringApplication.run(ApplicationRunner.class, args);
-        BookRepository bean = run.getBean(BookRepository.class);
-        System.out.println(bean);
+        ConfigurableApplicationContext context = SpringApplication.run(ApplicationRunner.class, args);
+        BookRepository bookRepository = context.getBean(BookRepository.class);
+        List<Book> allBooks = bookRepository.getAllBooks();
+        AuthorRepository authorRepository = context.getBean(AuthorRepository.class);
+//        List<Author> authors = authorRepository.getAuthors();
+//        Author byId = authorRepository.getById(101);
+//        byId.setSurname(LocalTime.now().toString());
+//        authorRepository.saveAuthor(byId);
     }
 }
