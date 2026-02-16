@@ -18,9 +18,12 @@ public class ApplicationRunner {
         BookRepository bookRepository = context.getBean(BookRepository.class);
         List<Book> allBooks = bookRepository.getAllBooks();
         AuthorRepository authorRepository = context.getBean(AuthorRepository.class);
-//        List<Author> authors = authorRepository.getAuthors();
-//        Author byId = authorRepository.getById(101);
-//        byId.setSurname(LocalTime.now().toString());
-//        authorRepository.saveAuthor(byId);
+        List<Author> authors = authorRepository.getAuthors();
+        Author byId = authorRepository.getById(101);
+        byId.setSurname(LocalTime.now().toString());
+        authorRepository.saveAuthor(byId);
+        Author builded = Author.builder().surname("testovik").firstName("test").build();
+        authorRepository.saveAuthor(builded);
+        authorRepository.removeAuthor(builded.getId());
     }
 }
