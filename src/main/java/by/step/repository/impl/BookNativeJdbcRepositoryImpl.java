@@ -4,6 +4,7 @@ import by.step.model.Author;
 import by.step.model.Book;
 import by.step.model.Genre;
 import by.step.repository.BookRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
@@ -12,15 +13,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static by.step.repository.impl.BookSpringJdbcRepositoryImpl.SELECT_ALL_BOOKS;
+
 @Repository
 @Profile("native") // Активируется только при профиле 'native'
+@RequiredArgsConstructor
 public class BookNativeJdbcRepositoryImpl implements BookRepository {
 
     private final DataSource dataSource;
-
-    public BookNativeJdbcRepositoryImpl(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     /// Маппинг Book + Author + Genre из одного ResultSet (при JOIN)
     private Book mapRowWithRelations(ResultSet rs) throws SQLException {
@@ -48,17 +48,9 @@ public class BookNativeJdbcRepositoryImpl implements BookRepository {
     @Override
     public List<Book> getAllBooks() {
         List<Book> books = new ArrayList<>();
-        String sql = "SELECT b.id as book_id, b.title, b.year, b.rating, " +
-                     "a.id as author_id, a.first_name, a.surname, " +
-                     "g.id as genre_id, g.name as genre_name " +
-                     "FROM books b " +
-                     "JOIN authors a ON b.author_id = a.id " +
-                     "JOIN genres g ON b.genre_id = g.id";
-
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
+             PreparedStatement stmt = conn.prepareStatement(SELECT_ALL_BOOKS);
              ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
                 books.add(mapRowWithRelations(rs));
             }

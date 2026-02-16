@@ -4,6 +4,7 @@ import by.step.model.Author;
 import by.step.model.Book;
 import by.step.model.Genre;
 import by.step.repository.BookRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -16,13 +17,17 @@ import java.util.List;
 
 @Repository
 @Profile("spring-jdbc") // Активируется только при профиле 'spring-jdbc'
+@RequiredArgsConstructor
 public class BookSpringJdbcRepositoryImpl implements BookRepository {
 
-    private final JdbcTemplate jdbcTemplate;
+    static final String SELECT_ALL_BOOKS = "SELECT b.id as book_id, b.title, b.year, b.rating, " +
+            "a.id as author_id, a.first_name, a.surname, " +
+            "g.id as genre_id, g.name as genre_name " +
+            "FROM books b " +
+            "JOIN authors a ON b.author_id = a.id " +
+            "JOIN genres g ON b.genre_id = g.id";
 
-    public BookSpringJdbcRepositoryImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    private final JdbcTemplate jdbcTemplate;
 
     private final RowMapper<Book> bookRowMapper = (ResultSet rs, int rowNum) -> {
         Author author = new Author(
@@ -48,13 +53,7 @@ public class BookSpringJdbcRepositoryImpl implements BookRepository {
 
     @Override
     public List<Book> getAllBooks() {
-        String sql = "SELECT b.id as book_id, b.title, b.year, b.rating, " +
-                     "a.id as author_id, a.first_name, a.surname, " +
-                     "g.id as genre_id, g.name as genre_name " +
-                     "FROM books b " +
-                     "JOIN authors a ON b.author_id = a.id " +
-                     "JOIN genres g ON b.genre_id = g.id";
-        return jdbcTemplate.query(sql, bookRowMapper);
+        return jdbcTemplate.query(SELECT_ALL_BOOKS, bookRowMapper);
     }
 
     @Override

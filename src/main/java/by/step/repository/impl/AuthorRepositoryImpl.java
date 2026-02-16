@@ -10,21 +10,21 @@ import java.util.List;
 public class AuthorRepositoryImpl implements AuthorRepository {
     @Override
     public List<Author> getAuthors() {
-        throw new RuntimeException("Not implemented"); //TODO
-    }
-
-    @Override
-    public void addAuthor(Author author) {
-        throw new RuntimeException("Not implemented"); //TODO
+        throw new RuntimeException("Not implemented"); //TODO: native JDBC
     }
 
     @Override
     public void saveAuthor(Author author) {
-        throw new RuntimeException("Not implemented"); //TODO
+        throw new RuntimeException("Not implemented"); //TODO: native JDBC
+    }
+
+    @Override
+    public Author getById(int id) {
+        throw new RuntimeException("Not implemented"); //TODO: Spring JDBC Template
     }
 
     @Override
     public void removeAuthor(int id) {
-        throw new RuntimeException("Not implemented"); //TODO
+        throw new RuntimeException("Not implemented"); //TODO: Spring JDBC Template
     }
 }

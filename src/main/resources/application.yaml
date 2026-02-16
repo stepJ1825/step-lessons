@@ -7,9 +7,9 @@ db:
 #  pool:
 #    size: 12
 #  driver: PostgresDriverFromProps
-  url: postgres:5432
+  url: jdbc:postgresql://localhost:5430/postgres
 
 spring:
   profiles:
-    active: native
-#    active: spring-jdbc
+#    active: native
+    active: spring-jdbc
