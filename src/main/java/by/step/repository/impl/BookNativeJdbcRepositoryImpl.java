@@ -63,12 +63,12 @@ public class BookNativeJdbcRepositoryImpl implements BookRepository {
     @Override
     public Book findById(int id) {
         String sql = "SELECT b.id as book_id, b.title, b.year, b.rating, " +
-                     "a.id as author_id, a.first_name, a.surname, " +
-                     "g.id as genre_id, g.name as genre_name " +
-                     "FROM books b " +
-                     "JOIN authors a ON b.author_id = a.id " +
-                     "JOIN genres g ON b.genre_id = g.id " +
-                     "WHERE b.id = ?";
+                "a.id as author_id, a.first_name, a.surname, " +
+                "g.id as genre_id, g.name as genre_name " +
+                "FROM books b " +
+                "JOIN authors a ON b.author_id = a.id " +
+                "JOIN genres g ON b.genre_id = g.id " +
+                "WHERE b.id = ?";
 
         try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -89,7 +89,8 @@ public class BookNativeJdbcRepositoryImpl implements BookRepository {
     public void addBook(Book book) {
         String sql = "INSERT INTO books (title, author_id, genre_id, year, rating) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement stmt = conn.prepareStatement(sql,
+                     Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, book.getTitle());
             stmt.setInt(2, book.getAuthor().getId());
@@ -126,12 +127,12 @@ public class BookNativeJdbcRepositoryImpl implements BookRepository {
     public List<Book> findBooksByAuthor(String authorSurname) {
         List<Book> books = new ArrayList<>();
         String sql = "SELECT b.id as book_id, b.title, b.year, b.rating, " +
-                     "a.id as author_id, a.first_name, a.surname, " +
-                     "g.id as genre_id, g.name as genre_name " +
-                     "FROM books b " +
-                     "JOIN authors a ON b.author_id = a.id " +
-                     "JOIN genres g ON b.genre_id = g.id " +
-                     "WHERE a.surname = ?";
+                "a.id as author_id, a.first_name, a.surname, " +
+                "g.id as genre_id, g.name as genre_name " +
+                "FROM books b " +
+                "JOIN authors a ON b.author_id = a.id " +
+                "JOIN genres g ON b.genre_id = g.id " +
+                "WHERE a.surname = ?";
 
         try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -152,12 +153,12 @@ public class BookNativeJdbcRepositoryImpl implements BookRepository {
     public List<Book> findBooksByYearRange(int start, int end) {
         List<Book> books = new ArrayList<>();
         String sql = "SELECT b.id as book_id, b.title, b.year, b.rating, " +
-                     "a.id as author_id, a.first_name, a.surname, " +
-                     "g.id as genre_id, g.name as genre_name " +
-                     "FROM books b " +
-                     "JOIN authors a ON b.author_id = a.id " +
-                     "JOIN genres g ON b.genre_id = g.id " +
-                     "WHERE b.year BETWEEN ? AND ?";
+                "a.id as author_id, a.first_name, a.surname, " +
+                "g.id as genre_id, g.name as genre_name " +
+                "FROM books b " +
+                "JOIN authors a ON b.author_id = a.id " +
+                "JOIN genres g ON b.genre_id = g.id " +
+                "WHERE b.year BETWEEN ? AND ?";
 
         try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -173,5 +174,37 @@ public class BookNativeJdbcRepositoryImpl implements BookRepository {
             throw new RuntimeException("Error finding books by year range", e);
         }
         return books;
+    }
+
+    /**
+     * Example from https://jenkov.com/tutorials/jdbc/batchupdate.html
+     */
+    @Override
+    public void updateAllBooks(List<Book> books) {
+        String sql = "UPDATE books set title = ? where id = ?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            books.forEach(book -> {
+                        try {
+                            stmt.setString(1, book.getTitle());
+                            stmt.setInt(2, book.getId());
+                            stmt.addBatch();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+            );
+
+            int[] affectedRecords = stmt.executeBatch();
+//            System.out.println(affectedRecords);
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error adding book", e);
+        }
+    }
+
+    @Override
+    public void updateAllBooksWithNamedParams(List<Book> books) {
+        throw new RuntimeException("Not applicable");
     }
 }

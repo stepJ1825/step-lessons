@@ -4,12 +4,18 @@ server:
 db:
   username: postgres
   password: pass
-#  pool:
-#    size: 12
-#  driver: PostgresDriverFromProps
+  #  pool:
+  #    size: 12
+  #  driver: PostgresDriverFromProps
   url: jdbc:postgresql://localhost:5430/postgres
+
+
 
 spring:
   profiles:
 #    active: native
     active: spring-jdbc
+  datasource:
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: invalid_username
+    password: invalid_password

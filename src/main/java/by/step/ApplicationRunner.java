@@ -18,6 +18,9 @@ public class ApplicationRunner {
         ConfigurableApplicationContext context = SpringApplication.run(ApplicationRunner.class, args);
         BookRepository bookRepository = context.getBean(BookRepository.class);
         List<Book> allBooks = bookRepository.getAllBooks();
+
+//        bookRepository.updateAllBooksWithNamedParams(allBooks);
+//        bookRepository.removeBook(1);
 //        ((BookSpringJdbcRepositoryImpl)bookRepository).updateAllBooks();
 //        ((BookSpringJdbcRepositoryImpl)bookRepository).updateAllBooksNamed();
 

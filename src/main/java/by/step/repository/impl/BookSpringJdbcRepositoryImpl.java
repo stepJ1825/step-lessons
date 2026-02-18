@@ -128,19 +128,22 @@ public class BookSpringJdbcRepositoryImpl implements BookRepository {
         return jdbcTemplate.query(sql, bookRowMapper, start, end);
     }
 
-    public void updateAllBooks() {
-        List<Book> allBooks = getAllBooks();
+    /**
+     * Example from https://habr.com/ru/articles/703828/
+     */
+    @Override
+    public void updateAllBooks(List<Book> books) {
         String sql = "UPDATE books set title = ? where id = ?";
-        List<Object[]> args = allBooks.stream()
+        List<Object[]> args = books.stream()
                                       .map(book -> new Object[]{book.getTitle() + "1", book.getId()})
                                       .toList();
         jdbcTemplate.batchUpdate(sql, args);
     }
 
-    public void updateAllBooksNamed() {
-        List<Book> allBooks = getAllBooks();
+    @Override
+    public void updateAllBooksWithNamedParams(List<Book> books) {
         String sql = "UPDATE books set title = :title where id = :book_id";
-        var args = allBooks.stream()
+        var args = books.stream()
                            .map(book -> Map.of(
                                    "book_id", book.getId(),
                                    "title", book.getTitle() + "2"

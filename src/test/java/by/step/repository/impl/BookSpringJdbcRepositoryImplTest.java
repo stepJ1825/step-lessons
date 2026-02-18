@@ -21,7 +21,6 @@ class BookSpringJdbcRepositoryImplTest {
     @Test
     void getAllBooks() {
         List<Book> allBooks = bookRepository.getAllBooks();
-
     }
 
     @Test
