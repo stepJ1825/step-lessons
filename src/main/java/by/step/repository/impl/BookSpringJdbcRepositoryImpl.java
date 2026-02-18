@@ -8,26 +8,30 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.Map;
 
 @Repository
-@Profile("spring-jdbc") // Активируется только при профиле 'spring-jdbc'
+@Profile("spring-jdbc | test") // Активируется только при профиле 'spring-jdbc'
 @RequiredArgsConstructor
 public class BookSpringJdbcRepositoryImpl implements BookRepository {
 
     static final String SELECT_ALL_BOOKS = "SELECT b.id as book_id, b.title, b.year, b.rating, " +
-            "a.id as author_id, a.first_name, a.surname, " +
-            "g.id as genre_id, g.name as genre_name " +
-            "FROM books b " +
-            "JOIN authors a ON b.author_id = a.id " +
-            "JOIN genres g ON b.genre_id = g.id";
+                                           "a.id as author_id, a.first_name, a.surname, " +
+                                           "g.id as genre_id, g.name as genre_name " +
+                                           "FROM books b " +
+                                           "JOIN authors a ON b.author_id = a.id " +
+                                           "JOIN genres g ON b.genre_id = g.id";
 
     private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private final RowMapper<Book> bookRowMapper = (ResultSet rs, int rowNum) -> {
         Author author = new Author(
@@ -122,5 +126,27 @@ public class BookSpringJdbcRepositoryImpl implements BookRepository {
                      "JOIN genres g ON b.genre_id = g.id " +
                      "WHERE b.year BETWEEN ? AND ?";
         return jdbcTemplate.query(sql, bookRowMapper, start, end);
+    }
+
+    public void updateAllBooks() {
+        List<Book> allBooks = getAllBooks();
+        String sql = "UPDATE books set title = ? where id = ?";
+        List<Object[]> args = allBooks.stream()
+                                      .map(book -> new Object[]{book.getTitle() + "1", book.getId()})
+                                      .toList();
+        jdbcTemplate.batchUpdate(sql, args);
+    }
+
+    public void updateAllBooksNamed() {
+        List<Book> allBooks = getAllBooks();
+        String sql = "UPDATE books set title = :title where id = :book_id";
+        var args = allBooks.stream()
+                           .map(book -> Map.of(
+                                   "book_id", book.getId(),
+                                   "title", book.getTitle() + "2"
+                           ))
+                           .map(MapSqlParameterSource::new)
+                           .toArray(MapSqlParameterSource[]::new);
+        namedParameterJdbcTemplate.batchUpdate(sql, args);
     }
 }

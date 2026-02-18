@@ -50,7 +50,9 @@ public class DatabaseConfig {
 
     @Bean
     @Profile("spring-jdbc") // Активируется только при профиле 'spring-jdbc'
-    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-        return new JdbcTemplate(dataSource);
+    public JdbcTemplate jdbcTemplate(DataSource dataSource, @Value("${spring.jdbc.fetchSize}") Integer fetchSize) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        jdbcTemplate.setFetchSize(fetchSize);
+        return jdbcTemplate;
     }
 }

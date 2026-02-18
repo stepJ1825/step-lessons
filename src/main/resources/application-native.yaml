@@ -1,6 +1,6 @@
 #spring.profiles.active: native
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5430/postgres
     username: postgres
     password: postgres
