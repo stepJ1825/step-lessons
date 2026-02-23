@@ -1,7 +1,6 @@
 package by.step.service;
 
-import by.step.model.Book;
-import org.springframework.stereotype.Component;
+import by.step.model.simple.Book;
 
 import java.io.Serializable;
 import java.util.List;

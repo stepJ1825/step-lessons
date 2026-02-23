@@ -1,8 +1,6 @@
 package by.step.repository.impl;
 
-import by.step.model.Author;
-import by.step.model.Book;
-import by.step.model.Genre;
+import by.step.model.simple.Author;
 import by.step.repository.AuthorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;

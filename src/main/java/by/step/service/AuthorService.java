@@ -1,6 +1,6 @@
 package by.step.service;
 
-import by.step.model.Author;
+import by.step.model.simple.Author;
 
 import java.util.List;
 

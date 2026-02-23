@@ -1,9 +1,6 @@
 package by.step.service;
 
-import by.step.model.Book;
-
-import java.util.List;
-import java.util.function.Predicate;
+import by.step.model.simple.Book;
 
 @FunctionalInterface
 public interface BookFilter {

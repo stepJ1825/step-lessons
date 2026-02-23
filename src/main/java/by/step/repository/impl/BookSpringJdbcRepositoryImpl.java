@@ -1,8 +1,8 @@
 package by.step.repository.impl;
 
-import by.step.model.Author;
-import by.step.model.Book;
-import by.step.model.Genre;
+import by.step.model.simple.Author;
+import by.step.model.simple.Book;
+import by.step.model.simple.Genre;
 import by.step.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;

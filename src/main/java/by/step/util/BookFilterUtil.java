@@ -1,6 +1,6 @@
 package by.step.util;
 
-import by.step.model.Author;
+import by.step.model.simple.Author;
 import by.step.service.BookFilter;
 
 import java.util.Arrays;

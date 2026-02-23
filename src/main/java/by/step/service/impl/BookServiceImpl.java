@@ -1,6 +1,6 @@
 package by.step.service.impl;
 
-import by.step.model.Book;
+import by.step.model.simple.Book;
 import by.step.repository.BookRepository;
 import by.step.service.BookFilter;
 import by.step.service.BookService;

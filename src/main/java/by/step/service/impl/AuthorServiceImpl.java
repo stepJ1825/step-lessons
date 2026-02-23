@@ -1,6 +1,6 @@
 package by.step.service.impl;
 
-import by.step.model.Author;
+import by.step.model.simple.Author;
 import by.step.repository.AuthorRepository;
 import by.step.service.AuthorService;
 import lombok.RequiredArgsConstructor;

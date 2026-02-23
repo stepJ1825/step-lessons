@@ -1,6 +1,6 @@
 package by.step.controller;
 
-import by.step.model.Book;
+import by.step.model.simple.Book;
 import by.step.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

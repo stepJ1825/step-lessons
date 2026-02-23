@@ -1,4 +1,4 @@
-package by.step.model;
+package by.step.model.simple;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

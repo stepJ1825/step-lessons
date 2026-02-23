@@ -1,6 +1,6 @@
 package by.step.repository;
 
-import by.step.model.Book;
+import by.step.model.simple.Book;
 
 import java.util.List;
 

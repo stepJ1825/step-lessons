@@ -121,6 +121,10 @@ Forward Include Redirect
  1. argumentResolvers: DispatcherServlet.handlerAdapters.RequestMappingHadnlerAdapter.argumentResolvers
  2. Сделаны формы для отправки POST/PUT запросов
 
-### 18.02.2026
+### 23.02.2026
+Финальный проект
+https://docs.google.com/document/d/1dq_4BzR2ssX8uuX1LNpHAzPhNIolsvzzDEWNj_zsM9E/edit?usp=sharing
+
+### 25.02.2026
 TODO - SQL инъекции
 TODO - CallableStatement демонстрация

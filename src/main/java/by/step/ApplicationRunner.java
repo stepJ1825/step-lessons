@@ -1,24 +1,21 @@
 package by.step;
 
-import by.step.model.Author;
-import by.step.model.Book;
-import by.step.repository.AuthorRepository;
-import by.step.repository.BookRepository;
-import by.step.repository.impl.BookSpringJdbcRepositoryImpl;
+import by.step.model.jpa.BookJPA;
+import by.step.repository.BookJPARepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.time.LocalTime;
 import java.util.List;
 
 @SpringBootApplication
 public class ApplicationRunner {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(ApplicationRunner.class, args);
-        BookRepository bookRepository = context.getBean(BookRepository.class);
-        List<Book> allBooks = bookRepository.getAllBooks();
-
+        BookJPARepository bookRepository = context.getBean(BookJPARepository.class);
+        List<BookJPA> allBooks = bookRepository.findAll();
+        BookJPA referenceById = bookRepository.findById(3).get();
+        System.out.println(referenceById);
 //        bookRepository.updateAllBooksWithNamedParams(allBooks);
 //        bookRepository.removeBook(1);
 //        ((BookSpringJdbcRepositoryImpl)bookRepository).updateAllBooks();
