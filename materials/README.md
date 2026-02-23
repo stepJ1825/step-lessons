@@ -124,7 +124,12 @@ Forward Include Redirect
 ### 23.02.2026
 Финальный проект
 https://docs.google.com/document/d/1dq_4BzR2ssX8uuX1LNpHAzPhNIolsvzzDEWNj_zsM9E/edit?usp=sharing
+* Микросервисы
+* Логирование
 
 ### 25.02.2026
 TODO - SQL инъекции
 TODO - CallableStatement демонстрация
+TODO - XML JPA Config
+TODO - @Id в @Entity без первичного ключа в БД - протестировать
+TODO - GenerationType.IDENTITY и др

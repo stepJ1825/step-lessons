@@ -7,7 +7,10 @@ import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 
 @Configuration
 public class WebAppConfig implements WebMvcConfigurer {
-
+    /**
+     * Этот метод делает то-то и то-то
+     * @return
+     */
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();

@@ -4,7 +4,9 @@ import by.step.model.simple.Book;
 import by.step.repository.BookRepository;
 import by.step.service.BookFilter;
 import by.step.service.BookService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,13 +15,10 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service("bookService")
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
 
     private final BookRepository repository;
-
-    public BookServiceImpl(BookRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public void addBook(Book book) {

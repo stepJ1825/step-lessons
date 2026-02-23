@@ -1,5 +1,6 @@
 package by.step.model.simple;
 
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

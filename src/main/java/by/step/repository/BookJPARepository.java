@@ -7,20 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface BookJPARepository extends JpaRepository<BookJPA, Integer> {
-//    List<BookJPA> getAllBooks();
-
-//    BookJPA findById(int id);
-
-//    void addBook(BookJPA book);
-
-//    void removeBook(int id);
+public interface BookJPARepository extends JpaRepository<Book, Integer> {
 
     List<BookJPA> findBooksByAuthor(AuthorJPA author);
 
     List<BookJPA> findBooksByYearBetween(int start, int end);
-
-//    void updateAllBooks(List<BookJPA> books);
-
-//    void updateAllBooksWithNamedParams(List<BookJPA> books);
 }

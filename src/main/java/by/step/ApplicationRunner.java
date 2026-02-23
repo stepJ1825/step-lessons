@@ -13,9 +13,10 @@ public class ApplicationRunner {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(ApplicationRunner.class, args);
         BookJPARepository bookRepository = context.getBean(BookJPARepository.class);
-        List<BookJPA> allBooks = bookRepository.findAll();
-        BookJPA referenceById = bookRepository.findById(3).get();
-        System.out.println(referenceById);
+//        List<BookJPA> allBooks = bookRepository.findAll();
+//        BookJPA referenceById = bookRepository.findById(3).get();
+//        bookRepository.findBooksByYearBetween(2017,2018);
+//        System.out.println(referenceById);
 //        bookRepository.updateAllBooksWithNamedParams(allBooks);
 //        bookRepository.removeBook(1);
 //        ((BookSpringJdbcRepositoryImpl)bookRepository).updateAllBooks();
