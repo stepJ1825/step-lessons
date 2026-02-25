@@ -1,0 +1,25 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<!DOCTYPE hibernate-mapping PUBLIC-->
+<!--        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"-->
+<!--        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">-->
+
+<!--<hibernate-mapping package="by.step.model.jpa">-->
+
+<!--    <class name="GenreJPA" table="genres" dynamic-update="true">-->
+
+<!--        &lt;!&ndash; Primary Key: IDENTITY (SERIAL в PostgreSQL) &ndash;&gt;-->
+<!--        <id name="id" column="id" type="integer">-->
+<!--            <generator class="identity"/>-->
+<!--        </id>-->
+
+<!--        &lt;!&ndash; Properties &ndash;&gt;-->
+<!--        <property name="name"-->
+<!--                  column="name"-->
+<!--                  type="string"-->
+<!--                  length="100"-->
+<!--                  not-null="false"-->
+<!--                  unique="false"/>-->
+
+<!--    </class>-->
+
+<!--</hibernate-mapping>-->

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface BookJPARepository extends JpaRepository<Book, Integer> {
+public interface BookJPARepository extends JpaRepository<BookJPA, Integer> {
 
     List<BookJPA> findBooksByAuthor(AuthorJPA author);
 

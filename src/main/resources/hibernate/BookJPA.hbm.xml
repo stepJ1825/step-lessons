@@ -1,0 +1,52 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<!DOCTYPE hibernate-mapping PUBLIC-->
+<!--        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"-->
+<!--        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">-->
+
+<!--<hibernate-mapping package="by.step.model.jpa">-->
+
+<!--    <class name="BookJPA" table="books" dynamic-update="true">-->
+
+<!--        &lt;!&ndash; Primary Key: IDENTITY strategy (SERIAL в PostgreSQL) &ndash;&gt;-->
+<!--        <id name="id" column="id" type="integer">-->
+<!--            <generator class="identity"/>-->
+<!--        </id>-->
+
+<!--        &lt;!&ndash; Basic properties &ndash;&gt;-->
+<!--        <property name="title"-->
+<!--                  column="title"-->
+<!--                  type="string"-->
+<!--                  length="255"-->
+<!--                  not-null="false"/>-->
+
+<!--        <property name="year"-->
+<!--                  column="year"-->
+<!--                  type="integer"-->
+<!--                  not-null="false"/>-->
+
+<!--        <property name="rating"-->
+<!--                  column="rating"-->
+<!--                  type="float"-->
+<!--                  precision="3"-->
+<!--                  scale="2"-->
+<!--                  not-null="false"/>-->
+
+<!--        &lt;!&ndash; Many-to-One: AuthorJPA &ndash;&gt;-->
+<!--        <many-to-one name="author"-->
+<!--                     class="AuthorJPA"-->
+<!--                     column="author_id"-->
+<!--                     not-null="false"-->
+<!--                     lazy="proxy"-->
+<!--                     fetch="select"/>-->
+
+<!--        &lt;!&ndash; Many-to-One: GenreJPA &ndash;&gt;-->
+<!--        <many-to-one name="genre"-->
+<!--                     class="GenreJPA"-->
+<!--                     column="genre_id"-->
+<!--                     not-null="false"-->
+<!--                     lazy="proxy"-->
+<!--                     fetch="select"/>-->
+
+<!--    </class>-->
+
+<!--</hibernate-mapping>-->
