@@ -1,6 +1,5 @@
 package by.step.config;
 
-import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,22 +19,22 @@ public class DatabaseConfig {
     private String username;
     @Value("${spring.datasource.password}")
     private String password;
-
-    @Bean
-    public Flyway flyway() {
-        Flyway flyway = Flyway.configure()
-                .baselineOnMigrate(true)
-                // .baselineVersion("V1")
-                // .dataSource("jdbc:postgresql://localhost:5430/postgres", "postgres", "postgres")
-                .dataSource(dataSource())
-                .locations("classpath:db/migration/flyway")
-                .baselineOnMigrate(true)
-                .validateOnMigrate(false)
-                .load();
-        // Запуск миграций
-        flyway.migrate();
-        return flyway;
-    }
+//
+//    @Bean
+//    public Flyway flyway() {
+//        Flyway flyway = Flyway.configure()
+//                .baselineOnMigrate(true)
+//                // .baselineVersion("V1")
+//                // .dataSource("jdbc:postgresql://localhost:5430/postgres", "postgres", "postgres")
+//                .dataSource(dataSource())
+//                .locations("classpath:db/migration/flyway")
+//                .baselineOnMigrate(true)
+//                .validateOnMigrate(false)
+//                .load();
+//        // Запуск миграций
+//        flyway.migrate();
+//        return flyway;
+//    }
 
     @Bean
     @Profile("spring-jdbc | native") // Активируется только при профиле 'spring-jdbc' или 'native'

@@ -128,8 +128,12 @@ https://docs.google.com/document/d/1dq_4BzR2ssX8uuX1LNpHAzPhNIolsvzzDEWNj_zsM9E/
 * Логирование
 
 ### 25.02.2026
++ XML JPA Config
++ TODO - @Id в @Entity без первичного ключа в БД - протестировать
++ GenerationType.IDENTITY и др
+
+### 02.03.2026
+TODO - разнести spring-jdbc и spring-jpa конфиги
+TODO - destroy method с удалением таблица flyway_schema_history
 TODO - SQL инъекции
 TODO - CallableStatement демонстрация
-TODO - XML JPA Config
-TODO - @Id в @Entity без первичного ключа в БД - протестировать
-TODO - GenerationType.IDENTITY и др
