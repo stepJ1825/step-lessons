@@ -2,7 +2,6 @@ package by.step.service;
 
 import by.step.entity.Author;
 import by.step.entity.Book;
-import by.step.repository.BookRepository;
 import jakarta.persistence.EntityGraph;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -21,7 +20,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class BookHibernateService {
-    private final BookRepository bookRepository;
     private final EntityManager entityManager;
 
     // Поиск по нескольким необязательным параметрам
@@ -30,13 +28,14 @@ public class BookHibernateService {
             Integer yearFrom, Integer yearTo, Float minRating
     ) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Book> cq = cb.createQuery(Book.class);
-        Root<Book> book = cq.from(Book.class);
+        CriteriaQuery<Book> cq = cb.createQuery(Book.class); // SELECT *
+        Root<Book> book = cq.from(Book.class);              // FROM books
 
         List<Predicate> predicates = new ArrayList<>();
 
         if (title != null && !title.isBlank()) {
-            predicates.add(cb.like(cb.lower(book.get("title")), "%" + title.toLowerCase() + "%"));
+            predicates.add(cb.like(cb.lower(book.get("title")),
+                    "%" + title.toLowerCase() + "%"));
         }
         if (authorId != null) {
             predicates.add(cb.equal(book.get("author").get("id"), authorId));
@@ -54,12 +53,12 @@ public class BookHibernateService {
             predicates.add(cb.ge(book.get("rating"), minRating));
         }
 
-        cq.where(predicates.toArray(new Predicate[0]));
-        cq.orderBy(cb.desc(book.get("rating")), cb.asc(book.get("title")));
+        cq.where(predicates.toArray(new Predicate[0]));  // WHERE ... AND ... ;
+        cq.orderBy(cb.desc(book.get("rating")), cb.asc(book.get("title"))); // ORDER BY rating DESC, title ASC
 
         return entityManager.createQuery(cq)
-                            .setMaxResults(50)
-                            .getResultList();
+                .setMaxResults(50)
+                .getResultList();
     }
 
     // Агрегация: средняя оценка по автору
@@ -69,18 +68,18 @@ public class BookHibernateService {
         Root<Book> book = cq.from(Book.class);
 
         cq.multiselect(
-                  book.get("author"),
-                  cb.avg(book.get("rating"))
-          )
-          .groupBy(book.get("author"))
-          .having(cb.ge(cb.avg(book.get("rating")), 4.0));
+                        book.get("author"),
+                        cb.avg(book.get("rating"))
+                )
+                .groupBy(book.get("author"))
+                .having(cb.ge(cb.avg(book.get("rating")), 4.0));
 
         List<Object[]> results = entityManager.createQuery(cq).getResultList();
         return results.stream()
-                      .collect(Collectors.toMap(
-                              r -> (Author) r[0],
-                              r -> ((Number) r[1]).doubleValue()
-                      ));
+                .collect(Collectors.toMap(
+                        r -> (Author) r[0],
+                        r -> ((Number) r[1]).doubleValue()
+                ));
     }
 
     // Или программно:
@@ -89,9 +88,9 @@ public class BookHibernateService {
         graph.addAttributeNodes("author", "genre");
 
         return entityManager.createQuery("SELECT b FROM Book b WHERE b.id = :id", Book.class)
-                            .setParameter("id", id)
-                            .setHint("javax.persistence.fetchgraph", graph)
-                            .getResultList();
+                .setParameter("id", id)
+                .setHint("javax.persistence.fetchgraph", graph)
+                .getResultList();
     }
 
     public List<Book> searchWithHibernateCriteria(String keyword) {

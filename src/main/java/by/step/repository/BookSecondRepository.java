@@ -21,24 +21,4 @@ public interface BookSecondRepository extends JpaRepository<Book, Integer> {
 
     Page<Book> findByYearBetween(int from, int to, Pageable pageable);
 
-    // --------- CREATE / UPDATE
-
-    @Override
-    <S extends Book> S save(S entity);
-
-    @Override
-    <S extends Book> List<S> saveAll(Iterable<S> entities);
-
-    // --------- READ (одна сущность)
-
-    @Override
-    Optional<Book> findById(Integer id);
-
-    // --------- DELETE
-
-    @Override
-    void deleteById(Integer id);
-
-    @Override
-    void deleteAllById(Iterable<? extends Integer> ids);
 }

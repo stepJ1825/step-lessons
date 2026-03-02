@@ -137,3 +137,7 @@ TODO - разнести spring-jdbc и spring-jpa конфиги
 TODO - destroy method с удалением таблица flyway_schema_history
 TODO - SQL инъекции
 TODO - CallableStatement демонстрация
+
+### 04.03.2026
+TODO - >= :minRating почему >=4.9 возвращает 0 строк???
+TODO - findAuthorsBySurrname?????

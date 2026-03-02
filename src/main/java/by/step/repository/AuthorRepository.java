@@ -35,6 +35,6 @@ public interface AuthorRepository extends JpaRepository<Author, Integer> {
     //-----------------------------------------
     // NAMED QUERIES
     @Query(name = "Author.findBySurname")
-    List<Author> findAuthorsBySurname(@Param("surname") String surname);
+    List<Author> findAuthorsBySurrname(@Param("surname") String surname);
 
 }

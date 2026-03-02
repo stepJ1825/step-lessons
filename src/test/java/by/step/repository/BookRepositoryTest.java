@@ -93,7 +93,7 @@ class BookRepositoryTest {
 
     @Test
     void checkFindBookDetailsWithJoins() {
-        float minRating = 3.9f;
+        float minRating = 4.8f;
         List<Object[]> rows = repository.findBookDetailsWithJoins(minRating);
 
         Assertions.assertThat(rows).isNotEmpty();

@@ -48,7 +48,8 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     //-----------------------------------------
     // HQL QUERIES
-    @Query("SELECT b FROM Book b WHERE b.title LIKE %:keyword%")
+    //TODO: найти решение с регистронезависимым поиском
+    @Query("SELECT b FROM Book b WHERE upper(b.title) LIKE upper(%:keyword%)")
     List<Book> searchByTitleKeyword(@Param("keyword") String keyword);
 
     @Query("SELECT b FROM Book b JOIN b.author a WHERE a.surname = :surname")

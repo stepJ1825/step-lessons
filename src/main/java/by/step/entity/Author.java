@@ -12,6 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "authors")
+@NamedQueries(
+        @NamedQuery(
+                name = "Author.findBySurname",
+                query = "SELECT a FROM Author a WHERE a.surname = :surname"
+        )
+)
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 1. Важно для SERIAL в Postgres
