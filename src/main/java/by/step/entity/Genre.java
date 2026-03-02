@@ -1,4 +1,4 @@
-package by.step.model.jpa;
+package by.step.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,15 +7,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
+@Builder
 @NoArgsConstructor
 @Entity
-@Table(name = "authors")
-public class AuthorJPA {
+@Table(name = "genres")
+public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 1. Важно для SERIAL в Postgres
-    private Integer id;
-    private String firstName;
-    private String surname;
+    private int id;
+    private String name;
 }

@@ -1,23 +1,85 @@
 package by.step.repository;
 
-import by.step.model.simple.Book;
+import by.step.dto.BookDetailsDTO;
+import by.step.entity.Author;
+import by.step.entity.Book;
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface BookRepository {
-    List<Book> getAllBooks();
+public interface BookRepository extends JpaRepository<Book, Integer> {
+    //-----------------------------------------
+    // SPRING DATA JPA METHODS
+    List<Book> findByAuthor(Author author);
 
-    Book findById(int id);
+    List<Book> findByAuthorSurname(String surname);
 
-    void addBook(Book book);
+    List<Book> findByYearBetween(int start, int end);
 
-    void removeBook(int id);
+    List<Book> findByAuthorNotNull();
 
-    List<Book> findBooksByAuthor(String author);
+    List<Book> findByAuthorIsNull();
 
-    List<Book> findBooksByYearRange(int start, int end);
+    List<Book> findByAuthorFirstNameContains(String firstName);
 
-    void updateAllBooks(List<Book> books);
+    //-----------------------------------------
+    // NATIVE SQL QUERIES
+    @Query(nativeQuery = true, value = "SELECT * FROM books;")
+    List<Book> findAllNative();
 
-    void updateAllBooksWithNamedParams(List<Book> books);
+    @Query(value = "SELECT * FROM books b WHERE b.year > :year ORDER BY b.rating DESC",
+           nativeQuery = true)
+    List<Book> findTopRatedAfterYear(@Param("year") int year);
+
+    @Query(value = """
+            SELECT b.*, a.first_name, a.surname, g.name as genre_name 
+            FROM books b
+            JOIN authors a ON b.author_id = a.id
+            JOIN genres g ON b.genre_id = g.id
+            WHERE b.rating >= :minRating
+            """, nativeQuery = true)
+    List<Object[]> findBookDetailsWithJoins(@Param("minRating") float minRating);
+
+    @Query(name = "Book.findDetailsByYear", nativeQuery = true)
+    List<BookDetailsDTO> findBookDetailsByYear(@Param("year") int year);
+
+    //-----------------------------------------
+    // HQL QUERIES
+    @Query("SELECT b FROM Book b WHERE b.title LIKE %:keyword%")
+    List<Book> searchByTitleKeyword(@Param("keyword") String keyword);
+
+    @Query("SELECT b FROM Book b JOIN b.author a WHERE a.surname = :surname")
+    List<Book> findByAuthorSurnameHQL(@Param("surname") String surname);
+
+    @Query("SELECT b FROM Book b WHERE b.rating >= :minRating AND b.genre.name = :genreName")
+    List<Book> findByRatingAndGenre(
+            @Param("minRating") float minRating,
+            @Param("genreName") String genreName
+    );
+
+    //-----------------------------------------
+    // NAMED QUERIES
+    @Query(name = "Book.findByTitle")
+    List<Book> findByTitle(@Param("title") String title); // автоматически свяжется с @NamedQuery("Book.findByTitle")
+
+    @Query(name = "Book.findByAuthorAndYearRange")
+    List<Book> findBooksByAuthorAndPeriod(
+            @Param("authorId") Integer authorId,
+            @Param("from") int from,
+            @Param("to") int to
+    );
+
+    //-----------------------------------------
+    // EntityGraph QUERIES
+    @EntityGraph(attributePaths = {"author", "genre"})
+    @Query("SELECT b FROM Book b WHERE b.author.id = :authorId")
+    List<Book> findByAuthorIdWithGraph(@Param("authorId") Integer authorId);
+
+    //-----------------------------------------
+    // Native query with result mapping
+
+
 }

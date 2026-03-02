@@ -1,6 +1,6 @@
 package by.step.controller;
 
-import by.step.model.simple.Book;
+import by.step.entity.Book;
 import by.step.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +33,10 @@ public class BookRestController {
         return bookService.getAllBooks();
     }
 
-    @GetMapping("/author/{authorName}")
+    @GetMapping("/author/{authorSurname}")
     public List<Book> findBooksByAuthor(
-            @PathVariable String authorName) {
-        return bookService.findBooksByAuthor(authorName);
+            @PathVariable String authorSurname) {
+        return bookService.findBooksByAuthor(authorSurname);
     }
 
     @GetMapping("/average-rating")

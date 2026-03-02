@@ -1,16 +1,40 @@
 package by.step.repository;
 
-import by.step.model.simple.Author;
+import by.step.entity.Author;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface AuthorRepository {
-    void saveAuthor(Author author);
+public interface AuthorRepository extends JpaRepository<Author, Integer> {
+    //-----------------------------------------
+    // SPRING DATA JPA METHODS
+    Optional<Author> findBySurname(String surname);
 
-    Author getById(int id);
+    List<Author> findByFirstNameStartingWith(String prefix);
 
-    List<Author> getAuthors();
+    //-----------------------------------------
+    // HQL QUERIES
+    @Query("SELECT a FROM Author a WHERE a.firstName = :firstName AND a.surname = :surname")
+    Optional<Author> findFullByName(
+            @Param("firstName") String firstName,
+            @Param("surname") String surname
+    );
 
-    void removeAuthor(int id);
+    @Query("SELECT DISTINCT b.author FROM Book b WHERE b.year >= :year")
+    List<Author> findAuthorsWithBooksAfterYear(@Param("year") int year);
+
+    //-----------------------------------------
+    // NATIVE SQL QUERIES
+    @Query(value = "SELECT a.* FROM authors a WHERE a.surname ILIKE %:suffix%",
+           nativeQuery = true)
+    List<Author> findBySurnameEndingWithNative(@Param("suffix") String suffix);
+
+    //-----------------------------------------
+    // NAMED QUERIES
+    @Query(name = "Author.findBySurname")
+    List<Author> findAuthorsBySurname(@Param("surname") String surname);
 
 }

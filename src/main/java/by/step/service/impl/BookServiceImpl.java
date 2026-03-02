@@ -1,12 +1,11 @@
 package by.step.service.impl;
 
-import by.step.model.simple.Book;
+import by.step.entity.Book;
 import by.step.repository.BookRepository;
 import by.step.service.BookFilter;
 import by.step.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
 
 import java.io.Serializable;
 import java.util.List;
@@ -22,39 +21,39 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void addBook(Book book) {
-        repository.addBook(book);
+        repository.save(book);
     }
 
     @Override
     public void removeBook(int id) {
-        repository.removeBook(id);
+        repository.deleteById(id);
     }
 
     @Override
-    public List<Book> findBooksByAuthor(String author) {
-        return repository.findBooksByAuthor(author);
+    public List<Book> findBooksByAuthor(String surname) {
+        return repository.findByAuthorSurname(surname);
     }
 
     @Override
     public List<Book> findBooksByYearRange(int start, int end) {
-        return repository.findBooksByYearRange(start, end);
+        return repository.findByYearBetween(start, end);
     }
 
     @Override
     public List<Book> getAllBooks() {
-        return repository.getAllBooks();
+        return repository.findAll();
     }
 
     @Override
     public List<Book> getBooksByFilter(BookFilter bookFilter) {
-        return repository.getAllBooks()
+        return repository.findAll()
                          .stream().filter(bookFilter::filter)
                          .toList();
     }
 
     @Override
     public float getAverageRating() {
-        return (float) repository.getAllBooks().stream()
+        return (float) repository.findAll().stream()
                                  .mapToDouble(Book::getRating)
                                  .average()
                                  .orElse(0D);
@@ -62,14 +61,14 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Map<String, List<Book>> getBooksGroupedByGenre() {
-        return repository.getAllBooks().stream()
+        return repository.findAll().stream()
                          .collect(Collectors.groupingBy(book ->
                                  book.getGenre().getName()));
     }
 
     @Override
     public Book findById(int id) {
-        return repository.findById(id);
+        return repository.findById(id).orElse(new Book());
     }
 
     @Override
@@ -94,8 +93,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Map<String, Serializable> getAuthorStatistics(String author) {
-        List<Book> booksByAuthor = repository.findBooksByAuthor(author);
+    public Map<String, Serializable> getAuthorStatistics(String surname) {
+        List<Book> booksByAuthor = repository.findByAuthorSurname(surname);
         double averageRating = booksByAuthor.stream()
                                             .mapToDouble(Book::getRating)
                                             .average()

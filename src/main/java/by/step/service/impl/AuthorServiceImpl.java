@@ -1,6 +1,6 @@
 package by.step.service.impl;
 
-import by.step.model.simple.Author;
+import by.step.entity.Author;
 import by.step.repository.AuthorRepository;
 import by.step.service.AuthorService;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +16,11 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> getAuthors() {
-        return authorRepository.getAuthors();
+        return authorRepository.findAll();
     }
 
     @Override
     public void addAuthor(Author author) {
-        authorRepository.saveAuthor(author);
+        authorRepository.save(author);
     }
 }

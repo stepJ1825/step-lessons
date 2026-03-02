@@ -1,6 +1,6 @@
 package by.step.controller;
 
-import by.step.model.simple.Author;
+import by.step.entity.Author;
 import by.step.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

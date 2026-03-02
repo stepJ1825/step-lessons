@@ -1,7 +1,7 @@
 package by.step;
 
-import by.step.model.jpa.BookJPA;
-import by.step.repository.BookJPARepository;
+import by.step.entity.Book;
+import by.step.repository.BookRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -12,8 +12,8 @@ import java.util.List;
 public class ApplicationRunner {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(ApplicationRunner.class, args);
-        BookJPARepository bookRepository = context.getBean(BookJPARepository.class);
-        List<BookJPA> allBooks = bookRepository.findAll();
+        BookRepository bookRepository = context.getBean(BookRepository.class);
+        List<Book> allBooks = bookRepository.findAll();
 //        BookJPA referenceById = bookRepository.findById(3).get();
 //        bookRepository.findBooksByYearBetween(2017,2018);
 //        System.out.println(referenceById);

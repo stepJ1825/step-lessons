@@ -1,6 +1,6 @@
 package by.step.service;
 
-import by.step.model.simple.Book;
+import by.step.entity.Book;
 
 @FunctionalInterface
 public interface BookFilter {

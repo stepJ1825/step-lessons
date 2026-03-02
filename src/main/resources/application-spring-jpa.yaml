@@ -1,0 +1,16 @@
+#spring.profiles.active: spring-jdbc
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5430/postgres
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show_sql: true
+    format_sql: true
+#  flyway:
+#    enabled: true                # Явно включаем Flyway
+#    locations: classpath:db/migration/flyway  # Где лежат миграции
+#    baseline-on-migrate: true    # Если таблицы уже есть от Hibernate
+#    clean-disabled: false        # Разрешить clean для dev-среды
