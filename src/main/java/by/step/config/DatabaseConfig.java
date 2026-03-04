@@ -5,13 +5,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.repository.query.QueryLookupStrategy;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
 @Configuration
-
+//@EnableJpaRepositories(
+//        basePackages = "by.step.repository",
+//        queryLookupStrategy = QueryLookupStrategy.Key.USE_DECLARED_QUERY
+//        //queryLookupStrategy = QueryLookupStrategy.Key.CREATE_IF_NOT_FOUND //default
+//        )
+@Profile("!test")
 public class DatabaseConfig {
 
     @Value("${spring.datasource.url}")
@@ -50,8 +57,10 @@ public class DatabaseConfig {
 
     @Bean
     @Profile("spring-jdbc") // Активируется только при профиле 'spring-jdbc'
-    public JdbcTemplate jdbcTemplate(DataSource dataSource,
-                                     @Value("${spring.jdbc.fetchSize}") Integer fetchSize) {
+    public JdbcTemplate jdbcTemplate(
+            DataSource dataSource,
+            @Value("${spring.jdbc.fetchSize}") Integer fetchSize
+    ) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         jdbcTemplate.setFetchSize(fetchSize);
         return jdbcTemplate;

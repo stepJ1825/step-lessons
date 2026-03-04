@@ -1,4 +1,4 @@
-INSERT INTO books (id, title, author_id, genre_id, year, rating) VALUES
+INSERT INTO books (id, title, author_id, genre_id, release_year, rating) VALUES
 (1, 'The Silent Ocean', 101, 1, 2020, 4.5),
 (2, 'Eternal Dreams', 102, 2, 2018, 4.8),
 (3, 'Whispering Wind', 103, 3, 2019, 4.2),

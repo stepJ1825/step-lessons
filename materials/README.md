@@ -129,15 +129,32 @@ https://docs.google.com/document/d/1dq_4BzR2ssX8uuX1LNpHAzPhNIolsvzzDEWNj_zsM9E/
 
 ### 25.02.2026
 + XML JPA Config
-+ TODO - @Id в @Entity без первичного ключа в БД - протестировать
++ @Id в @Entity без первичного ключа в БД - протестировать
 + GenerationType.IDENTITY и др
 
 ### 02.03.2026
-TODO - разнести spring-jdbc и spring-jpa конфиги
-TODO - destroy method с удалением таблица flyway_schema_history
-TODO - SQL инъекции
-TODO - CallableStatement демонстрация
++ разнести spring-jdbc и spring-jpa конфиги
 
 ### 04.03.2026
-TODO - >= :minRating почему >=4.9 возвращает 0 строк???
-TODO - findAuthorsBySurrname?????
+">= :minRating" почему ">=4.9" возвращает 0 строк
+        В Java: Значение 4.9f на самом деле хранится как приблизительно 4.900000095367431640625.
+        В Postgres:
+        Если колонка имеет тип REAL или DOUBLE PRECISION: там тоже хранится приближенное значение (например, 4.9000000000000004).
+        Если колонка имеет тип NUMERIC (или DECIMAL): там хранится точное значение 4.9.
+        SELECT rating, rating::text FROM books WHERE rating >= 4.8 AND rating <= 5.0;
+        Решения: перейти на BigDecimal или добавить погрешность
+
+findAuthorsBySurname????? 
+        CREATE_IF_NOT_FOUND - поведение по умолчанию
+
+List<Book> searchByTitleKeyword(@Param("keyword") String keyword); - регистронезависимый поиск
+        сделать через CONCAT
+        сделать через ILIKE
+        сделать через имя метода с ContainingIgnoreCase
+
+
+
+### FUTURE...
+TODO - SQL инъекции
+TODO - CallableStatement демонстрация
+TODO - destroy method с удалением таблица flyway_schema_history

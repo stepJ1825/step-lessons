@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
         )
 )
 @NamedNativeQuery(  // Опционально: именованный native-запрос
-                    name = "Book.findDetailsByYear",
+                    name = "Book.findDetailsByReleaseYear",
                     query = """
                             SELECT b.id, b.title, 
                                    a.first_name || ' ' || a.surname as author_name,
@@ -36,14 +36,14 @@ import lombok.NoArgsConstructor;
                             FROM books b
                             JOIN authors a ON b.author_id = a.id
                             JOIN genres g ON b.genre_id = g.id
-                            WHERE b.year = :year
+                            WHERE b.release_year = :release_year
                             """,
                     resultSetMapping = "BookAuthorGenreMapping"
 )
 @NamedQueries({
         @NamedQuery(
-                name = "Book.findByAuthorAndYearRange",
-                query = "SELECT b FROM Book b WHERE b.author.id = :authorId AND b.year BETWEEN :from AND :to"
+                name = "Book.findByAuthorAndReleaseYearRange",
+                query = "SELECT b FROM Book b WHERE b.author.id = :authorId AND b.releaseYear BETWEEN :from AND :to"
         ),
         @NamedQuery(
                 name = "Book.findByTitle",
@@ -62,6 +62,7 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;
-    private int year;
+    @Column(name = "release_year")
+    private int releaseYear;
     private float rating;
 }

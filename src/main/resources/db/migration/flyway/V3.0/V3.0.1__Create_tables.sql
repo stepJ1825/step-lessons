@@ -14,6 +14,6 @@ CREATE TABLE books (
     title VARCHAR(200) NOT NULL,
     author_id INT NOT NULL REFERENCES authors(id),
     genre_id INT NOT NULL REFERENCES genres(id),
-    year INT NOT NULL,
+    release_year INT NOT NULL,
     rating FLOAT
 );

@@ -36,7 +36,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findBooksByYearRange(int start, int end) {
-        return repository.findByYearBetween(start, end);
+        return repository.findByReleaseYearBetween(start, end);
     }
 
     @Override

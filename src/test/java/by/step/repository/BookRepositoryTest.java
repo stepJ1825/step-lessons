@@ -8,11 +8,23 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Comparator;
 import java.util.List;
 
-@SpringBootTest(classes = ApplicationRunner.class)
+@SpringBootTest //(classes = ApplicationRunner.class)
+@ActiveProfiles("test")
+@Sql(scripts = {
+        "/sql/V3.0.1__Create_tables.sql",
+        "/sql/V3.0.2__Insert_authors.sql",
+        "/sql/V3.0.3__Insert_genres.sql",
+        "/sql/V3.0.4__Insert_books.sql"
+}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
+@Sql(scripts = {
+        "classpath:sql/cleanup.sql"
+}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_CLASS)
 class BookRepositoryTest {
 
     @Autowired
@@ -45,10 +57,10 @@ class BookRepositoryTest {
 
     @Test
     void checkFindByYearBetween() {
-        List<Book> books = repository.findByYearBetween(2019, 2020);
+        List<Book> books = repository.findByReleaseYearBetween(2019, 2020);
         Assertions.assertThat(books)
                 .isNotEmpty()
-                .allMatch(book -> book.getYear() >= 2019 && book.getYear() <= 2020);
+                .allMatch(book -> book.getReleaseYear() >= 2019 && book.getReleaseYear() <= 2020);
     }
 
     @Test
@@ -84,7 +96,7 @@ class BookRepositoryTest {
 
         Assertions.assertThat(books)
                 .isNotEmpty()
-                .allMatch(book -> book.getYear() > year);
+                .allMatch(book -> book.getReleaseYear() > year);
 
         Assertions.assertThat(books)
                 .extracting(Book::getRating)
@@ -99,7 +111,7 @@ class BookRepositoryTest {
         Assertions.assertThat(rows).isNotEmpty();
         for (Object[] row : rows) {
             Assertions.assertThat(row.length).isGreaterThanOrEqualTo(8);
-            Float rating = ((Number) row[5]).floatValue();
+            Float rating = ((Number) row[3]).floatValue();
             Assertions.assertThat(rating).isGreaterThanOrEqualTo(minRating);
         }
     }
@@ -122,10 +134,15 @@ class BookRepositoryTest {
     void checkSearchByTitleKeyword() {
         String keyword = "Ocean";
         List<Book> books = repository.searchByTitleKeyword(keyword);
+        List<Book> booksByLowerCase = repository.searchByTitleKeyword(keyword.toLowerCase());
 
         Assertions.assertThat(books)
                 .isNotEmpty()
                 .allMatch(book -> book.getTitle().contains(keyword));
+
+        Assertions.assertThat(booksByLowerCase)
+                  .isNotEmpty()
+                  .allMatch(book -> book.getTitle().contains(keyword));
     }
 
     @Test
@@ -168,7 +185,7 @@ class BookRepositoryTest {
                 .isNotEmpty()
                 .allSatisfy(book -> {
                     Assertions.assertThat(book.getAuthor().getId()).isEqualTo(authorId);
-                    Assertions.assertThat(book.getYear()).isBetween(fromYear, toYear);
+                    Assertions.assertThat(book.getReleaseYear()).isBetween(fromYear, toYear);
                 });
     }
 

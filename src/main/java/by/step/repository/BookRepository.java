@@ -17,7 +17,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     List<Book> findByAuthorSurname(String surname);
 
-    List<Book> findByYearBetween(int start, int end);
+    List<Book> findByReleaseYearBetween(int start, int end);
 
     List<Book> findByAuthorNotNull();
 
@@ -30,9 +30,9 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query(nativeQuery = true, value = "SELECT * FROM books;")
     List<Book> findAllNative();
 
-    @Query(value = "SELECT * FROM books b WHERE b.year > :year ORDER BY b.rating DESC",
+    @Query(value = "SELECT * FROM books b WHERE b.release_year > :release_year ORDER BY b.rating DESC",
            nativeQuery = true)
-    List<Book> findTopRatedAfterYear(@Param("year") int year);
+    List<Book> findTopRatedAfterYear(@Param("release_year") int release_year);
 
     @Query(value = """
             SELECT b.*, a.first_name, a.surname, g.name as genre_name 
@@ -43,13 +43,12 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
             """, nativeQuery = true)
     List<Object[]> findBookDetailsWithJoins(@Param("minRating") float minRating);
 
-    @Query(name = "Book.findDetailsByYear", nativeQuery = true)
-    List<BookDetailsDTO> findBookDetailsByYear(@Param("year") int year);
+    @Query(name = "Book.findDetailsByReleaseYear", nativeQuery = true)
+    List<BookDetailsDTO> findBookDetailsByYear(@Param("release_year") int release_year);
 
     //-----------------------------------------
     // HQL QUERIES
-    //TODO: найти решение с регистронезависимым поиском
-    @Query("SELECT b FROM Book b WHERE upper(b.title) LIKE upper(%:keyword%)")
+    @Query("SELECT b FROM Book b WHERE upper(b.title) LIKE CONCAT('%', upper(:keyword), '%')")
     List<Book> searchByTitleKeyword(@Param("keyword") String keyword);
 
     @Query("SELECT b FROM Book b JOIN b.author a WHERE a.surname = :surname")
@@ -66,7 +65,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query(name = "Book.findByTitle")
     List<Book> findByTitle(@Param("title") String title); // автоматически свяжется с @NamedQuery("Book.findByTitle")
 
-    @Query(name = "Book.findByAuthorAndYearRange")
+    @Query(name = "Book.findByAuthorAndReleaseYearRange")
     List<Book> findBooksByAuthorAndPeriod(
             @Param("authorId") Integer authorId,
             @Param("from") int from,

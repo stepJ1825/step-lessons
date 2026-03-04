@@ -11,11 +11,25 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SpringBootTest(classes = ApplicationRunner.class)
+@SpringBootTest//(classes = ApplicationRunner.class)
+@ActiveProfiles("test")
+@Sql(scripts = {
+        "/sql/V3.0.1__Create_tables.sql",
+        "/sql/V3.0.2__Insert_authors.sql",
+        "/sql/V3.0.3__Insert_genres.sql",
+        "/sql/V3.0.4__Insert_books.sql"
+}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
+@Sql(scripts = {
+        "classpath:sql/cleanup.sql"
+}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_CLASS)
+@Transactional
 class BookSecondRepositoryTest {
 
     @Autowired
@@ -56,69 +70,43 @@ class BookSecondRepositoryTest {
     }
 
     @Test
-    void checkFindByYearBetweenWithPagination() {
-        PageRequest pageRequest = PageRequest.of(0, 20, Sort.by("year").ascending());
+    void checkFindByReleaseYearBetweenWithPagination() {
+        PageRequest pageRequest = PageRequest.of(0, 20, Sort.by("releaseYear").ascending());
 
-        Page<Book> page = repository.findByYearBetween(2019, 2020, pageRequest);
+        Page<Book> page = repository.findByReleaseYearBetween(2019, 2020, pageRequest);
 
         Assertions.assertThat(page.getContent())
                 .isNotEmpty()
                 .allSatisfy(book ->
-                        Assertions.assertThat(book.getYear()).isBetween(2019, 2020)
+                        Assertions.assertThat(book.getReleaseYear()).isBetween(2019, 2020)
                 );
     }
 
     @Test
     void checkSaveAndFindById() {
-        Author author = Author.builder()
-                              .id(101)
-                              .build();
-        Genre genre = Genre.builder()
-                           .id(1)
-                           .build();
+        // используем уже существующую книгу из тестовых данных,
+        // чтобы не конфликтовать с PK и автоинкрементом
+        Book existing = repository.findAll(PageRequest.of(0, 1)).getContent().get(0);
+        Integer id = existing.getId();
+        String originalTitle = existing.getTitle();
+        String updatedTitle = originalTitle + " (updated)";
 
-        Book book = Book.builder()
-                        .title("Test CRUD Book")
-                        .author(author)
-                        .genre(genre)
-                        .year(2024)
-                        .rating(4.5f)
-                        .build();
+        existing.setTitle(updatedTitle);
+        Book saved = repository.save(existing);
 
-        Book saved = repository.save(book);
+        Assertions.assertThat(saved.getId()).isEqualTo(id);
+        Assertions.assertThat(saved.getTitle()).isEqualTo(updatedTitle);
 
-        Assertions.assertThat(saved.getId()).isGreaterThan(0);
-
-        Book found = repository.findById(saved.getId()).orElseThrow();
-        Assertions.assertThat(found.getTitle()).isEqualTo("Test CRUD Book");
+        Book found = repository.findById(id).orElseThrow();
+        Assertions.assertThat(found.getTitle()).isEqualTo(updatedTitle);
     }
 
     @Test
     void checkSaveAllAndDeleteAllById() {
-        Author author = Author.builder()
-                              .id(101)
-                              .build();
-        Genre genre = Genre.builder()
-                           .id(1)
-                           .build();
+        // берём несколько существующих книг, "сохраняем" (update/no-op) и удаляем
+        List<Book> existing = repository.findAll(PageRequest.of(0, 2)).getContent();
 
-        Book first = Book.builder()
-                         .title("Bulk Book 1")
-                         .author(author)
-                         .genre(genre)
-                         .year(2024)
-                         .rating(4.0f)
-                         .build();
-
-        Book second = Book.builder()
-                          .title("Bulk Book 2")
-                          .author(author)
-                          .genre(genre)
-                          .year(2024)
-                          .rating(4.1f)
-                          .build();
-
-        List<Book> saved = repository.saveAll(List.of(first, second));
+        List<Book> saved = repository.saveAll(existing);
 
         List<Integer> ids = saved.stream()
                                  .map(Book::getId)
@@ -133,23 +121,10 @@ class BookSecondRepositoryTest {
 
     @Test
     void checkDeleteById() {
-        Author author = Author.builder()
-                              .id(101)
-                              .build();
-        Genre genre = Genre.builder()
-                           .id(1)
-                           .build();
-
-        Book book = Book.builder()
-                        .title("To Be Deleted")
-                        .author(author)
-                        .genre(genre)
-                        .year(2024)
-                        .rating(4.2f)
-                        .build();
-
-        Book saved = repository.save(book);
-        Integer id = saved.getId();
+        Integer id = repository.findAll(PageRequest.of(0, 1))
+                               .getContent()
+                               .get(0)
+                               .getId();
 
         repository.deleteById(id);
 

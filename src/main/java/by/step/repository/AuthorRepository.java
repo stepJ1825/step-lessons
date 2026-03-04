@@ -23,8 +23,8 @@ public interface AuthorRepository extends JpaRepository<Author, Integer> {
             @Param("surname") String surname
     );
 
-    @Query("SELECT DISTINCT b.author FROM Book b WHERE b.year >= :year")
-    List<Author> findAuthorsWithBooksAfterYear(@Param("year") int year);
+    @Query("SELECT DISTINCT b.author FROM Book b WHERE b.releaseYear >= :releaseYear")
+    List<Author> findAuthorsWithBooksAfterYear(@Param("releaseYear") int releaseYear);
 
     //-----------------------------------------
     // NATIVE SQL QUERIES
@@ -35,6 +35,6 @@ public interface AuthorRepository extends JpaRepository<Author, Integer> {
     //-----------------------------------------
     // NAMED QUERIES
     @Query(name = "Author.findBySurname")
-    List<Author> findAuthorsBySurrname(@Param("surname") String surname);
+    List<Author> findAuthorsBySurname(@Param("surname") String surname);
 
 }
