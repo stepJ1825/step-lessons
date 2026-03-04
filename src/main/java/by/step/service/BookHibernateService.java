@@ -137,4 +137,8 @@ public class BookHibernateService {
         cq.where(cb.or(titleMatch, authorMatch));
         return session.createQuery(cq).getResultList();
     }
+
+    public List<Book> searchAllBooksNew() {
+        throw new RuntimeException("NOT IMPLEMENTED YET");
+    }
 }

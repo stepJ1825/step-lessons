@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-@Service("bookService")
+@Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
 
@@ -95,10 +95,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Map<String, Serializable> getAuthorStatistics(String surname) {
         List<Book> booksByAuthor = repository.findByAuthorSurname(surname);
-        double averageRating = booksByAuthor.stream()
-                                            .mapToDouble(Book::getRating)
-                                            .average()
-                                            .orElse(0);
+        double averageRating = getAverageRating(booksByAuthor);
         int bookCount = booksByAuthor.size();
 
         String favouriteGenre = booksByAuthor.stream()
@@ -116,5 +113,13 @@ public class BookServiceImpl implements BookService {
                 "bookCount", bookCount,
                 "favouriteGenre", favouriteGenre
         );
+    }
+
+    private double getAverageRating(List<Book> booksByAuthor) {
+        double averageRating = booksByAuthor.stream()
+                                            .mapToDouble(Book::getRating)
+                                            .average()
+                                            .orElse(0);
+        return averageRating;
     }
 }

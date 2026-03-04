@@ -17,3 +17,6 @@ spring:
 #        - classpath:sql/V3.0.4__Insert_books.sql
   flyway:
     enabled: false
+  jpa:
+    show_sql: true
+    format_sql: true

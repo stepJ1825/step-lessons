@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @Sql(scripts = {
         "classpath:sql/cleanup.sql"
 }, executionPhase = Sql.ExecutionPhase.AFTER_TEST_CLASS)
-@Transactional
+//@Transactional
 class BookSecondRepositoryTest {
 
     @Autowired
@@ -83,6 +83,7 @@ class BookSecondRepositoryTest {
     }
 
     @Test
+    @Transactional
     void checkSaveAndFindById() {
         // используем уже существующую книгу из тестовых данных,
         // чтобы не конфликтовать с PK и автоинкрементом
@@ -102,6 +103,7 @@ class BookSecondRepositoryTest {
     }
 
     @Test
+    @Transactional
     void checkSaveAllAndDeleteAllById() {
         // берём несколько существующих книг, "сохраняем" (update/no-op) и удаляем
         List<Book> existing = repository.findAll(PageRequest.of(0, 2)).getContent();
@@ -120,6 +122,7 @@ class BookSecondRepositoryTest {
     }
 
     @Test
+    @Transactional
     void checkDeleteById() {
         Integer id = repository.findAll(PageRequest.of(0, 1))
                                .getContent()

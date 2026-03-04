@@ -11,13 +11,11 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
 
-@SpringBootTest//(classes = ApplicationRunner.class)
+@SpringBootTest
 @ActiveProfiles("test")
 @Sql(scripts = {
         "/sql/V3.0.1__Create_tables.sql",
-        "/sql/V3.0.2__Insert_authors.sql",
-        "/sql/V3.0.3__Insert_genres.sql",
-        "/sql/V3.0.4__Insert_books.sql"
+        "/sql/V3.0.2__Insert_authors.sql"
 }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
 @Sql(scripts = {
         "classpath:sql/cleanup.sql"
@@ -34,7 +32,7 @@ class AuthorRepositoryTest {
     }
 
     @Test
-    void findBySurnameEndingWithNative(){
+    void findBySurnameEndingWithNative() {
         List<Author> list = authorRepository.findBySurnameEndingWithNative("oWn");
         Assertions.assertThat(list).isNotEmpty();
     }

@@ -150,5 +150,11 @@ class BookHibernateServiceTest {
                       Assertions.assertThat(title.contains("ocean") || surname.contains("ocean")).isTrue();
                   });
     }
+
+    @Test
+    void searchAllBooksNew(){
+        List<Book> books = service.searchAllBooksNew();
+        Assertions.assertThat(books).isNotNull();
+    }
 }
 
