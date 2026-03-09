@@ -11,8 +11,7 @@ import java.util.List;
 public class FeignCurrencyService {
     private final FeignNbrbClient nbrClient;
 
-    public void getCurrencies() {
-        List<CurrencyDto> currencies = nbrClient.getCurrencies();
-        System.out.println(currencies);
+    public List<CurrencyDto> getCurrencies() {
+       return nbrClient.getCurrencies();
     }
 }

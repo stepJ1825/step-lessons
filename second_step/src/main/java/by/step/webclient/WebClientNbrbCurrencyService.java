@@ -56,18 +56,4 @@ public class WebClientNbrbCurrencyService {
                             });
     }
 
-    /**
-     * Получение валюты по коду (пример с параметром запроса)
-     */
-    public Mono<CurrencyDto> getCurrencyByCode(String code) {
-        return nbrbWebClient.get()
-                            .uri(uriBuilder -> uriBuilder
-                                    .path("/exrates/currencies")
-                                    .queryParam("periodicity", 0) // пример параметра
-                                    .build())
-                            .retrieve()
-                            .bodyToFlux(CurrencyDto.class)
-                            .filter(currency -> currency.getCode().equalsIgnoreCase(code))
-                            .next();
-    }
 }

@@ -18,7 +18,6 @@ public class RestTemplateLibraryService {
 
     private final RestTemplate libraryRestTemplate;
 
-
     public List<Book> getAllBooks() {
         ResponseEntity<List<Book>> response = libraryRestTemplate.exchange(
                 "/books",
@@ -27,7 +26,9 @@ public class RestTemplateLibraryService {
                 new ParameterizedTypeReference<List<Book>>() {
                 }
         );
-        return response.getBody() != null ? response.getBody() : Collections.emptyList();
+        return response.getBody() != null
+                ? response.getBody()
+                : Collections.emptyList();
 
     }
 }

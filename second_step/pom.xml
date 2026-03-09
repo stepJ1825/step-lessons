@@ -29,11 +29,6 @@
             <artifactId>lombok</artifactId>
             <scope>compile</scope>
         </dependency>
-        <!--        добавляем для поддержки аннотаций @PostConstruct и @PreDestroy-->
-        <dependency>
-            <groupId>jakarta.annotation</groupId>
-            <artifactId>jakarta.annotation-api</artifactId>
-        </dependency>
 
         <!-- Spring Boot Web Starter (включает Spring MVC, Jackson, Servlet API) -->
         <dependency>

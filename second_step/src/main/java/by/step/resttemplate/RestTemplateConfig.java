@@ -14,7 +14,7 @@ import java.util.Collections;
 public class RestTemplateConfig {
 
     private static final String NBRB_BASE_URL = "https://api.nbrb.by";
-    public static final String LIBRARY_BASE_URL = "http://localhost:9876/";
+    public static final String LIBRARY_BASE_URL = "http://localhost:8082/";
 
     @Bean("nbrbRestTemplate")
     public RestTemplate nbrbRestTemplate(RestTemplateBuilder builder) {
@@ -46,7 +46,6 @@ public class RestTemplateConfig {
                     return factory;
                 })
                 .additionalMessageConverters(Collections.singletonList(mappingJackson2HttpMessageConverter()))
-                .errorHandler(new NbrbResponseErrorHandler())
                 .build();
     }
 

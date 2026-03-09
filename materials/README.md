@@ -159,3 +159,7 @@ TODO - SQL инъекции
 TODO - CallableStatement демонстрация
 TODO - destroy method с удалением таблица flyway_schema_history
 TODO - Service Discovery, EUREKA
+
+### Почитать/посмотреть
+https://habr.com/ru/articles/983344/
+https://www.youtube.com/watch?v=4tSyz_v9w7Q
