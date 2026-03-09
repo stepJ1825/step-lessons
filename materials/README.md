@@ -158,3 +158,4 @@ List<Book> searchByTitleKeyword(@Param("keyword") String keyword); - регис�
 TODO - SQL инъекции
 TODO - CallableStatement демонстрация
 TODO - destroy method с удалением таблица flyway_schema_history
+TODO - Service Discovery, EUREKA
