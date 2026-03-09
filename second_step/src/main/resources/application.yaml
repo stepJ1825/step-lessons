@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: second_step
+
+server:
+  port: 9888
