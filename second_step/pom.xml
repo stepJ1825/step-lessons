@@ -3,17 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.3</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>by.step</groupId>
+        <artifactId>step_project</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
+
     <groupId>by.step</groupId>
     <artifactId>second_step</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>second_step</name>
     <description>second_step</description>
-    <url/>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

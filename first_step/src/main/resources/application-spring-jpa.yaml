@@ -1,7 +1,7 @@
 #spring.profiles.active: spring-jdbc
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5430/postgres?currentSchema=public
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=public
     username: postgres
     password: postgres
   jpa:

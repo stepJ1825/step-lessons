@@ -7,5 +7,19 @@
     <groupId>by.step</groupId>
     <artifactId>step_project</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.3</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <modules>
+        <module>first_step</module>
+        <module>second_step</module>
+        <module>fourth</module>
+    </modules>
 
 </project>
