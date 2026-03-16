@@ -1,0 +1,30 @@
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+@Sl4j
+public class CodeReview {
+    private static final int wordCount = 10;
+    private static ArrayList<String> stringList;
+
+    public static ArrayList<String> getWords() {
+        stringList = new ArrayList<>();
+        String response = requestRandomWords();
+        log.debug("get words: " +response);
+        for (int i = 0; i < wordCount; i++) {
+            try {
+                stringList.add(new JSONArray(response).getJSONObject(i).getString("word"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return stringList;
+    }
+
+    private static String requestRandomWords() {
+        //go to some resource and return JSON
+        return "some json";
+    }
+}
