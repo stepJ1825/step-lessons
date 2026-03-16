@@ -5,7 +5,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class WordCounter {
+public class WordCounterSecond {
 //    private static final int wordCount = 4;        // static ?, magic number
 //    private List<String> stringList;    // static ?   ArrayList->List
 
@@ -17,17 +17,17 @@ public class WordCounter {
         int length = jsonArray.length();
         int counter = Math.min(length, wordCount);
 
-        for (int i = 0; i < counter; i++) {
-            try {
+        try {
+            for (int i = 0; i < counter; i++) {
                 String word = jsonArray.getJSONObject(i).getString("word");
                 if (!word.isBlank()) {
                     stringList.add(word);
                 } else if (counter < length) {
                     counter++;
                 }
-            } catch (Exception e) {
-                System.err.println(e.getMessage()); // replace on log.error(e.getMessage);
             }
+        } catch (Exception e) {
+            System.err.println(e.getMessage()); // replace on log.error(e.getMessage);
         }
         return stringList;
     }

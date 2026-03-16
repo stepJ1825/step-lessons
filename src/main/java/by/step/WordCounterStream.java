@@ -2,34 +2,35 @@ package by.step;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @Service
 @Slf4j
-public class WordCounter {
+public class WordCounterStream {
 //    private static final int wordCount = 4;        // static ?, magic number
 //    private List<String> stringList;    // static ?   ArrayList->List
 
     public /*static*/ List<String> getWords(int wordCount) {     //static ?   ArrayList->List
-        List<String> stringList = new ArrayList<>();
         String response = requestRandomWords();
         //log.debug("get words: " +response);
         JSONArray jsonArray = new JSONArray(response);
-        int length = jsonArray.length();
-        int counter = Math.min(length, wordCount);
-
-        for (int i = 0; i < counter; i++) {
-            try {
-                String word = jsonArray.getJSONObject(i).getString("word");
-                if (!word.isBlank()) {
-                    stringList.add(word);
-                } else if (counter < length) {
-                    counter++;
-                }
-            } catch (Exception e) {
-                System.err.println(e.getMessage()); // replace on log.error(e.getMessage);
-            }
-        }
-        return stringList;
+//        Stream.iterate()
+//        Stream.generate()
+        return IntStream.range(0, jsonArray.length())
+                .boxed()
+                .map(i -> {
+                    String word = "";
+                    try {
+                        word = jsonArray.getJSONObject(i).getString("word");
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage()); // replace on log.error(e.getMessage);
+                    }
+                    return word;
+                })
+                .filter(s -> !s.isBlank())
+                .limit(wordCount)
+                .toList();
     }
 
     private static String requestRandomWords() {

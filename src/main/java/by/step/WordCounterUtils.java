@@ -32,7 +32,6 @@ public class WordCounterUtils {
               },
               {
                 "name": "thirdName",
-                "word": "third",
                 "type": "thirdType"
               },
               {
