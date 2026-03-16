@@ -1,0 +1,42 @@
+[
+  {
+    "name": "firstName",
+    "word": "first",
+    "type": "firstType"
+  },
+  {
+    "name": "secondName",
+    "word": "second",
+    "type": "secondType"
+  },
+  {
+    "name": "thirdName",
+    "word": "third",
+    "type": "thirdType"
+  },
+  {
+    "name": "fourthName",
+    "word": "",
+    "type": "fourthType"
+  },
+  {
+    "name": "fifthName",
+    "word": "fifth",
+    "type": "fifthType"
+  },
+  {
+    "name": "sixthName",
+    "word": "sixth",
+    "type": "sixthType"
+  },
+  {
+    "name": "seventhName",
+    "word": "  ",
+    "type": "seventhType"
+  },
+  {
+    "name": "eighthName",
+    "word": "",
+    "type": "eighthType"
+  }
+]
