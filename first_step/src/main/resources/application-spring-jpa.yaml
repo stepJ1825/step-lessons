@@ -1,0 +1,11 @@
+#spring.profiles.active: spring-jdbc
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5430/postgres?currentSchema=public
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show_sql: true
+    format_sql: true
