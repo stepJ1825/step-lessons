@@ -159,9 +159,20 @@ TODO - SQL инъекции
 TODO - CallableStatement демонстрация
 TODO - destroy method с удалением таблица flyway_schema_history
 TODO - Service Discovery, EUREKA
+TODO - транзакции в Spring
+TODO - пагинация со стороны контроллера
+TODO - mapstruct
+TODO - логгирование
+TODO - Написать свой Spring Boot Starter
 
 TODO - поправить описание фин проекта - каждый микросервис в отдельном репозитории
 
 ### Почитать/посмотреть
 https://habr.com/ru/articles/983344/
 https://www.youtube.com/watch?v=4tSyz_v9w7Q
+
+https://spring.io/guides/gs/spring-boot-docker
+dockerfile https://habr.com/ru/companies/ruvds/articles/439980/
+postgres in docker https://habr.com/ru/articles/578744/
+https://spring.io/guides/gs/service-registration-and-discovery
+совместимость версий https://spring.io/projects/spring-cloud

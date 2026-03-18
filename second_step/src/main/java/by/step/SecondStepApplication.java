@@ -40,8 +40,6 @@ public class SecondStepApplication {
 //        Flux<CurrencyDto> allCurrenciesReactive = webClientNbrbCurrencyService.getAllCurrenciesReactive();
 //        System.out.println(allCurrenciesReactive);
 
-        System.out.println();
-
     }
 
 }
