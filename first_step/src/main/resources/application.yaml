@@ -2,6 +2,8 @@ server:
   port: 9876
 
 spring:
+  application:
+    name: first-step
   profiles:
 #    active: native
 #    active: spring-jdbc

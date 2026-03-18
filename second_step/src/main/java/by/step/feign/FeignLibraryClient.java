@@ -8,14 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 
-@FeignClient(name = "library-service", url = "http://localhost:9876")
+//@FeignClient(name = "library-service", url = "http://localhost:9876")
+@FeignClient("first-step")
 public interface FeignLibraryClient {
     @GetMapping("/books")
     List<Book> getBooks();
 
-    @GetMapping("/books")
+    @GetMapping("/books-simple-dto")
     List<BookSimpleDto> getBooksSimple();
 
-    @GetMapping("/books")
+    @GetMapping("/books-in-string")
     String getBooksInString();
 }

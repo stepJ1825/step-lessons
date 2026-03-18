@@ -9,6 +9,7 @@ import by.step.resttemplate.RestTemplateLibraryService;
 import by.step.webclient.WebClientNbrbCurrencyService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 import reactor.core.publisher.Flux;
@@ -16,6 +17,7 @@ import reactor.core.publisher.Flux;
 import java.util.List;
 
 @SpringBootApplication
+@EnableDiscoveryClient
 @EnableFeignClients // Включаем сканирование Feign клиентов
 public class SecondStepApplication {
 
@@ -25,8 +27,8 @@ public class SecondStepApplication {
 //        FeignCurrencyService feignCurrencyService = context.getBean(FeignCurrencyService.class);
 //        List<CurrencyDto> currencies = feignCurrencyService.getCurrencies();
 
-        FeignLibraryService libraryService = context.getBean(FeignLibraryService.class);
-        String books = libraryService.getBooksInString();
+//        FeignLibraryService libraryService = context.getBean(FeignLibraryService.class);
+//        String books = libraryService.getBooksInString();
 
 //        RestTemplateLibraryService restTemplateLibraryService = context.getBean(RestTemplateLibraryService.class);
 //        List<Book> allBooks = restTemplateLibraryService.getAllBooks();
