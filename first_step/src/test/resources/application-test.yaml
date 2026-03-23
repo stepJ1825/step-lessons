@@ -1,5 +1,11 @@
 #spring.profiles.active: test
 spring:
+  cloud:
+    discovery:
+      enabled: false
+      client:
+        simple:
+          enabled: false
   datasource:
     url: jdbc:h2:mem:test_mem;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
     username:
@@ -20,3 +26,9 @@ spring:
   jpa:
     show_sql: true
     format_sql: true
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false

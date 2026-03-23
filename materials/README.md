@@ -152,20 +152,18 @@ List<Book> searchByTitleKeyword(@Param("keyword") String keyword); - регис�
         сделать через ILIKE
         сделать через имя метода с ContainingIgnoreCase
 
-
+### 18.03.2026
++ Service Discovery, EUREKA
 
 ### FUTURE...
 TODO - SQL инъекции
 TODO - CallableStatement демонстрация
 TODO - destroy method с удалением таблица flyway_schema_history
-TODO - Service Discovery, EUREKA
 TODO - транзакции в Spring
 TODO - пагинация со стороны контроллера
 TODO - mapstruct
 TODO - логгирование
 TODO - Написать свой Spring Boot Starter
-
-TODO - поправить описание фин проекта - каждый микросервис в отдельном репозитории
 
 ### Почитать/посмотреть
 https://habr.com/ru/articles/983344/
@@ -176,3 +174,6 @@ dockerfile https://habr.com/ru/companies/ruvds/articles/439980/
 postgres in docker https://habr.com/ru/articles/578744/
 https://spring.io/guides/gs/service-registration-and-discovery
 совместимость версий https://spring.io/projects/spring-cloud
+
+TESTCONTAINERS
+https://www.youtube.com/watch?v=QJHrc1K3CcQ

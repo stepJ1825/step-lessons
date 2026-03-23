@@ -1,0 +1,117 @@
+package by.step.repository.testcontainers;
+
+import by.step.FirstStepApplication;
+import by.step.entity.Book;
+import by.step.repository.BookSecondRepository;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@SpringBootTest(classes = FirstStepApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@ActiveProfiles("test")
+@Transactional
+class BookSecondRepositoryTestcontainersTest extends PostgresTestcontainersBase {
+
+    @Autowired
+    private BookSecondRepository repository;
+
+    @Test
+    void checkFindAllPageable() {
+        PageRequest pageRequest = PageRequest.of(0, 10);
+
+        Page<Book> page = repository.findAll(pageRequest);
+
+        Assertions.assertThat(page.getContent())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSizeLessThanOrEqualTo(10);
+    }
+
+    @Test
+    void checkFindAllSortedByTitle() {
+        List<Book> books = repository.findAll(Sort.by(Sort.Direction.ASC, "title"));
+
+        Assertions.assertThat(books)
+                .isNotEmpty()
+                .allSatisfy(book -> Assertions.assertThat(book.getTitle()).isNotBlank());
+    }
+
+    @Test
+    void checkFindByTitleContainingIgnoreCase() {
+        PageRequest pageRequest = PageRequest.of(0, 10);
+
+        Page<Book> page = repository.findByTitleContainingIgnoreCase("ocean", pageRequest);
+
+        Assertions.assertThat(page.getContent())
+                .isNotEmpty()
+                .allSatisfy(book ->
+                        Assertions.assertThat(book.getTitle().toLowerCase()).contains("ocean")
+                );
+    }
+
+    @Test
+    void checkFindByReleaseYearBetweenWithPagination() {
+        PageRequest pageRequest = PageRequest.of(0, 20, Sort.by("releaseYear").ascending());
+
+        Page<Book> page = repository.findByReleaseYearBetween(2019, 2020, pageRequest);
+
+        Assertions.assertThat(page.getContent())
+                .isNotEmpty()
+                .allSatisfy(book ->
+                        Assertions.assertThat(book.getReleaseYear()).isBetween(2019, 2020)
+                );
+    }
+
+    @Test
+    void checkSaveAndFindById() {
+        Book existing = repository.findAll(PageRequest.of(0, 1)).getContent().get(0);
+        Integer id = existing.getId();
+
+        String originalTitle = existing.getTitle();
+        String updatedTitle = originalTitle + " (updated)";
+        existing.setTitle(updatedTitle);
+
+        Book saved = repository.save(existing);
+
+        Assertions.assertThat(saved.getId()).isEqualTo(id);
+        Assertions.assertThat(saved.getTitle()).isEqualTo(updatedTitle);
+
+        Book found = repository.findById(id).orElseThrow();
+        Assertions.assertThat(found.getTitle()).isEqualTo(updatedTitle);
+    }
+
+    @Test
+    void checkSaveAllAndDeleteAllById() {
+        List<Book> existing = repository.findAll(PageRequest.of(0, 2)).getContent();
+
+        existing.forEach(book -> book.setTitle(book.getTitle() + " (bulk updated)"));
+
+        List<Book> saved = repository.saveAll(existing);
+        List<Integer> ids = saved.stream().map(Book::getId).collect(Collectors.toList());
+
+        repository.deleteAllById(ids);
+
+        ids.forEach(id ->
+                Assertions.assertThat(repository.findById(id)).isEmpty()
+        );
+    }
+
+    @Test
+    void checkDeleteById() {
+        Integer id = repository.findAll(PageRequest.of(0, 1)).getContent().get(0).getId();
+
+        repository.deleteById(id);
+
+        Assertions.assertThat(repository.findById(id)).isEmpty();
+    }
+}
+
