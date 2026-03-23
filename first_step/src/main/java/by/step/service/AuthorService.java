@@ -9,4 +9,6 @@ public interface AuthorService {
 
     void addAuthor(Author author);
 
+    void validateAuthor(Author author);
+
 }

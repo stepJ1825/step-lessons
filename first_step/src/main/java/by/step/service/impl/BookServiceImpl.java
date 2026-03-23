@@ -2,6 +2,7 @@ package by.step.service.impl;
 
 import by.step.entity.Book;
 import by.step.repository.BookRepository;
+import by.step.service.AuthorService;
 import by.step.service.BookFilter;
 import by.step.service.BookService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,11 @@ import java.util.stream.Collectors;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository repository;
+    private final AuthorService authorService;
 
     @Override
     public void addBook(Book book) {
+        authorService.validateAuthor(book.getAuthor());
         repository.save(book);
     }
 

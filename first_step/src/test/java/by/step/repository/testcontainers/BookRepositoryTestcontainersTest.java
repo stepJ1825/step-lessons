@@ -4,6 +4,7 @@ import by.step.FirstStepApplication;
 import by.step.dto.BookDetailsDTO;
 import by.step.entity.Author;
 import by.step.entity.Book;
+import by.step.entity.Genre;
 import by.step.repository.BookRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -78,12 +79,15 @@ class BookRepositoryTestcontainersTest extends PostgresTestcontainersBase {
 
     @Test
     void checkFindByAuthorFirstNameContains() {
-        List<Book> booksByAuthor = repository.findByAuthorFirstNameContains("Michael");
+        Book testBook = repository.findAll().stream().findAny().orElseThrow();
+        String testFirstname = testBook.getAuthor().getFirstName();
+        List<Book> booksByAuthor = repository.findByAuthorFirstNameContains(testFirstname);
 
         Assertions.assertThat(booksByAuthor)
                 .isNotEmpty()
                 .allSatisfy(book ->
-                        Assertions.assertThat(book.getAuthor().getFirstName()).contains("Michael")
+                        Assertions.assertThat(book.getAuthor().getFirstName())
+                                .contains(testFirstname)
                 );
     }
 

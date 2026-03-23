@@ -16,11 +16,20 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> getAuthors() {
+        return getAuthorList();
+    }
+
+    private List<Author> getAuthorList() {
         return authorRepository.findAll();
     }
 
     @Override
     public void addAuthor(Author author) {
         authorRepository.save(author);
+    }
+
+    @Override
+    public void validateAuthor(Author author) {
+        if (author.getId()==null) throw new RuntimeException();
     }
 }

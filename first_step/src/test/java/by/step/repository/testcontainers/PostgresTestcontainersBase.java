@@ -22,7 +22,7 @@ public abstract class PostgresTestcontainersBase {
 
     @Container
     static final PostgreSQLContainer<?> postgres =
-            new PostgreSQLContainer<>("postgres:16-alpine")
+            new PostgreSQLContainer<>("postgres:17")
                     .withDatabaseName("testdb")
                     .withUsername("postgres")
                     .withPassword("postgres")
