@@ -32,10 +32,6 @@ class AuthorServiceImplTest {
                 .thenReturn(List.of(new Author(), new Author()));
         List<Author> authors = service.getAuthors();
         Assertions.assertThat(authors).isNotEmpty();
-
-        Method getAuthorList = service.getClass().getDeclaredMethod("getAuthorList");
-        getAuthorList.setAccessible(true);
-        //TODO: тест приватного метода в Мокито
     }
 
     @Test

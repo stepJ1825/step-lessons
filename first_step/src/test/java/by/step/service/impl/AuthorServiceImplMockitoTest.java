@@ -22,7 +22,7 @@ class AuthorServiceImplMockitoTest {
     private AuthorRepository authorRepository;
 
     @InjectMocks
-    private AuthorService service = new AuthorServiceImpl(authorRepository);
+    private AuthorServiceImpl service;
 
     @Test
     void getAuthors_returnsRepositoryResult() {

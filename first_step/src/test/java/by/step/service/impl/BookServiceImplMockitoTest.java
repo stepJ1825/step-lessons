@@ -4,6 +4,7 @@ import by.step.entity.Author;
 import by.step.entity.Book;
 import by.step.entity.Genre;
 import by.step.repository.BookRepository;
+import by.step.service.AuthorService;
 import by.step.service.BookFilter;
 import by.step.service.BookService;
 import org.assertj.core.api.Assertions;
@@ -18,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,16 +27,19 @@ class BookServiceImplMockitoTest {
     @Mock
     private BookRepository repository;
 
+    @Mock
+    private AuthorService authorService;
+
     @InjectMocks
-    private BookService service = new BookServiceImpl(repository);
+    private BookServiceImpl service;
 
     @Test
     void addBook_savesEntity() {
         Book book = Book.builder()
-                .title("t1")
-                .releaseYear(2020)
-                .rating(4.2f)
-                .build();
+                        .title("t1")
+                        .releaseYear(2020)
+                        .rating(4.2f)
+                        .build();
 
         service.addBook(book);
 
@@ -103,8 +106,8 @@ class BookServiceImplMockitoTest {
         List<Book> result = service.getBooksByFilter(filter);
 
         Assertions.assertThat(result)
-                .extracting(Book::getId)
-                .containsExactly(2, 3);
+                  .extracting(Book::getId)
+                  .containsExactly(2, 3);
     }
 
     @Test
