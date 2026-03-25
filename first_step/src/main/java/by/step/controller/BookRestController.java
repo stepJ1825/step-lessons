@@ -3,6 +3,7 @@ package by.step.controller;
 import by.step.entity.Book;
 import by.step.service.BookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
@@ -50,8 +51,11 @@ public class BookRestController {
     }
 
     @GetMapping("/{id}")
-    public Book findById(@PathVariable("id") int id) {
-        return bookService.findById(id);
+    public ResponseEntity<Book> findById(@PathVariable("id") int id) {
+        if (id > 1000) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(bookService.findById(id));
     }
 
     @GetMapping("/param-id")
@@ -59,8 +63,8 @@ public class BookRestController {
             @RequestParam(name = "id",
                     required = false) Integer id) {
         return id != null
-        ? bookService.findById(id)
-        : null;
+                ? bookService.findById(id)
+                : null;
     }
 
     @GetMapping("/search")

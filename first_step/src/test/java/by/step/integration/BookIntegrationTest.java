@@ -114,19 +114,20 @@ class BookIntegrationTest {
     @Test
     void addBook_ShouldAddBookAndReturnSuccessMessage() throws Exception {
         // Given
-        Book newBook = new Book();
-        newBook.setTitle("Идиот");
-        newBook.setAuthor(author2);
-        newBook.setGenre(genre1);
-        newBook.setRating(4.6f);
-        newBook.setReleaseYear(1869);
+        Book newBook = Book.builder()
+                .title("Идиот")
+                .author(author2)
+                .genre(genre1)
+                .rating(4.6f)
+                .releaseYear(1869)
+                .build();
 
         // When & Then
         mockMvc.perform(post("/books")
-                       .contentType(MediaType.APPLICATION_JSON)
-                       .content(objectMapper.writeValueAsString(newBook)))
-               .andExpect(status().isOk())
-               .andExpect(content().string("Книга успешно добавлена!"));
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(newBook)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Книга успешно добавлена!"));
 
         // Verify
         List<Book> books = bookService.getAllBooks();
@@ -143,12 +144,12 @@ class BookIntegrationTest {
 
         // When & Then
         mockMvc.perform(get("/books"))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("$.length()").value(3))
-               .andExpect(jsonPath("$[0].title").value("Война и мир"))
-               .andExpect(jsonPath("$[1].title").value("Преступление и наказание"))
-               .andExpect(jsonPath("$[2].title").value("Анна Каренина"));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.length()").value(3))
+                .andExpect(jsonPath("$[0].title").value("Война и мир"))
+                .andExpect(jsonPath("$[1].title").value("Преступление и наказание"))
+                .andExpect(jsonPath("$[2].title").value("Анна Каренина"));
     }
 
     @Test
@@ -160,11 +161,11 @@ class BookIntegrationTest {
 
         // When & Then
         mockMvc.perform(get("/books/author/{authorSurname}", "Толстой"))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("$.length()").value(2))
-               .andExpect(jsonPath("$[0].title").value("Война и мир"))
-               .andExpect(jsonPath("$[1].title").value("Анна Каренина"));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.length()").value(2))
+                .andExpect(jsonPath("$[0].title").value("Война и мир"))
+                .andExpect(jsonPath("$[1].title").value("Анна Каренина"));
     }
 
     @Test
@@ -176,8 +177,8 @@ class BookIntegrationTest {
 
         // When & Then
         mockMvc.perform(get("/books/average-rating"))
-               .andExpect(status().isOk())
-               .andExpect(content().string("4.8")); // (4.8 + 4.9 + 4.7) / 3 = 4.8
+                .andExpect(status().isOk())
+                .andExpect(content().string("4.8")); // (4.8 + 4.9 + 4.7) / 3 = 4.8
     }
 
     @Test
@@ -189,9 +190,9 @@ class BookIntegrationTest {
 
         // When & Then
         mockMvc.perform(get("/books/grouped-by-genre"))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("$.Роман.length()").value(3));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.Роман.length()").value(3));
     }
 
     @Test
@@ -201,10 +202,10 @@ class BookIntegrationTest {
 
         // When & Then
         mockMvc.perform(get("/books/{id}", savedBook.getId()))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("$.id").value(savedBook.getId()))
-               .andExpect(jsonPath("$.title").value("Война и мир"));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(savedBook.getId()))
+                .andExpect(jsonPath("$.title").value("Война и мир"));
     }
 
     @Test
@@ -216,11 +217,11 @@ class BookIntegrationTest {
 
         // When & Then
         mockMvc.perform(get("/books/search")
-                       .param("keyword", "война"))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("$.length()").value(1))
-               .andExpect(jsonPath("$[0].title").value("Война и мир"));
+                        .param("keyword", "война"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.length()").value(1))
+                .andExpect(jsonPath("$[0].title").value("Война и мир"));
     }
 
     @Test
@@ -232,10 +233,10 @@ class BookIntegrationTest {
 
         // When & Then
         mockMvc.perform(get("/books/search")
-                       .param("keyword", "толстой"))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("$.length()").value(2));
+                        .param("keyword", "толстой"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.length()").value(2));
     }
 
     @Test
@@ -247,8 +248,8 @@ class BookIntegrationTest {
 
         // When & Then
         mockMvc.perform(get("/books/titles"))
-               .andExpect(status().isOk())
-               .andExpect(content().string("Война и мир, Преступление и наказание, Анна Каренина"));
+                .andExpect(status().isOk())
+                .andExpect(content().string("Война и мир, Преступление и наказание, Анна Каренина"));
     }
 
     @Test
@@ -260,12 +261,12 @@ class BookIntegrationTest {
 
         // When & Then
         mockMvc.perform(get("/books/author-statistics")
-                       .param("authorName", "Толстой"))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("$.bookCount").value(2))
-               .andExpect(jsonPath("$.averageRating").value(4.75))
-               .andExpect(jsonPath("$.favouriteGenre").value("Роман"));
+                        .param("authorName", "Толстой"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.bookCount").value(2))
+                .andExpect(jsonPath("$.averageRating").value(4.75))
+                .andExpect(jsonPath("$.favouriteGenre").value("Роман"));
     }
 
     @Test
@@ -275,8 +276,8 @@ class BookIntegrationTest {
 
         // When & Then
         mockMvc.perform(delete("/books/{id}", savedBook.getId()))
-               .andExpect(status().isOk())
-               .andExpect(content().string("Книга удалена (если существовала)"));
+                .andExpect(status().isOk())
+                .andExpect(content().string("Книга удалена (если существовала)"));
 
         // Verify
         assertThat(bookRepository.findById(savedBook.getId())).isEmpty();
@@ -297,7 +298,7 @@ class BookIntegrationTest {
         // Then
         assertThat(books).hasSize(2);
         assertThat(books).extracting(Book::getTitle)
-                         .containsExactlyInAnyOrder("Война и мир", "Преступление и наказание");
+                .containsExactlyInAnyOrder("Война и мир", "Преступление и наказание");
     }
 
     @Test
@@ -370,7 +371,7 @@ class BookIntegrationTest {
         // Then
         assertThat(books).hasSize(2);
         assertThat(books).extracting(Book::getTitle)
-                         .containsExactlyInAnyOrder("Война и мир", "Анна Каренина");
+                .containsExactlyInAnyOrder("Война и мир", "Анна Каренина");
     }
 
     @Test
@@ -386,7 +387,7 @@ class BookIntegrationTest {
         // Then
         assertThat(books).hasSize(2);
         assertThat(books).extracting(Book::getReleaseYear)
-                         .containsExactlyInAnyOrder(1869, 1866);
+                .containsExactlyInAnyOrder(1869, 1866);
     }
 
     @Test
@@ -402,7 +403,7 @@ class BookIntegrationTest {
         // Then
         assertThat(books).hasSize(2);
         assertThat(books).extracting(Book::getTitle)
-                         .containsExactlyInAnyOrder("Война и мир", "Преступление и наказание");
+                .containsExactlyInAnyOrder("Война и мир", "Преступление и наказание");
     }
 
     @Test
@@ -490,7 +491,7 @@ class BookIntegrationTest {
         // Then
         assertThat(books).hasSize(2);
         assertThat(books).extracting(Book::getTitle)
-                         .containsExactlyInAnyOrder("Война и мир", "Преступление и наказание");
+                .containsExactlyInAnyOrder("Война и мир", "Преступление и наказание");
     }
 
     @Test
@@ -525,8 +526,8 @@ class BookIntegrationTest {
             @Override
             public boolean filter(Book book) {
                 return book.getRating() >= 4.8f &&
-                       book.getReleaseYear() >= 1865 &&
-                       book.getAuthor().getSurname().equals("Толстой");
+                        book.getReleaseYear() >= 1865 &&
+                        book.getAuthor().getSurname().equals("Толстой");
             }
         };
 

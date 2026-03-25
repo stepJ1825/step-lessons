@@ -5,7 +5,11 @@ import by.step.repository.AuthorRepository;
 import by.step.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -13,6 +17,8 @@ import java.util.List;
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
+
+    private final AuthorService authorService;
 
     @Override
     public List<Author> getAuthors() {
@@ -24,12 +30,23 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,
+            isolation = Isolation.DEFAULT,
+            rollbackFor = RuntimeException.class, // NotEnoughMoneyException.class
+            rollbackForClassName = "RuntimeException.class",
+            noRollbackFor = IOException.class,    // TooMuchMoneyException.class
+            readOnly = true
+    )
     public void addAuthor(Author author) {
         authorRepository.save(author);
     }
 
     @Override
     public void validateAuthor(Author author) {
-        if (author.getId()==null) throw new RuntimeException();
+        if (author.getId() == null) throw new RuntimeException();
+    }
+
+    public void someStrangeMethod() {
+        authorService.addAuthor(null);  //  self-inject
     }
 }

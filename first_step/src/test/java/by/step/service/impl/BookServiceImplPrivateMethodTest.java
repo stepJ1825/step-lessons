@@ -7,6 +7,7 @@ import by.step.entity.Genre;
 import by.step.repository.BookRepository;
 import by.step.service.AuthorService;
 import org.assertj.core.data.Offset;
+import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -19,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.*;
 
 public class BookServiceImplPrivateMethodTest {
 
@@ -30,12 +31,6 @@ public class BookServiceImplPrivateMethodTest {
     private AuthorService authorService;
 
     private BookServiceImpl bookService;
-
-    @Captor
-    private ArgumentCaptor<Book> bookCaptor;
-
-    @Captor
-    private ArgumentCaptor<Integer> integerCaptor;
 
     private Book book1;
     private Book book2;
@@ -117,6 +112,7 @@ public class BookServiceImplPrivateMethodTest {
 
         // Then
         assertThat(result).isCloseTo(expectedAverage, Offset.offset(0.01));
+        verify(bookService, never()).getAllBooks();
     }
 
     @Test
@@ -145,7 +141,8 @@ public class BookServiceImplPrivateMethodTest {
         double result = (double) privateMethod.invoke(bookService, singleBook);
 
         // Then
-        assertThat(result).isEqualTo(expectedAverage); // специально оставил ошибку
+        assertThat(result).isCloseTo(expectedAverage, Percentage.withPercentage(0.01));
+        assertThat(result).isCloseTo(expectedAverage, Offset.offset(0.00001));
     }
 
     @Test

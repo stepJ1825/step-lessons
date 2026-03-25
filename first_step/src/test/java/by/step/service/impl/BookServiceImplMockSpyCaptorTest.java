@@ -111,6 +111,7 @@ class BookServiceImplMockSpyCaptorTest {
         // Given
         doNothing().when(authorService).validateAuthor(any(Author.class));
         when(repository.save(any(Book.class))).thenReturn(book1);
+        when(repository.findById(any(Integer.class))).thenReturn(Optional.of(book1));
 
         // When
         bookService.addBook(book1);
@@ -121,6 +122,8 @@ class BookServiceImplMockSpyCaptorTest {
 
         Book capturedBook = bookCaptor.getValue();
         assertThat(capturedBook).isEqualTo(book1);
+
+        assertThat(bookService.findById(book1.getId())).isEqualTo(book1);
     }
 
     @Test

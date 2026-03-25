@@ -155,14 +155,19 @@ List<Book> searchByTitleKeyword(@Param("keyword") String keyword); - регис�
 ### 18.03.2026
 + Service Discovery, EUREKA
 
+### 25.03.2026
++ транзакции в Spring
++ TRANSACTIONAL за 7 минут
+  https://www.youtube.com/watch?v=2E8FKi4oC0o
+
 ### FUTURE...
+TODO - Авторизация (sign in) и выход (sign out) в/из системы.
+TODO - mapstruct
+TODO - логгирование
+TODO - пагинация со стороны контроллера
 TODO - SQL инъекции
 TODO - CallableStatement демонстрация
 TODO - destroy method с удалением таблица flyway_schema_history
-TODO - транзакции в Spring
-TODO - пагинация со стороны контроллера
-TODO - mapstruct
-TODO - логгирование
 TODO - Написать свой Spring Boot Starter
 
 ### Почитать/посмотреть
@@ -179,3 +184,4 @@ TESTCONTAINERS
 https://www.youtube.com/watch?v=QJHrc1K3CcQ
 
 https://medium.com/@reachout.rajesh/service-discovery-using-eureka-in-docker-containers-with-net-core-fdccfbd015fb
+
