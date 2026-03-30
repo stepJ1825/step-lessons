@@ -160,15 +160,17 @@ List<Book> searchByTitleKeyword(@Param("keyword") String keyword); - регис�
 + TRANSACTIONAL за 7 минут
   https://www.youtube.com/watch?v=2E8FKi4oC0o
 
+### 30.03.2026
++ Авторизация (sign in) и выход (sign out) в/из системы.
+
 ### FUTURE...
-TODO - Авторизация (sign in) и выход (sign out) в/из системы.
 TODO - mapstruct
 TODO - логгирование
+TODO - Написать свой Spring Boot Starter
 TODO - пагинация со стороны контроллера
 TODO - SQL инъекции
 TODO - CallableStatement демонстрация
 TODO - destroy method с удалением таблица flyway_schema_history
-TODO - Написать свой Spring Boot Starter
 
 ### Почитать/посмотреть
 https://habr.com/ru/articles/983344/

@@ -1,6 +1,7 @@
 package by.step.fifth.config;
 
 import by.step.fifth.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -18,13 +20,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final UserService userService;
-
-    public SecurityConfig(UserService userService) {
-        this.userService = userService;
-    }
 
     @Bean
     @Profile("basic | default")
@@ -34,10 +33,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         // Только публичные эндпоинты
                         .requestMatchers("/api/public/**").permitAll()
+                        .requestMatchers("/hello").authenticated()
+                        .requestMatchers("/api/auth/register","/api/auth/login").permitAll()
                         // Все остальные /api/* требуют аутентификации
-                        .requestMatchers("/api/**").authenticated()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/**").authenticated()
                 )
                 .userDetailsService(userService)
                 .httpBasic(httpBasic -> httpBasic.realmName("Demo App"));
@@ -53,6 +54,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/public/**").permitAll()
                         // Все остальные /api/* требуют аутентификации
                         .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/hello").authenticated()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
                 )
@@ -113,7 +115,8 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(13);
+//        return NoOpPasswordEncoder.getInstance();
     }
 
     @Bean

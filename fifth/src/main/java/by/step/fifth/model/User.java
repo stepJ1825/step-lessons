@@ -1,6 +1,7 @@
 package by.step.fifth.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,18 +11,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
+@NoArgsConstructor
 public class User implements UserDetails {
     private Long id;
     private String username;
     private String password;
     private String email;
-    private Set<String> roles;
+    private Set<Role> roles;
     private boolean enabled;
 
-    public User() {
-    }
-
-    public User(String username, String password, String email, Set<String> roles) {
+    public User(String username, String password, String email, Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.email = email;

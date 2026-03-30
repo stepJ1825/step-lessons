@@ -1,6 +1,8 @@
 package by.step.fifth.service;
 
+import by.step.fifth.model.Role;
 import by.step.fifth.model.User;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,24 +30,25 @@ public class UserService implements UserDetailsService {
 
     private void initTestUsers() {
         // Тестовый пользователь с ролью USER
-        registerUser("user", "user123", "user@example.com", Set.of("USER"));
+        registerUser("user", "user123", "user@example.com", Set.of(Role.USER));
 
         // Тестовый пользователь с ролью ADMIN
-        registerUser("admin", "admin123", "admin@example.com", Set.of("ADMIN"));
+        registerUser("admin", "admin123", "admin@example.com", Set.of(Role.ADMIN));
 
         // Тестовый пользователь с обеими ролями
-        registerUser("superuser", "super123", "super@example.com", Set.of("USER", "ADMIN"));
+        registerUser("superuser", "super123", "super@example.com", Set.of(Role.USER, Role.ADMIN));
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return users.stream()
-                    .filter(user -> user.getUsername().equals(username))
-                    .findFirst()
-                    .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+                .filter(user -> user.getUsername().equals(username))
+                .findFirst()
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
     }
 
-    public User registerUser(String username, String rawPassword, String email, Set<String> roles) {
+//    @PreAuthorize("hasRole('ADMIN')") //РАБОТАЕТ!!! Использовать аккуратно!
+    public User registerUser(String username, String rawPassword, String email, Set<Role> roles) {
         // Проверка на существование пользователя
         if (users.stream().anyMatch(u -> u.getUsername().equals(username))) {
             throw new RuntimeException("Username already exists: " + username);
@@ -72,16 +75,16 @@ public class UserService implements UserDetailsService {
 
     public User findByUsername(String username) {
         return users.stream()
-                    .filter(user -> user.getUsername().equals(username))
-                    .findFirst()
-                    .orElseThrow(() -> new RuntimeException("User not found: " + username));
+                .filter(user -> user.getUsername().equals(username))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("User not found: " + username));
     }
 
     public User findById(Long id) {
         return users.stream()
-                    .filter(user -> user.getId().equals(id))
-                    .findFirst()
-                    .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+                .filter(user -> user.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
     }
 
     public List<User> getAllUsers() {
@@ -109,10 +112,10 @@ public class UserService implements UserDetailsService {
         System.out.println("\n=== All Users in Memory ===");
         users.forEach(user -> {
             System.out.println("ID: " + user.getId() +
-                               ", Username: " + user.getUsername() +
-                               ", Email: " + user.getEmail() +
-                               ", Roles: " + user.getRoles() +
-                               ", Password: " + user.getPassword().substring(0, 20) + "...");
+                    ", Username: " + user.getUsername() +
+                    ", Email: " + user.getEmail() +
+                    ", Roles: " + user.getRoles() +
+                    ", Password: " + user.getPassword().substring(0, 20) + "...");
         });
         System.out.println("Total users: " + users.size());
     }
