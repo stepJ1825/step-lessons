@@ -1,5 +1,6 @@
 package by.step.fifth;
 
+import by.step.fifth.model.Role;
 import by.step.fifth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -42,7 +43,7 @@ public class Demo implements CommandLineRunner {
 
         // Демонстрация регистрации нового пользователя
         System.out.println("\n3. Registering new user...");
-        userService.registerUser("testuser", "pass123", "test@example.com", Set.of("USER"));
+        userService.registerUser("testuser", "pass123", "test@example.com", Set.of(Role.USER));
         userService.printAllUsers();
 
         System.out.println("\n=== Available API Endpoints ===");

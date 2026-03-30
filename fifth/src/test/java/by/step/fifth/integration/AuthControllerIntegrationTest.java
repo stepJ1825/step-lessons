@@ -48,13 +48,13 @@ class AuthControllerIntegrationTest {
         );
 
         // Создаем тестового пользователя
-        userService.registerUser("existinguser", "pass123", "existing@example.com", Set.of("USER"));
+        userService.registerUser("existinguser", "pass123", "existing@example.com", Set.of(Role.USER));
 
         registerRequest = new RegisterRequest();
         registerRequest.setUsername("newuser");
         registerRequest.setPassword("password123");
         registerRequest.setEmail("new@example.com");
-        registerRequest.setRole("USER");
+        registerRequest.setRole(Role.USER);
 
         authRequest = new AuthRequest();
         authRequest.setUsername("existinguser");
@@ -110,9 +110,9 @@ class AuthControllerIntegrationTest {
     @DisplayName("Integration: Admin can list all users")
     void adminCanListAllUsers() throws Exception {
         // Создаем несколько пользователей
-        userService.registerUser("user1", "pass1", "user1@example.com", Set.of("USER"));
-        userService.registerUser("user2", "pass2", "user2@example.com", Set.of("USER"));
-        userService.registerUser("admin1", "adminpass", "admin@example.com", Set.of("ADMIN"));
+        userService.registerUser("user1", "pass1", "user1@example.com", Set.of(Role.USER));
+        userService.registerUser("user2", "pass2", "user2@example.com", Set.of(Role.USER));
+        userService.registerUser("admin1", "adminpass", "admin@example.com", Set.of(Role.ADMIN));
 
         // Админ получает список всех пользователей
         mockMvc.perform(get("/api/admin/users")

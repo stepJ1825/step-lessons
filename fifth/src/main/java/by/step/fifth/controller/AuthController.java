@@ -2,6 +2,7 @@ package by.step.fifth.controller;
 
 import by.step.fifth.dto.AuthRequest;
 import by.step.fifth.dto.RegisterRequest;
+import by.step.fifth.model.Role;
 import by.step.fifth.model.User;
 import by.step.fifth.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -30,8 +31,8 @@ public class AuthController {
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         try {
             // Определяем роль (по умолчанию USER)
-            String role = request.getRole() != null ? request.getRole().toUpperCase() : "USER";
-            Set<String> roles = Set.of(role);
+            Role role = request.getRole() != null ? request.getRole() : Role.USER;
+            Set<Role> roles = Set.of(role);
 
             User user = userService.registerUser(
                     request.getUsername(),

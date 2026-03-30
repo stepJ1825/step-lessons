@@ -1,5 +1,6 @@
 package by.step.fifth.service;
 
+import by.step.fifth.model.Role;
 import by.step.fifth.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,12 +25,12 @@ class UserServiceTest {
     @Test
     @DisplayName("Should register new user successfully")
     void registerUser_Success() {
-        User user = userService.registerUser("john", "password123", "john@example.com", Set.of("USER"));
+        User user = userService.registerUser("john", "password123", "john@example.com", Set.of(Role.USER));
 
         assertThat(user).isNotNull();
         assertThat(user.getUsername()).isEqualTo("john");
         assertThat(user.getEmail()).isEqualTo("john@example.com");
-        assertThat(user.getRoles()).contains("USER");
+        assertThat(user.getRoles()).contains(Role.USER);
         assertThat(user.getPassword()).isNotEqualTo("password123"); // Should be encoded
         assertThat(user.isEnabled()).isTrue();
     }
@@ -37,10 +38,10 @@ class UserServiceTest {
     @Test
     @DisplayName("Should throw exception when registering duplicate username")
     void registerUser_DuplicateUsername() {
-        userService.registerUser("john", "password123", "john@example.com", Set.of("USER"));
+        userService.registerUser("john", "password123", "john@example.com", Set.of(Role.USER));
 
         assertThatThrownBy(() ->
-                userService.registerUser("john", "password456", "john2@example.com", Set.of("USER"))
+                userService.registerUser("john", "password456", "john2@example.com", Set.of(Role.USER))
         ).isInstanceOf(RuntimeException.class)
          .hasMessageContaining("Username already exists");
     }
@@ -48,10 +49,10 @@ class UserServiceTest {
     @Test
     @DisplayName("Should throw exception when registering duplicate email")
     void registerUser_DuplicateEmail() {
-        userService.registerUser("john", "password123", "john@example.com", Set.of("USER"));
+        userService.registerUser("john", "password123", "john@example.com", Set.of(Role.USER));
 
         assertThatThrownBy(() ->
-                userService.registerUser("john2", "password456", "john@example.com", Set.of("USER"))
+                userService.registerUser("john2", "password456", "john@example.com", Set.of(Role.USER))
         ).isInstanceOf(RuntimeException.class)
          .hasMessageContaining("Email already exists");
     }
@@ -59,7 +60,7 @@ class UserServiceTest {
     @Test
     @DisplayName("Should load user by username")
     void loadUserByUsername_Success() {
-        userService.registerUser("john", "password123", "john@example.com", Set.of("USER"));
+        userService.registerUser("john", "password123", "john@example.com", Set.of(Role.USER));
 
         UserDetails userDetails = userService.loadUserByUsername("john");
 
@@ -82,7 +83,7 @@ class UserServiceTest {
     @Test
     @DisplayName("Should find user by username")
     void findByUsername_Success() {
-        userService.registerUser("john", "password123", "john@example.com", Set.of("USER"));
+        userService.registerUser("john", "password123", "john@example.com", Set.of(Role.USER));
 
         User user = userService.findByUsername("john");
 
@@ -102,7 +103,7 @@ class UserServiceTest {
     @Test
     @DisplayName("Should change password successfully")
     void changePassword_Success() {
-        userService.registerUser("john", "oldPassword", "john@example.com", Set.of("USER"));
+        userService.registerUser("john", "oldPassword", "john@example.com", Set.of(Role.USER));
 
         userService.changePassword("john", "oldPassword", "newPassword123");
 
@@ -114,7 +115,7 @@ class UserServiceTest {
     @Test
     @DisplayName("Should throw exception when old password is incorrect")
     void changePassword_WrongOldPassword() {
-        userService.registerUser("john", "correctPassword", "john@example.com", Set.of("USER"));
+        userService.registerUser("john", "correctPassword", "john@example.com", Set.of(Role.USER));
 
         assertThatThrownBy(() ->
                 userService.changePassword("john", "wrongPassword", "newPassword")
@@ -125,7 +126,7 @@ class UserServiceTest {
     @Test
     @DisplayName("Should delete user successfully")
     void deleteUser_Success() {
-        userService.registerUser("john", "password", "john@example.com", Set.of("USER"));
+        userService.registerUser("john", "password", "john@example.com", Set.of(Role.USER));
 
         userService.deleteUser("john");
 
@@ -136,9 +137,9 @@ class UserServiceTest {
     @Test
     @DisplayName("Should get all users")
     void getAllUsers() {
-        userService.registerUser("user1", "pass1", "user1@example.com", Set.of("USER"));
-        userService.registerUser("user2", "pass2", "user2@example.com", Set.of("USER"));
-        userService.registerUser("admin2", "adminpass2", "admin2@example.com", Set.of("ADMIN"));
+        userService.registerUser("user1", "pass1", "user1@example.com", Set.of(Role.USER));
+        userService.registerUser("user2", "pass2", "user2@example.com", Set.of(Role.USER));
+        userService.registerUser("admin2", "adminpass2", "admin2@example.com", Set.of(Role.ADMIN));
 
         var allUsers = userService.getAllUsers();
 

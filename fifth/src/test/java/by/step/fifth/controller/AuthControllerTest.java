@@ -52,14 +52,14 @@ class AuthControllerTest {
         testUser.setUsername("testuser");
         testUser.setPassword("encodedPassword123");
         testUser.setEmail("test@example.com");
-        testUser.setRoles(Set.of("USER"));
+        testUser.setRoles(Set.of(Role.USER));
         testUser.setEnabled(true);
 
         registerRequest = new RegisterRequest();
         registerRequest.setUsername("newuser");
         registerRequest.setPassword("password123");
         registerRequest.setEmail("new@example.com");
-        registerRequest.setRole("USER");
+        registerRequest.setRole(Role.USER);
 
         authRequest = new AuthRequest();
         authRequest.setUsername("testuser");
@@ -80,10 +80,10 @@ class AuthControllerTest {
                .andExpect(jsonPath("$.message", is("User registered successfully")))
                .andExpect(jsonPath("$.username", is("testuser")))
                .andExpect(jsonPath("$.email", is("test@example.com")))
-               .andExpect(jsonPath("$.roles[0]", is("USER")));
+               .andExpect(jsonPath("$.roles[0]", is(Role.USER)));
 
         verify(userService, times(1)).registerUser(
-                eq("newuser"), eq("password123"), eq("new@example.com"), eq(Set.of("USER"))
+                eq("newuser"), eq("password123"), eq("new@example.com"), eq(Set.of(Role.USER))
         );
     }
 
@@ -128,7 +128,7 @@ class AuthControllerTest {
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.message", is("Login successful")))
                .andExpect(jsonPath("$.username", is("testuser")))
-               .andExpect(jsonPath("$.roles[0]", is("USER")))
+               .andExpect(jsonPath("$.roles[0]", is(Role.USER)))
                .andExpect(jsonPath("$.note", containsString("Basic Auth")));
 
         verify(userService, times(1)).findByUsername("testuser");
@@ -149,7 +149,7 @@ class AuthControllerTest {
 
     @Test
     @DisplayName("Should get current user info when authenticated")
-    @WithMockUser(username = "testuser", roles = {"USER"})
+    @WithMockUser(username = "testuser", roles = {Role.USER})
     void getCurrentUser_Success() throws Exception {
         mockMvc.perform(get("/api/auth/me"))
                .andExpect(status().isOk())

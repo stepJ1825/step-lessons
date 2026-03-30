@@ -37,7 +37,7 @@ class SecurityConfigTest {
 
     @Test
     @DisplayName("Admin endpoints should require ADMIN role")
-    @WithMockUser(roles = {"USER"})
+    @WithMockUser(roles = {Role.USER})
     void adminEndpointsRequireAdminRole() throws Exception {
         mockMvc.perform(get("/api/admin/users"))
                .andExpect(status().isForbidden());
@@ -45,7 +45,7 @@ class SecurityConfigTest {
 
     @Test
     @DisplayName("Admin endpoints accessible for ADMIN role")
-    @WithMockUser(roles = {"ADMIN"})
+    @WithMockUser(roles = {Role.ADMIN})
     void adminEndpointsAccessibleForAdmin() throws Exception {
         mockMvc.perform(get("/api/admin/users"))
                .andExpect(status().isOk());

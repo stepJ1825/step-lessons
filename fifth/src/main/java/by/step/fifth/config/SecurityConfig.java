@@ -1,5 +1,6 @@
 package by.step.fifth.config;
 
+import by.step.fifth.model.Role;
 import by.step.fifth.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -36,8 +37,8 @@ public class SecurityConfig {
                         .requestMatchers("/hello").authenticated()
                         .requestMatchers("/api/auth/register","/api/auth/login").permitAll()
                         // Все остальные /api/* требуют аутентификации
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/admin/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers("/api/user/**").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
                         .requestMatchers("/api/**").authenticated()
                 )
                 .userDetailsService(userService)
@@ -55,8 +56,8 @@ public class SecurityConfig {
                         // Все остальные /api/* требуют аутентификации
                         .requestMatchers("/api/**").authenticated()
                         .requestMatchers("/hello").authenticated()
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/admin/**").hasRole(Role.ADMIN)
+                        .requestMatchers("/api/user/**").hasAnyRole(Role.USER, Role.ADMIN)
                 )
                 .formLogin(form -> form
                         .permitAll()  // Используем стандартную страницу Spring Security
@@ -71,8 +72,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/public/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/admin/**").hasRole(Role.ADMIN)
+                        .requestMatchers("/api/user/**").hasAnyRole(Role.USER, Role.ADMIN)
                         .requestMatchers("/login", "/dashboard", "/").permitAll()  // Добавляем разрешение для страниц
                 )
                 .formLogin(form -> form
