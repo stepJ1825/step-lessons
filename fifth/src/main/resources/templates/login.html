@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <style>
+        .error { color: red; }
+        .logout { color: green; }
+    </style>
+</head>
+<body>
+<h2>Login Page (Default Spring Security)</h2>
+
+<div th:if="${param.error}" class="error">
+    Invalid username or password
+</div>
+
+<div th:if="${param.logout}" class="logout">
+    You have been logged out
+</div>
+
+<form th:action="@{/login}" method="post">
+    <div>
+        <label>Username:</label>
+        <input type="text" name="username"/>
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" name="password"/>
+    </div>
+    <button type="submit">Login</button>
+</form>
+</body>
+</html>
