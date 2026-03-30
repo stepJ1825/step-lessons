@@ -3,6 +3,7 @@ package by.step.fifth.controller;
 import by.step.fifth.config.JwtTokenProvider;
 import by.step.fifth.dto.AuthRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,7 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/jwt/auth")
+@Profile("jwt")
 public class JwtAuthController {
 
     @Autowired

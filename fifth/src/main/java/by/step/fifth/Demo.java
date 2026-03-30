@@ -61,8 +61,8 @@ public class Demo implements CommandLineRunner {
         System.out.println("\n=== How to Test ===");
         System.out.println("Use Basic Authentication with any of the test users");
         System.out.println("Example curl commands:");
-        System.out.println("curl -u user:user123 http://localhost:8080/api/user/profile");
-        System.out.println("curl -u admin:admin123 http://localhost:8080/api/admin/users");
+        System.out.println("curl -u user:user123 http://localhost:9510/api/user/profile");
+        System.out.println("curl -u admin:admin123 http://localhost:9510/api/admin/users");
     }
 
 }
