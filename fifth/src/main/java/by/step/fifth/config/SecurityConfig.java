@@ -56,8 +56,8 @@ public class SecurityConfig {
                         // Все остальные /api/* требуют аутентификации
                         .requestMatchers("/api/**").authenticated()
                         .requestMatchers("/hello").authenticated()
-                        .requestMatchers("/api/admin/**").hasRole(Role.ADMIN)
-                        .requestMatchers("/api/user/**").hasAnyRole(Role.USER, Role.ADMIN)
+                        .requestMatchers("/api/admin/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers("/api/user/**").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
                 )
                 .formLogin(form -> form
                         .permitAll()  // Используем стандартную страницу Spring Security
@@ -72,8 +72,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/public/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
-                        .requestMatchers("/api/admin/**").hasRole(Role.ADMIN)
-                        .requestMatchers("/api/user/**").hasAnyRole(Role.USER, Role.ADMIN)
+                        .requestMatchers("/api/admin/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers("/api/user/**").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
                         .requestMatchers("/login", "/dashboard", "/").permitAll()  // Добавляем разрешение для страниц
                 )
                 .formLogin(form -> form

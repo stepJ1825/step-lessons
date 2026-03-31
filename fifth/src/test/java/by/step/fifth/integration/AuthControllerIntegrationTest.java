@@ -2,6 +2,7 @@ package by.step.fifth.integration;
 
 import by.step.fifth.dto.AuthRequest;
 import by.step.fifth.dto.RegisterRequest;
+import by.step.fifth.model.Role;
 import by.step.fifth.model.User;
 import by.step.fifth.service.UserService;
 import org.junit.jupiter.api.BeforeEach;

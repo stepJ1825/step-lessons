@@ -2,6 +2,7 @@ package by.step.fifth.controller;
 
 import by.step.fifth.dto.AuthRequest;
 import by.step.fifth.dto.RegisterRequest;
+import by.step.fifth.model.Role;
 import by.step.fifth.model.User;
 import by.step.fifth.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -80,7 +81,7 @@ class AuthControllerTest {
                .andExpect(jsonPath("$.message", is("User registered successfully")))
                .andExpect(jsonPath("$.username", is("testuser")))
                .andExpect(jsonPath("$.email", is("test@example.com")))
-               .andExpect(jsonPath("$.roles[0]", is(Role.USER)));
+               .andExpect(jsonPath("$.roles[0]", is(Role.USER.name())));
 
         verify(userService, times(1)).registerUser(
                 eq("newuser"), eq("password123"), eq("new@example.com"), eq(Set.of(Role.USER))
@@ -128,7 +129,7 @@ class AuthControllerTest {
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.message", is("Login successful")))
                .andExpect(jsonPath("$.username", is("testuser")))
-               .andExpect(jsonPath("$.roles[0]", is(Role.USER)))
+               .andExpect(jsonPath("$.roles[0]", is(Role.USER.name())))
                .andExpect(jsonPath("$.note", containsString("Basic Auth")));
 
         verify(userService, times(1)).findByUsername("testuser");
@@ -149,7 +150,7 @@ class AuthControllerTest {
 
     @Test
     @DisplayName("Should get current user info when authenticated")
-    @WithMockUser(username = "testuser", roles = {Role.USER})
+    @WithMockUser(username = "testuser", roles = {"USER"})
     void getCurrentUser_Success() throws Exception {
         mockMvc.perform(get("/api/auth/me"))
                .andExpect(status().isOk())
