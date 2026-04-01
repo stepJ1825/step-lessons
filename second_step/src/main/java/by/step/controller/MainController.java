@@ -1,6 +1,6 @@
 package by.step.controller;
 
-import by.step.common.Book;
+import by.step.dto.BookFullDto;
 import by.step.feign.FeignLibraryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class MainController {
     private final FeignLibraryService libraryService;
 
     @GetMapping("/books")
-    public List<Book> getBooks() {
+    public List<BookFullDto> getBooks() {
         return libraryService.getBooks();
     }
 }

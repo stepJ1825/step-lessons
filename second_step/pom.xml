@@ -8,7 +8,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>by.step</groupId>
     <artifactId>second_step</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>second_step</name>

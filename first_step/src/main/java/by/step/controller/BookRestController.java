@@ -18,9 +18,9 @@ public class BookRestController {
     private final BookService bookService;
 
     @PostMapping
-    public String addBook(@RequestBody Book book) {
-        bookService.addBook(book);
-        return "Книга успешно добавлена!";
+    public ResponseEntity<Book> addBook(@RequestBody Book book) {
+        Book savedBook = bookService.addBook(book);
+        return ResponseEntity.ok(savedBook);
     }
 
     @DeleteMapping("/{id}")

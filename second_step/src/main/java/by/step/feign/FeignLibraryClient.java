@@ -1,7 +1,7 @@
 package by.step.feign;
 
-import by.step.common.Book;
-import by.step.common.BookSimpleDto;
+import by.step.dto.BookFullDto;
+import by.step.dto.BookSimpleDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -12,20 +12,20 @@ import java.util.List;
 @FeignClient("first-step")
 public interface FeignLibraryClient {
     @GetMapping("/books")
-    List<Book> getBooks();
+    List<BookFullDto> getBooks();
 
     @GetMapping("/books-simple-dto")
-    List<BookSimpleDto> getBooksSimple();
+    List<BookSimpleDTO> getBooksSimple();
 
     @GetMapping("/books-in-string")
     String getBooksInString();
 
 
     @GetMapping("/mapped/books")
-    List<Book> getBooksMapped();
+    List<BookFullDto> getBooksMapped();
 
     @GetMapping("/mapped/books/simple")
-    List<BookSimpleDto> getBooksSimpleMapped();
+    List<BookSimpleDTO> getBooksSimpleMapped();
 
     @GetMapping("/mapped/books/simple-string")
     String getBooksInStringMapped();

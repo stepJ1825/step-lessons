@@ -1,5 +1,7 @@
-package by.step.common;
+package by.step.dto;
 
+import by.step.entity.Author;
+import by.step.entity.Genre;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,11 +11,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Book {
+public class BookFullDto {
     private int id;
     private String title;
-    private Author author;
-    private Genre genre;
+    private AuthorFullDto author;
+    private GenreFullDto genre;
     private int releaseYear;
     private float rating;
 }

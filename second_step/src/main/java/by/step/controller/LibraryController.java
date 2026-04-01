@@ -1,7 +1,7 @@
 package by.step.controller;
 
-import by.step.common.BookSimpleDto;
 import by.step.common.DifferentBookDto;
+import by.step.dto.BookSimpleDTO;
 import by.step.feign.FeignLibraryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ public class LibraryController {
     private final FeignLibraryService libraryService;
 
     @GetMapping("/books")
-    public List<BookSimpleDto> getBooks() {
+    public List<BookSimpleDTO> getBooks() {
         return libraryService.getBooksAsSimpleDto();
     }
 
@@ -28,7 +28,7 @@ public class LibraryController {
     }
 
     @GetMapping("/first-book")
-    public BookSimpleDto getFirstBook() {
+    public BookSimpleDTO getFirstBook() {
         return libraryService.getFirstBook();
     }
 

@@ -1,4 +1,4 @@
-package by.step.common;
+package by.step.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,10 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class Genre {
+@AllArgsConstructor
+public class BookSimpleDTO {
     private int id;
-    private String name;
+    private String title;
 }
