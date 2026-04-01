@@ -30,11 +30,11 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
+    <root level="ALL">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
     </root>
 
-    <logger name="by.step" level="DEBUG"/>
+    <logger name="by.step" level="ALL"/>
 
 </configuration>

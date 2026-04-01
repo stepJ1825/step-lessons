@@ -3,6 +3,7 @@ package by.step.controller;
 import by.step.entity.Book;
 import by.step.service.BookService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/books")
 @RequiredArgsConstructor
@@ -19,8 +21,15 @@ public class BookRestController {
 
     @PostMapping
     public String addBook(@RequestBody Book book) {
-        bookService.addBook(book);
-        return "Книга успешно добавлена!";
+        log.info("Received request to add new book: {}", book.getTitle());
+        try {
+            Book savedBook = bookService.addBook(book);
+            log.info("Successfully added book with id: {}", savedBook);
+            return "Книга успешно добавлена!";
+        } catch (Exception e) {
+            log.error("Error adding book: {}", book.getTitle(), e);
+            throw new RuntimeException(e);
+        }
     }
 
     @DeleteMapping("/{id}")
