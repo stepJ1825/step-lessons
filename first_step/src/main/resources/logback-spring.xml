@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Путь к логам -->
+    <property name="LOG_PATH" value="logs"/>
+
+    <!-- Формат логов -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+
+    <!-- Консольный аппендер -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Файловый аппендер с ротацией по датам -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/first_step/application.log</file>
+
+        <!-- Политика ротации по дате -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Имя файла с датой: application.2024-01-01.log -->
+            <!--            <fileNamePattern>${LOG_PATH}/first_step/application.%d{yyyy-MM-dd}.log</fileNamePattern>-->
+            <!-- По часам -->
+            <fileNamePattern>${LOG_PATH}/application.%d{yyyy-MM-dd-HH-mm}.log</fileNamePattern>
+            <!-- Хранить логи за 30 дней -->
+            <maxHistory>30</maxHistory>
+
+            <!-- Общий размер всех логов (опционально) -->
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+    <logger name="by.step" level="DEBUG"/>
+
+</configuration>

@@ -7,6 +7,7 @@ import by.step.entity.Book;
 import by.step.mapper.BookMapper;
 import by.step.service.BookService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @RequestMapping("/mapped/books")
 @RequiredArgsConstructor
@@ -25,9 +27,17 @@ public class BookMapperRestController {
 
     @PostMapping
     public BookResponseDTO addBook(@RequestBody BookCreateDTO bookCreateDTO) {
-        Book book = bookMapper.toEntity(bookCreateDTO);
-        Book savedBook = bookService.addBook(book);
-        return bookMapper.toResponseDTO(savedBook);
+        log.info("Received request to add new book: {}", bookCreateDTO.getTitle());
+        try{
+            Book book = bookMapper.toEntity(bookCreateDTO);
+            Book savedBook = bookService.addBook(book);
+            log.info("Successfully added book with id: {}", savedBook.getId());
+            return bookMapper.toResponseDTO(savedBook);
+        } catch (Exception e) {
+            log.error("Error adding book: {}", bookCreateDTO.getTitle(), e);
+            throw new RuntimeException(e);
+        }
+
     }
 
     // Альтернативный вариант с ответом DTO
@@ -87,10 +97,17 @@ public class BookMapperRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<BookResponseDTO> findById(@PathVariable("id") int id) {
+        log.debug("Searching for book with id: {}", id);
         if (id > 1000) {
+            log.warn("Invalid book id requested: {} (exceeds maximum allowed)", id);
             return ResponseEntity.badRequest().build();
         }
         Book book = bookService.findById(id);
+        if (book == null) {
+            log.warn("Book with id {} not found", id);
+            return ResponseEntity.notFound().build();
+        }
+        log.debug("Found book: {} by {}", book.getTitle(), book.getAuthor().getSurname());
         return ResponseEntity.ok(bookMapper.toResponseDTO(book));
     }
 
