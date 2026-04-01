@@ -16,17 +16,11 @@
 
     <!-- Файловый аппендер с ротацией по датам -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_PATH}/first_step/application.log</file>
-
-        <!-- Политика ротации по дате -->
+        <prudent>true</prudent>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- Имя файла с датой: application.2024-01-01.log -->
-            <!--            <fileNamePattern>${LOG_PATH}/first_step/application.%d{yyyy-MM-dd}.log</fileNamePattern>-->
-            <!-- По часам -->
-            <fileNamePattern>${LOG_PATH}/application.%d{yyyy-MM-dd-HH-mm}.log</fileNamePattern>
-            <!-- Хранить логи за 30 дней -->
+            <fileNamePattern>${LOG_PATH}/first_step/application.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
-
             <!-- Общий размер всех логов (опционально) -->
             <totalSizeCap>3GB</totalSizeCap>
         </rollingPolicy>
