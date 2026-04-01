@@ -24,6 +24,4 @@ public class Author {
     private Integer id;
     private String firstName;
     private String surname;
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
 }

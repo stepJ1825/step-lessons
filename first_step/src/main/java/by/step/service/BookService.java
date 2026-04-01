@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface BookService {
-    void addBook(Book book);
+    Book addBook(Book book);
 
     void removeBook(int id);
 
@@ -31,4 +31,5 @@ public interface BookService {
 
     Map<String, Serializable> getAuthorStatistics(String author); //статистика по авторам (количество книг каждого автора)
 
+    Book updateBook(Book existingBook);
 }

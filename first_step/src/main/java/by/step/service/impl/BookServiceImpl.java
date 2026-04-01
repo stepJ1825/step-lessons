@@ -22,9 +22,9 @@ public class BookServiceImpl implements BookService {
     private final AuthorService authorService;
 
     @Override
-    public void addBook(Book book) {
+    public Book addBook(Book book) {
         authorService.validateAuthor(book.getAuthor());
-        repository.save(book);
+        return repository.save(book);
     }
 
     @Override
@@ -124,5 +124,10 @@ public class BookServiceImpl implements BookService {
                                             .average()
                                             .orElse(0);
         return averageRating;
+    }
+
+    @Override
+    public Book updateBook(Book existingBook) {
+        return repository.save(existingBook);
     }
 }

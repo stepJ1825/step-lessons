@@ -19,4 +19,15 @@ public interface FeignLibraryClient {
 
     @GetMapping("/books-in-string")
     String getBooksInString();
+
+
+    @GetMapping("/mapped/books")
+    List<Book> getBooksMapped();
+
+    @GetMapping("/mapped/books/simple")
+    List<BookSimpleDto> getBooksSimpleMapped();
+
+    @GetMapping("/mapped/books/simple-string")
+    String getBooksInStringMapped();
+
 }

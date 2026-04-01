@@ -18,8 +18,6 @@ public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
 
-    private final AuthorService authorService;
-
     @Override
     public List<Author> getAuthors() {
         return getAuthorList();
@@ -31,11 +29,11 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED,
-            isolation = Isolation.DEFAULT,
-            rollbackFor = RuntimeException.class, // NotEnoughMoneyException.class
-            rollbackForClassName = "RuntimeException.class",
-            noRollbackFor = IOException.class,    // TooMuchMoneyException.class
-            readOnly = true
+                   isolation = Isolation.DEFAULT,
+                   rollbackFor = RuntimeException.class, // NotEnoughMoneyException.class
+                   rollbackForClassName = "RuntimeException.class",
+                   noRollbackFor = IOException.class,    // TooMuchMoneyException.class
+                   readOnly = true
     )
     public void addAuthor(Author author) {
         authorRepository.save(author);
@@ -43,10 +41,9 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void validateAuthor(Author author) {
-        if (author.getId() == null) throw new RuntimeException();
+        if (author.getId() == null) {
+            throw new RuntimeException();
+        }
     }
 
-    public void someStrangeMethod() {
-        authorService.addAuthor(null);  //  self-inject
-    }
 }
