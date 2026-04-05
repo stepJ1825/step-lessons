@@ -5,34 +5,19 @@ spring:
   application:
     name: first-step
   profiles:
-#    active: native
-#    active: spring-jdbc
+    #    active: native
+    #    active: spring-jdbc
     active: spring-jpa
 
-#logging:
-#  # Настройка файлов
-#  file:
-##    name: first_step/logs/application.log      # Имя файла
-#    path: first_step/logs                      # Или можно указать только путь
-#
-#  # Настройка ротации (размер файла)
-#  logback:
-#    rollingpolicy:
-#      max-file-size: 10MB            # Максимальный размер файла
-#      max-history: 30                # Количество хранимых файлов
-#      total-size-cap: 1GB            # Общий размер всех логов
-#      clean-history-on-start: false  # Очищать ли историю при старте
-#
-#  # Уровни логирования
-#  level:
-#    root: INFO
-#    by.step: DEBUG
-#    org.springframework.web: INFO
-#    org.hibernate: WARN
-#    org.hibernate.SQL: DEBUG
-#    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-#
-#  # Формат вывода
-#  pattern:
-#    console: "%d{yyyy-MM-dd HH:mm:ss} - %-5level [%thread] %logger{36} - %msg%n"
-#    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+
+  cloud:
+    discovery:
+      enabled: false
+      client:
+        simple:
+          enabled: false

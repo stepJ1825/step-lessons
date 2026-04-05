@@ -163,9 +163,13 @@ List<Book> searchByTitleKeyword(@Param("keyword") String keyword); - регис�
 ### 30.03.2026
 + Авторизация (sign in) и выход (sign out) в/из системы.
 
+### 01.04.2026
++ mapstruct
++ логгирование
+
+
 ### FUTURE...
-TODO - mapstruct
-TODO - логгирование
+TODO - ControllerAdvice
 TODO - Написать свой Spring Boot Starter
 TODO - пагинация со стороны контроллера
 TODO - SQL инъекции

@@ -69,4 +69,22 @@ public class GreetingController {
             this.name = name;
         }
     }
+
+
+    @GetMapping("/test-error/session")
+    public String testSessionError() {
+        throw new IllegalStateException("Session expired");
+    }
+
+    @GetMapping("/test-error/param")
+    public String testParamError(@RequestParam String required) {
+        // Если required отсутствует, выбросится исключение
+        return "success";
+    }
+
+    @GetMapping("/test-error/number/{id}")
+    public String testNumberError(@PathVariable Integer id) {
+        return "success";
+    }
+
 }

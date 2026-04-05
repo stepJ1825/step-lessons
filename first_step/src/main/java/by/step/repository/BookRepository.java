@@ -78,8 +78,8 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query("SELECT b FROM Book b WHERE b.author.id = :authorId")
     List<Book> findByAuthorIdWithGraph(@Param("authorId") Integer authorId);
 
-    //-----------------------------------------
-    // Native query with result mapping
+
+    Boolean existsByTitle(String title);
 
 
 }

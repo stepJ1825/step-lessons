@@ -61,9 +61,11 @@ public class BookRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Book> findById(@PathVariable("id") int id) {
-        if (id > 1000) {
-            return ResponseEntity.badRequest().build();
-        }
+        // ПЛОХАЯ ПРАКТИКА.
+        //CONTROLLER должен заниматься только отображением
+        //        if (id > 1000) {
+        //            return ResponseEntity.badRequest().build();
+        //        }
         return ResponseEntity.ok(bookService.findById(id));
     }
 
