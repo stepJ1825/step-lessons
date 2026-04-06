@@ -167,10 +167,13 @@ List<Book> searchByTitleKeyword(@Param("keyword") String keyword); - регис�
 + mapstruct
 + логгирование
 
+### 06.04.2026
++ ControllerAdvice
++ Написать свой Spring Boot Starter
+
 
 ### FUTURE...
-TODO - ControllerAdvice
-TODO - Написать свой Spring Boot Starter
+TODO - посмотреть наличие/отсутствие бина кастомного стартера в контексте
 TODO - пагинация со стороны контроллера
 TODO - SQL инъекции
 TODO - CallableStatement демонстрация

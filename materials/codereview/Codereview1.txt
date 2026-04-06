@@ -1,0 +1,46 @@
+@Service
+public class MoneyTransferService {
+    @Autowired
+    private TransferRepository transferRepository;
+    @Autowired
+    private CommissionRepository commissionRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private NotificationService notificationService;
+    @Autowired
+    private ExchangeRateRestClient exchangeRateRestClient;
+
+    @Transactional
+    public void processTransfer(double amount, Currency currency, Long recipientId) {
+        double amountInRecipientCurrency = amount * exchangeRateRestClient.fetchExchangeRate()
+                .getRateForCurrency(currency.getCode());
+
+        Long userId = SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal().getId();
+        User user = userRepository.findUserById(userId);
+
+        Transfer transfer = new Transfer(amountInRecipientCurrency, user, recipientId);
+        transferRepository.save(transfer);
+
+        if (amountInRecipientCurrency < 1000) {
+            Commission commission = new Commission(amountInRecipientCurrency * 0.015, user);
+            commissionRepository.save(commission);
+        }
+        if (amountInRecipientCurrency > 1000) {
+            Commission commission = new Commission(amountInRecipientCurrency * 0.01, user);
+            commissionRepository.save(commission);
+        }
+        if (amountInRecipientCurrency > 5000) {
+            Commission commission = new Commission(amountInRecipientCurrency * 0.005, user);
+            commissionRepository.save(commission);
+        }
+
+        try{
+            notificationService.sendNitification(transfer);
+        } catch (Exception e) {
+            //ignore exception and continue;
+        }
+
+    }
+}

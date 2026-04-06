@@ -1,0 +1,26 @@
+interface MyService{
+    void foo();
+    void doTx();
+}
+
+@Component
+class MyServiceImpl implements MyService {
+
+    @Override
+    public void foo() {
+        do1();
+        doTx();
+        do2();
+    }
+
+    @Transactional
+    public void doTx() {
+        //some logic
+    }
+
+    private void do1(){
+    }
+
+    private void do2(){
+    }
+}
