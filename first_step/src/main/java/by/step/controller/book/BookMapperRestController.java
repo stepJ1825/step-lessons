@@ -1,4 +1,4 @@
-package by.step.controller;
+package by.step.controller.book;
 
 import by.step.dto.BookCreateDTO;
 import by.step.dto.BookResponseDTO;

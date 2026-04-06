@@ -1,4 +1,4 @@
-package by.step.controller;
+package by.step.controller.author;
 
 import by.step.entity.Author;
 import by.step.service.AuthorService;

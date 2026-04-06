@@ -1,5 +1,6 @@
 package by.step.controller;
 
+import by.step.controller.author.AuthorViewController;
 import by.step.entity.Author;
 import by.step.service.AuthorService;
 import org.junit.jupiter.api.BeforeEach;

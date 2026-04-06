@@ -1,5 +1,6 @@
 package by.step.controller;
 
+import by.step.controller.book.BookRestController;
 import by.step.entity.Author;
 import by.step.entity.Book;
 import by.step.entity.Genre;

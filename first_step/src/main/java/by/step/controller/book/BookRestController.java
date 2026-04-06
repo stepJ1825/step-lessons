@@ -1,4 +1,4 @@
-package by.step.controller;
+package by.step.controller.book;
 
 import by.step.entity.Book;
 import by.step.service.BookService;
