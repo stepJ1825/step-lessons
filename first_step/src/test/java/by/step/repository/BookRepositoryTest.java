@@ -41,7 +41,10 @@ class BookRepositoryTest {
                 .firstName("Michael")
                 .surname("Brown")
                 .build();
+        long start = System.nanoTime();
         List<Book> booksByAuthor = repository.findByAuthor(author);
+        long end = System.nanoTime();
+        System.out.println(end - start);
         Assertions.assertThat(booksByAuthor).isNotEmpty();
     }
 

@@ -25,7 +25,7 @@ spring:
 method:
   trace:
     enabled: true
-    threshold-ms: 0              # 0 - чтобы логировались все методы
+    threshold-ms: 100              # 0 - чтобы логировались все методы
     time-unit: MILLISECONDS
     annotation-required: true    # true - логируем только методы с @TraceMethod
     log-level: INFO
