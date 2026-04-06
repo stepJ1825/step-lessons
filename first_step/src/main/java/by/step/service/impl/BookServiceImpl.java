@@ -5,6 +5,8 @@ import by.step.exception.DatabaseOperationException;
 import by.step.exception.DuplicateResourceException;
 import by.step.exception.InvalidRequestException;
 import by.step.exception.ResourceNotFoundException;
+import by.step.methodtrace.EnableMethodTrace;
+import by.step.methodtrace.TraceMethod;
 import by.step.repository.BookRepository;
 import by.step.service.AuthorService;
 import by.step.service.BookFilter;
@@ -58,6 +60,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @TraceMethod
     public List<Book> getAllBooks() {
         try {
             return repository.findAll();
@@ -90,6 +93,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @TraceMethod
     public Book findById(int id) {
         if (id > 1000) {
             throw new InvalidRequestException("Book ID cannot exceed 1000. Provided: " + id);

@@ -1,10 +1,11 @@
 package by.step;
 
+import by.step.methodtrace.EnableMethodTrace;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
+@EnableMethodTrace
 //@EnableDiscoveryClient
 //@EnableFeignClients
 public class FirstStepApplication {

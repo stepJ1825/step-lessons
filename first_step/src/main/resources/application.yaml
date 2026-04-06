@@ -21,3 +21,13 @@ spring:
       client:
         simple:
           enabled: false
+
+method:
+  trace:
+    enabled: true
+    threshold-ms: 0              # 0 - чтобы логировались все методы
+    time-unit: MILLISECONDS
+    annotation-required: true    # true - логируем только методы с @TraceMethod
+    log-level: INFO
+    log-parameters: false
+    log-result: false
